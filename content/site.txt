@@ -1,0 +1,50 @@
+Title: 99%
+
+----
+
+Status: (Gallery open!)
+
+----
+
+About: 
+
+----
+
+Address:
+
+Nicholas Building
+Level 7, Room 3
+37 Swanston Street
+Melbourne Victoria 3000
+info@99percent.org.au
+
+----
+
+Hours:
+
+- 
+  day: M
+  open: 09:00
+  close: 16:30
+- 
+  day: T
+  open: 09:00
+  close: 16:30
+- 
+  day: W
+  open: 09:00
+  close: 16:30
+- 
+  day: T
+  open: 09:00
+  close: 16:30
+- 
+  day: F
+  open: 09:00
+  close: 16:30
+
+----
+
+Background:
+
+- dcc7e06e86d2e6d3c3b64a726ac586c9.jpg

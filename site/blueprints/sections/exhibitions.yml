@@ -1,0 +1,9 @@
+  type: pages
+  headline: Published
+  template: exhibition
+  status: published
+  # info: "{{ page.num }}"
+  type: pages
+  empty: No articles yet
+  # sortBy: num desc
+#  layout: cards

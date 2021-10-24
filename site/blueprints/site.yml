@@ -1,0 +1,74 @@
+title: Site
+# preset: pages
+# unlisted: true
+# drafts: false
+# published: false
+
+
+columns:
+
+  # main content
+  left:
+    width: 1/2
+    sections:
+      content:
+        type: fields
+        fields:
+          staticSiteGenerator:
+            label: Build Website
+            # ... (see "Field options")
+            help: Click to build website
+            progress: In progress...
+            success: Success 🎉
+            error: Something went wrong...
+          status:
+            label: Gallery Status
+            type: text
+          about:
+            label: About
+            type: textarea
+            size: small
+          address:
+            label: Address
+            type: textarea
+            size: small
+          hours:
+            label: Hours
+            type: structure
+            fields:
+              day:
+                label: Day
+                type: text
+              open:
+                label: Open Time
+                type: time
+              close:
+                label: Close Time
+                type: time
+
+      images:
+        type: files
+        template: image
+        info: "{{ file.dimensions }}"
+        image:
+          ratio: 5/4
+          cover: true
+        min: 1
+        size: small
+      meta:
+        type: fields
+        fields:
+          background:
+            label: Background Image
+            extends: sections/cover
+            template: image
+            required: true
+
+  # pages
+  right:
+    width: 1/2
+    sections:
+      unlisted:
+        type: pages
+        headline: Pages
+        status: unlisted

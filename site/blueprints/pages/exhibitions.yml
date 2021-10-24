@@ -1,0 +1,18 @@
+title: Exhibitions
+#sortable: true
+icon: page
+columns:
+  left:
+    width: 1/2
+    sections:
+      drafts:
+        extends: sections/exhibitions
+        headline: Draft Exhibitions
+        status: draft
+  right:
+    width: 1/2
+    sections:
+      listed:
+        headline: Published Exhibitions
+        status: published
+        extends: sections/exhibitions
