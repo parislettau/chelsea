@@ -6,6 +6,10 @@ return [
 
   'home' => 'exhibitions',
 
+  'panel' =>[
+    'install' => true
+  ],
+
   // 'd4l' => [
   //   'static_site_generator' => [
   //     'endpoint' => 'generate-static-site', # set to any string like 'generate-static-site' to use the built-in endpoint (necessary when using the blueprint field)
