@@ -71,9 +71,9 @@ class V
 
             if (is_array($value) === true) {
                 try {
-                    foreach ($value as $index => $item) {
+                    foreach ($value as $key => $item) {
                         if (is_array($item) === true) {
-                            $value[$index] = implode('|', $item);
+                            $value[$key] = implode('|', $item);
                         }
                     }
                     $value = implode(', ', $value);
@@ -153,7 +153,10 @@ class V
             $fieldValue = $input[$fieldName] ?? null;
 
             // first check for required fields
-            if (($fieldRules['required'] ?? false) === true && $fieldValue === null) {
+            if (
+                ($fieldRules['required'] ?? false) === true &&
+                $fieldValue === null
+            ) {
                 throw new Exception(sprintf('The "%s" field is missing', $fieldName));
             }
 
@@ -166,12 +169,10 @@ class V
             }
 
             try {
-                V::value($fieldValue, $fieldRules);
+                static::value($fieldValue, $fieldRules);
             } catch (Exception $e) {
                 throw new Exception(sprintf($e->getMessage() . ' for field "%s"', $fieldName));
             }
-
-            static::value($fieldValue, $fieldRules);
         }
 
         return true;
@@ -213,15 +214,15 @@ V::$validators = [
     /**
      * Valid: `a-z | A-Z`
      */
-    'alpha' => function ($value): bool {
-        return V::match($value, '/^([a-z])+$/i') === true;
+    'alpha' => function ($value, bool $unicode = false): bool {
+        return V::match($value, ($unicode === true ? '/^([\pL])+$/u' : '/^([a-z])+$/i')) === true;
     },
 
     /**
      * Valid: `a-z | A-Z | 0-9`
      */
-    'alphanum' => function ($value): bool {
-        return V::match($value, '/^[a-z0-9]+$/i') === true;
+    'alphanum' => function ($value, bool $unicode = false): bool {
+        return V::match($value, ($unicode === true ? '/^[\pL\pN]+$/u' : '/^([a-z0-9])+$/i')) === true;
     },
 
     /**
@@ -462,6 +463,12 @@ V::$validators = [
      * Checks that the value has the given size
      */
     'size' => function ($value, $size, $operator = '=='): bool {
+        // if value is field object, first convert it to a readable value
+        // it is important to check at the beginning as the value can be string or numeric
+        if (is_a($value, '\Kirby\Cms\Field') === true) {
+            $value = $value->value();
+        }
+
         if (is_numeric($value) === true) {
             $count = $value;
         } elseif (is_string($value) === true) {

@@ -5,10 +5,11 @@ namespace Kirby\Cms;
 use Kirby\Exception\Exception;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\NotFoundException;
+use Kirby\Filesystem\Dir;
+use Kirby\Filesystem\F;
 use Kirby\Http\Uri;
+use Kirby\Panel\Page as Panel;
 use Kirby\Toolkit\A;
-use Kirby\Toolkit\F;
-use Kirby\Toolkit\Str;
 
 /**
  * The `$page` object is the heart and
@@ -140,7 +141,7 @@ class Page extends ModelWithContent
     /**
      * The intended page template
      *
-     * @var string
+     * @var \Kirby\Cms\Template
      */
     protected $template;
 
@@ -171,7 +172,7 @@ class Page extends ModelWithContent
         }
 
         // return page content otherwise
-        return $this->content()->get($method, $arguments);
+        return $this->content()->get($method);
     }
 
     /**
@@ -214,9 +215,9 @@ class Page extends ModelWithContent
     public function apiUrl(bool $relative = false): string
     {
         if ($relative === true) {
-            return 'pages/' . $this->panelId();
+            return 'pages/' . $this->panel()->id();
         } else {
-            return $this->kirby()->url('api') . '/pages/' . $this->panelId();
+            return $this->kirby()->url('api') . '/pages/' . $this->panel()->id();
         }
     }
 
@@ -237,10 +238,10 @@ class Page extends ModelWithContent
     /**
      * Returns an array with all blueprints that are available for the page
      *
-     * @param string $inSection
+     * @param string|null $inSection
      * @return array
      */
-    public function blueprints(string $inSection = null): array
+    public function blueprints(?string $inSection = null): array
     {
         if ($inSection !== null) {
             return $this->blueprint()->section($inSection)->blueprints();
@@ -302,10 +303,10 @@ class Page extends ModelWithContent
      *
      * @internal
      * @param array $data
-     * @param string $languageCode
+     * @param string|null $languageCode
      * @return array
      */
-    public function contentFileData(array $data, string $languageCode = null): array
+    public function contentFileData(array $data, ?string $languageCode = null): array
     {
         return A::prepend($data, [
             'title' => $data['title'] ?? null,
@@ -318,10 +319,10 @@ class Page extends ModelWithContent
      * which is found by the inventory method
      *
      * @internal
-     * @param string $languageCode
+     * @param string|null $languageCode
      * @return string
      */
-    public function contentFileName(string $languageCode = null): string
+    public function contentFileName(?string $languageCode = null): string
     {
         return $this->intendedTemplate()->name();
     }
@@ -333,8 +334,9 @@ class Page extends ModelWithContent
      * @param array $data
      * @param string $contentType
      * @return array
+     * @throws \Kirby\Exception\InvalidArgumentException If the controller returns invalid objects for `kirby`, `site`, `pages` or `page`
      */
-    public function controller($data = [], $contentType = 'html'): array
+    public function controller(array $data = [], string $contentType = 'html'): array
     {
         // create the template data
         $data = array_merge($data, [
@@ -426,32 +428,6 @@ class Page extends ModelWithContent
     }
 
     /**
-     * Provides a kirbytag or markdown
-     * tag for the page, which will be
-     * used in the panel, when the page
-     * gets dragged onto a textarea
-     *
-     * @internal
-     * @param string $type (null|auto|kirbytext|markdown)
-     * @return string
-     */
-    public function dragText(string $type = null): string
-    {
-        $type = $type ?? 'auto';
-
-        if ($type === 'auto') {
-            $type = option('panel.kirbytext', true) ? 'kirbytext' : 'markdown';
-        }
-
-        switch ($type) {
-            case 'markdown':
-                return '[' . $this->title() . '](' . $this->url() . ')';
-            default:
-                return '(link: ' . $this->id() . ' text: ' . $this->title() . ')';
-        }
-    }
-
-    /**
      * Checks if the page exists on disk
      *
      * @return bool
@@ -467,7 +443,7 @@ class Page extends ModelWithContent
      *
      * @internal
      * @param mixed $props
-     * @return self
+     * @return static
      */
     public static function factory($props)
     {
@@ -755,17 +731,6 @@ class Page extends ModelWithContent
     }
 
     /**
-     * @deprecated 3.0.0 Use `Page::isUnlisted()` instead
-     * @return bool
-     */
-    public function isInvisible(): bool
-    {
-        deprecated('$page->isInvisible() is deprecated, use $page->isUnlisted() instead. $page->isInvisible() will be removed in Kirby 3.5.0.');
-
-        return $this->isUnlisted();
-    }
-
-    /**
      * Checks if the page has a sorting number
      *
      * @return bool
@@ -846,22 +811,11 @@ class Page extends ModelWithContent
     }
 
     /**
-     * @deprecated 3.0.0 Use `Page::isListed()` instead
-     * @return bool
-     */
-    public function isVisible(): bool
-    {
-        deprecated('$page->isVisible() is deprecated, use $page->isListed() instead. $page->isVisible() will be removed in Kirby 3.5.0.');
-
-        return $this->isListed();
-    }
-
-    /**
      * Checks if the page access is verified.
      * This is only used for drafts so far.
      *
      * @internal
-     * @param string $token
+     * @param string|null $token
      * @return bool
      */
     public function isVerified(string $token = null)
@@ -908,7 +862,7 @@ class Page extends ModelWithContent
      * @internal
      * @param string $name
      * @param array $props
-     * @return self
+     * @return static
      */
     public static function model(string $name, array $props = [])
     {
@@ -926,7 +880,7 @@ class Page extends ModelWithContent
     /**
      * Returns the last modification date of the page
      *
-     * @param string $format
+     * @param string|null $format
      * @param string|null $handler
      * @param string|null $languageCode
      * @return int|string
@@ -951,106 +905,13 @@ class Page extends ModelWithContent
     }
 
     /**
-     * Returns the panel icon definition
-     * according to the blueprint settings
+     * Returns the panel info object
      *
-     * @internal
-     * @param array $params
-     * @return array
+     * @return \Kirby\Panel\Page
      */
-    public function panelIcon(array $params = null): array
+    public function panel()
     {
-        if ($icon = $this->blueprint()->icon()) {
-            $params['type'] = $icon;
-
-            // check for emojis
-            if (strlen($icon) !== Str::length($icon)) {
-                $params['emoji'] = true;
-            }
-        }
-
-        return parent::panelIcon($params);
-    }
-
-    /**
-     * Returns the escaped Id, which is
-     * used in the panel to make routing work properly
-     *
-     * @internal
-     * @return string
-     */
-    public function panelId(): string
-    {
-        return str_replace('/', '+', $this->id());
-    }
-
-    /**
-     * Returns the image file object based on provided query
-     *
-     * @internal
-     * @param string|null $query
-     * @return \Kirby\Cms\File|\Kirby\Cms\Asset|null
-     */
-    protected function panelImageSource(string $query = null)
-    {
-        if ($query === null) {
-            $query = 'page.image';
-        }
-
-        return parent::panelImageSource($query);
-    }
-
-    /**
-     * Returns the full path without leading slash
-     *
-     * @internal
-     * @return string
-     */
-    public function panelPath(): string
-    {
-        return 'pages/' . $this->panelId();
-    }
-
-    /**
-     * Prepares the response data for page pickers
-     * and page fields
-     *
-     * @param array|null $params
-     * @return array
-     */
-    public function panelPickerData(array $params = []): array
-    {
-        $image = $this->panelImage($params['image'] ?? []);
-        $icon  = $this->panelIcon($image);
-
-        return [
-            'dragText'    => $this->dragText(),
-            'hasChildren' => $this->hasChildren(),
-            'icon'        => $icon,
-            'id'          => $this->id(),
-            'image'       => $image,
-            'info'        => $this->toString($params['info'] ?? false),
-            'link'        => $this->panelUrl(true),
-            'text'        => $this->toString($params['text'] ?? '{{ page.title }}'),
-            'url'         => $this->url(),
-        ];
-    }
-
-    /**
-     * Returns the url to the editing view
-     * in the panel
-     *
-     * @internal
-     * @param bool $relative
-     * @return string
-     */
-    public function panelUrl(bool $relative = false): string
-    {
-        if ($relative === true) {
-            return '/' . $this->panelPath();
-        } else {
-            return $this->kirby()->url('panel') . '/' . $this->panelPath();
-        }
+        return new Panel($this);
     }
 
     /**
@@ -1158,8 +1019,8 @@ class Page extends ModelWithContent
      *
      * @param array $data
      * @param string $contentType
-     * @param int $code
      * @return string
+     * @throws \Kirby\Exception\NotFoundException If the default template cannot be found
      */
     public function render(array $data = [], $contentType = 'html'): string
     {
@@ -1203,11 +1064,11 @@ class Page extends ModelWithContent
             $response = $kirby->response()->toArray();
 
             // cache the result
-            if ($cache !== null) {
+            if ($cache !== null && $kirby->response()->cache() === true) {
                 $cache->set($cacheId, [
                     'html'     => $html,
                     'response' => $response
-                ]);
+                ], $kirby->response()->expires() ?? 0);
             }
         }
 
@@ -1218,6 +1079,7 @@ class Page extends ModelWithContent
      * @internal
      * @param mixed $type
      * @return \Kirby\Cms\Template
+     * @throws \Kirby\Exception\NotFoundException If the content representation cannot be found
      */
     public function representation($type)
     {
@@ -1258,7 +1120,7 @@ class Page extends ModelWithContent
     /**
      * Search all pages within the current page
      *
-     * @param string $query
+     * @param string|null $query
      * @param array $params
      * @return \Kirby\Cms\Pages
      */
@@ -1271,7 +1133,7 @@ class Page extends ModelWithContent
      * Sets the Blueprint object
      *
      * @param array|null $blueprint
-     * @return self
+     * @return $this
      */
     protected function setBlueprint(array $blueprint = null)
     {
@@ -1288,8 +1150,8 @@ class Page extends ModelWithContent
      * more reliable in connection with the inventory
      * than computing the dirname afterwards
      *
-     * @param string $dirname
-     * @return self
+     * @param string|null $dirname
+     * @return $this
      */
     protected function setDirname(string $dirname = null)
     {
@@ -1301,7 +1163,7 @@ class Page extends ModelWithContent
      * Sets the draft flag
      *
      * @param bool $isDraft
-     * @return self
+     * @return $this
      */
     protected function setIsDraft(bool $isDraft = null)
     {
@@ -1312,8 +1174,8 @@ class Page extends ModelWithContent
     /**
      * Sets the sorting number
      *
-     * @param int $num
-     * @return self
+     * @param int|null $num
+     * @return $this
      */
     protected function setNum(int $num = null)
     {
@@ -1325,7 +1187,7 @@ class Page extends ModelWithContent
      * Sets the parent page object
      *
      * @param \Kirby\Cms\Page|null $parent
-     * @return self
+     * @return $this
      */
     protected function setParent(Page $parent = null)
     {
@@ -1337,7 +1199,7 @@ class Page extends ModelWithContent
      * Sets the absolute path to the page
      *
      * @param string|null $root
-     * @return self
+     * @return $this
      */
     protected function setRoot(string $root = null)
     {
@@ -1349,7 +1211,7 @@ class Page extends ModelWithContent
      * Sets the required Page slug
      *
      * @param string $slug
-     * @return self
+     * @return $this
      */
     protected function setSlug(string $slug)
     {
@@ -1360,8 +1222,8 @@ class Page extends ModelWithContent
     /**
      * Sets the intended template
      *
-     * @param string $template
-     * @return self
+     * @param string|null $template
+     * @return $this
      */
     protected function setTemplate(string $template = null)
     {
@@ -1375,8 +1237,8 @@ class Page extends ModelWithContent
     /**
      * Sets the Url
      *
-     * @param string $url
-     * @return self
+     * @param string|null $url
+     * @return $this
      */
     protected function setUrl(string $url = null)
     {
@@ -1401,7 +1263,9 @@ class Page extends ModelWithContent
                 $languageCode = $this->kirby()->languageCode();
             }
 
-            if ($translation = $this->translations()->find($languageCode)) {
+            $defaultLanguageCode = $this->kirby()->defaultLanguage()->code();
+
+            if ($languageCode !== $defaultLanguageCode && $translation = $this->translations()->find($languageCode)) {
                 return $translation->slug() ?? $this->slug;
             }
         }
@@ -1570,8 +1434,8 @@ class Page extends ModelWithContent
      * Builds the Url for a specific language
      *
      * @internal
-     * @param string $language
-     * @param array $options
+     * @param string|null $language
+     * @param array|null $options
      * @return string
      */
     public function urlForLanguage($language = null, array $options = null): string
@@ -1593,5 +1457,98 @@ class Page extends ModelWithContent
         }
 
         return $this->url = $this->site()->urlForLanguage($language) . '/' . $this->slug($language);
+    }
+
+
+    /**
+     * Deprecated!
+     */
+
+    /**
+     * Provides a kirbytag or markdown
+     * tag for the page, which will be
+     * used in the panel, when the page
+     * gets dragged onto a textarea
+     *
+     * @deprecated 3.6.0 Use `->panel()->dragText()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @param string|null $type (null|auto|kirbytext|markdown)
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function dragText(string $type = null): string
+    {
+        return $this->panel()->dragText($type);
+    }
+
+    /**
+     * Returns the escaped Id, which is
+     * used in the panel to make routing work properly
+     *
+     * @deprecated 3.6.0 Use `->panel()->id()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function panelId(): string
+    {
+        return $this->panel()->id();
+    }
+
+    /**
+     * Returns the full path without leading slash
+     *
+     * @deprecated 3.6.0 Use `->panel()->path()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function panelPath(): string
+    {
+        return $this->panel()->path();
+    }
+
+    /**
+     * Prepares the response data for page pickers
+     * and page fields
+     *
+     * @deprecated 3.6.0 Use `->panel()->pickerData()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @param array|null $params
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function panelPickerData(array $params = []): array
+    {
+        return $this->panel()->pickerData($params);
+    }
+
+    /**
+     * Returns the url to the editing view
+     * in the panel
+     *
+     * @deprecated 3.6.0 Use `->panel()->url()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @param bool $relative
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function panelUrl(bool $relative = false): string
+    {
+        return $this->panel()->url($relative);
     }
 }

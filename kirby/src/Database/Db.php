@@ -26,7 +26,7 @@ class Db
     /**
      * The singleton Database object
      *
-     * @var Database
+     * @var \Kirby\Database\Database
      */
     public static $connection = null;
 
@@ -51,7 +51,8 @@ class Db
             'user'     => Config::get('db.user', 'root'),
             'password' => Config::get('db.password', ''),
             'database' => Config::get('db.database', ''),
-            'prefix'   => Config::get('db.prefix', '')
+            'prefix'   => Config::get('db.prefix', ''),
+            'port'     => Config::get('db.port', '')
         ];
         $params = $params ?? $defaults;
 
@@ -76,7 +77,7 @@ class Db
      * @param string $table
      * @return \Kirby\Database\Query
      */
-    public static function table($table)
+    public static function table(string $table)
     {
         $db = static::connect();
         return $db->table($table);
@@ -117,11 +118,12 @@ class Db
      * @param string $method
      * @param mixed $arguments
      * @return mixed
+     * @throws \Kirby\Exception\InvalidArgumentException
      */
-    public static function __callStatic($method, $arguments)
+    public static function __callStatic(string $method, $arguments)
     {
         if (isset(static::$queries[$method])) {
-            return static::$queries[$method](...$arguments);
+            return (static::$queries[$method])(...$arguments);
         }
 
         if (static::$connection !== null && method_exists(static::$connection, $method) === true) {
@@ -132,9 +134,10 @@ class Db
     }
 }
 
+// @codeCoverageIgnoreStart
+
 /**
  * Shortcut for SELECT clauses
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param mixed $columns Either a string with columns or an array of column names
@@ -150,7 +153,6 @@ Db::$queries['select'] = function (string $table, $columns = '*', $where = null,
 
 /**
  * Shortcut for selecting a single row in a table
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param mixed $columns Either a string with columns or an array of column names
@@ -166,7 +168,6 @@ Db::$queries['first'] = Db::$queries['row'] = Db::$queries['one'] = function (st
 
 /**
  * Returns only values from a single column
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param string $column The name of the column to select from
@@ -182,19 +183,17 @@ Db::$queries['column'] = function (string $table, string $column, $where = null,
 
 /**
  * Shortcut for inserting a new row into a table
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param array $values An array of values which should be inserted
- * @return int ID of the inserted row
+ * @return mixed Returns the last inserted id on success or false
  */
-Db::$queries['insert'] = function (string $table, array $values): int {
+Db::$queries['insert'] = function (string $table, array $values) {
     return Db::table($table)->insert($values);
 };
 
 /**
  * Shortcut for updating a row in a table
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param array $values An array of values which should be inserted
@@ -207,7 +206,6 @@ Db::$queries['update'] = function (string $table, array $values, $where = null):
 
 /**
  * Shortcut for deleting rows in a table
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param mixed $where An optional WHERE clause
@@ -219,7 +217,6 @@ Db::$queries['delete'] = function (string $table, $where = null): bool {
 
 /**
  * Shortcut for counting rows in a table
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param mixed $where An optional WHERE clause
@@ -231,7 +228,6 @@ Db::$queries['count'] = function (string $table, $where = null): int {
 
 /**
  * Shortcut for calculating the minimum value in a column
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param string $column The name of the column of which the minimum should be calculated
@@ -244,7 +240,6 @@ Db::$queries['min'] = function (string $table, string $column, $where = null): f
 
 /**
  * Shortcut for calculating the maximum value in a column
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param string $column The name of the column of which the maximum should be calculated
@@ -257,7 +252,6 @@ Db::$queries['max'] = function (string $table, string $column, $where = null): f
 
 /**
  * Shortcut for calculating the average value in a column
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param string $column The name of the column of which the average should be calculated
@@ -270,7 +264,6 @@ Db::$queries['avg'] = function (string $table, string $column, $where = null): f
 
 /**
  * Shortcut for calculating the sum of all values in a column
- * @codeCoverageIgnore
  *
  * @param string $table The name of the table which should be queried
  * @param string $column The name of the column of which the sum should be calculated
@@ -280,3 +273,5 @@ Db::$queries['avg'] = function (string $table, string $column, $where = null): f
 Db::$queries['sum'] = function (string $table, string $column, $where = null): float {
     return Db::table($table)->where($where)->sum($column);
 };
+
+// @codeCoverageIgnoreEnd

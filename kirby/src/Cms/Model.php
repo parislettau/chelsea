@@ -18,6 +18,14 @@ abstract class Model
     use Properties;
 
     /**
+     * Each model must define a CLASS_ALIAS
+     * which will be used in template queries.
+     * The CLASS_ALIAS is a short human-readable
+     * version of the class name. I.e. page.
+     */
+    const CLASS_ALIAS = null;
+
+    /**
      * The parent Kirby instance
      *
      * @var \Kirby\Cms\App
@@ -76,7 +84,7 @@ abstract class Model
      * Setter for the parent Kirby object
      *
      * @param \Kirby\Cms\App|null $kirby
-     * @return self
+     * @return $this
      */
     protected function setKirby(App $kirby = null)
     {
@@ -89,7 +97,7 @@ abstract class Model
      *
      * @internal
      * @param \Kirby\Cms\Site|null $site
-     * @return self
+     * @return $this
      */
     public function setSite(Site $site = null)
     {

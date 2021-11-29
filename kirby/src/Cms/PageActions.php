@@ -4,12 +4,13 @@ namespace Kirby\Cms;
 
 use Closure;
 use Kirby\Exception\DuplicateException;
-use Kirby\Exception\Exception;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\LogicException;
 use Kirby\Exception\NotFoundException;
+use Kirby\Filesystem\Dir;
+use Kirby\Filesystem\F;
+use Kirby\Form\Form;
 use Kirby\Toolkit\A;
-use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
 
 /**
@@ -24,12 +25,15 @@ use Kirby\Toolkit\Str;
 trait PageActions
 {
     /**
-     * Changes the sorting number
+     * Changes the sorting number.
      * The sorting number must already be correct
-     * when the method is called
+     * when the method is called.
+     * This only affects this page,
+     * siblings will not be resorted.
      *
-     * @param int $num
-     * @return self
+     * @param int|null $num
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException If a draft is being sorted or the directory cannot be moved
      */
     public function changeNum(int $num = null)
     {
@@ -74,8 +78,9 @@ trait PageActions
      * Changes the slug/uid of the page
      *
      * @param string $slug
-     * @param string $languageCode
-     * @return self
+     * @param string|null $languageCode
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException If the directory cannot be moved
      */
     public function changeSlug(string $slug, string $languageCode = null)
     {
@@ -137,8 +142,10 @@ trait PageActions
      * Change the slug for a specific language
      *
      * @param string $slug
-     * @param string $languageCode
-     * @return self
+     * @param string|null $languageCode
+     * @return static
+     * @throws \Kirby\Exception\NotFoundException If the language for the given language code cannot be found
+     * @throws \Kirby\Exception\InvalidArgumentException If the slug for the default language is being changed
      */
     protected function changeSlugForLanguage(string $slug, string $languageCode = null)
     {
@@ -165,11 +172,14 @@ trait PageActions
 
     /**
      * Change the status of the current page
-     * to either draft, listed or unlisted
+     * to either draft, listed or unlisted.
+     * If changing to `listed`, you can pass a position for the
+     * page in the siblings collection. Siblings will be resorted.
      *
      * @param string $status "draft", "listed" or "unlisted"
-     * @param int $position Optional sorting number
-     * @return self
+     * @param int|null $position Optional sorting number
+     * @return static
+     * @throws \Kirby\Exception\InvalidArgumentException If an invalid status is being passed
      */
     public function changeStatus(string $status, int $position = null)
     {
@@ -181,10 +191,13 @@ trait PageActions
             case 'unlisted':
                 return $this->changeStatusToUnlisted();
             default:
-                throw new Exception('Invalid status: ' . $status);
+                throw new InvalidArgumentException('Invalid status: ' . $status);
         }
     }
 
+    /**
+     * @return static
+     */
     protected function changeStatusToDraft()
     {
         $arguments = ['page' => $this, 'status' => 'draft', 'position' => null];
@@ -196,8 +209,8 @@ trait PageActions
     }
 
     /**
-     * @param int $position
-     * @return self
+     * @param int|null $position
+     * @return $this|static
      */
     protected function changeStatusToListed(int $position = null)
     {
@@ -222,7 +235,7 @@ trait PageActions
     }
 
     /**
-     * @return self
+     * @return $this|static
      */
     protected function changeStatusToUnlisted()
     {
@@ -241,10 +254,24 @@ trait PageActions
     }
 
     /**
+     * Change the position of the page in its siblings
+     * collection. Siblings will be resorted. If the page
+     * status isn't yet `listed`, it will be changed to it.
+     *
+     * @param int|null $position
+     * @return $this|static
+     */
+    public function changeSort(int $position = null)
+    {
+        return $this->changeStatus('listed', $position);
+    }
+
+    /**
      * Changes the page template
      *
      * @param string $template
-     * @return self
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException If the textfile cannot be renamed/moved
      */
     public function changeTemplate(string $template)
     {
@@ -259,6 +286,10 @@ trait PageActions
                 ]);
 
                 foreach ($this->kirby()->languages()->codes() as $code) {
+                    if ($oldPage->translation($code)->exists() !== true) {
+                        continue;
+                    }
+
                     $content = $oldPage->content($code)->convertTo($template);
 
                     if (F::remove($oldPage->contentFile($code)) !== true) {
@@ -270,7 +301,7 @@ trait PageActions
                 }
 
                 // return a fresh copy of the object
-                return $newPage->clone();
+                $page = $newPage->clone();
             } else {
                 $newPage = $this->clone([
                     'content'  => $this->content()->convertTo($template),
@@ -281,8 +312,17 @@ trait PageActions
                     throw new LogicException('The old text file could not be removed');
                 }
 
-                return $newPage->save();
+                $page = $newPage->save();
             }
+
+            // update the parent collection
+            if ($page->isDraft() === true) {
+                $page->parentModel()->drafts()->set($page->id(), $page);
+            } else {
+                $page->parentModel()->children()->set($page->id(), $page);
+            }
+
+            return $page;
         });
     }
 
@@ -291,13 +331,22 @@ trait PageActions
      *
      * @param string $title
      * @param string|null $languageCode
-     * @return self
+     * @return static
      */
     public function changeTitle(string $title, string $languageCode = null)
     {
         $arguments = ['page' => $this, 'title' => $title, 'languageCode' => $languageCode];
         return $this->commit('changeTitle', $arguments, function ($page, $title, $languageCode) {
-            return $page->save(['title' => $title], $languageCode);
+            $page = $page->save(['title' => $title], $languageCode);
+
+            // flush the parent cache to get children and drafts right
+            if ($page->isDraft() === true) {
+                $page->parentModel()->drafts()->set($page->id(), $page);
+            } else {
+                $page->parentModel()->children()->set($page->id(), $page);
+            }
+
+            return $page;
         });
     }
 
@@ -312,7 +361,7 @@ trait PageActions
      *
      * @param string $action
      * @param array $arguments
-     * @param Closure $callback
+     * @param \Closure $callback
      * @return mixed
      */
     protected function commit(string $action, array $arguments, Closure $callback)
@@ -346,6 +395,7 @@ trait PageActions
      *
      * @param array $options
      * @return \Kirby\Cms\Page
+     * @throws \Kirby\Exception\DuplicateException If the page already exists
      */
     public function copy(array $options = [])
     {
@@ -417,7 +467,7 @@ trait PageActions
      * Creates and stores a new page
      *
      * @param array $props
-     * @return self
+     * @return static
      */
     public static function create(array $props)
     {
@@ -472,7 +522,7 @@ trait PageActions
      * Creates a child of the current page
      *
      * @param array $props
-     * @return self
+     * @return static
      */
     public function createChild(array $props)
     {
@@ -491,7 +541,7 @@ trait PageActions
      * Create the sorting number for the page
      * depending on the blueprint settings
      *
-     * @param int $num
+     * @param int|null $num
      * @return int
      */
     public function createNum(int $num = null): int
@@ -503,12 +553,13 @@ trait PageActions
                 return 0;
             case 'date':
             case 'datetime':
+                // the $format needs to produce only digits,
+                // so it can be converted to integer below
                 $format = $mode === 'date' ? 'Ymd' : 'YmdHi';
                 $lang   = $this->kirby()->defaultLanguage() ?? null;
                 $field  = $this->content($lang)->get('date');
                 $date   = $field->isEmpty() ? 'now' : $field;
-                return date($format, strtotime($date));
-                break;
+                return (int)date($format, strtotime($date));
             case 'default':
 
                 $max = $this
@@ -536,14 +587,14 @@ trait PageActions
                 return $num;
             default:
                 // get instance with default language
-                $app = $this->kirby()->clone();
+                $app = $this->kirby()->clone([], false);
                 $app->setCurrentLanguage();
 
                 $template = Str::template($mode, [
                     'kirby' => $app,
                     'page'  => $app->page($this->id()),
                     'site'  => $app->site(),
-                ], '');
+                ], ['fallback' => '']);
 
                 return (int)$template;
         }
@@ -604,7 +655,7 @@ trait PageActions
      * Duplicates the page with the given
      * slug and optionally copies all files
      *
-     * @param string $slug
+     * @param string|null $slug
      * @param array $options
      * @return \Kirby\Cms\Page
      */
@@ -612,20 +663,35 @@ trait PageActions
     {
 
         // create the slug for the duplicate
-        $slug = Str::slug($slug ?? $this->slug() . '-copy');
+        $slug = Str::slug($slug ?? $this->slug() . '-' . Str::slug(t('page.duplicate.appendix')));
 
-        $arguments = ['originalPage' => $this, 'input' => $slug, 'options' => $options];
+        $arguments = [
+            'originalPage' => $this,
+            'input'        => $slug,
+            'options'      => $options
+        ];
+
         return $this->commit('duplicate', $arguments, function ($page, $slug, $options) {
-            return $this->copy([
+            $page = $this->copy([
                 'parent'   => $this->parent(),
                 'slug'     => $slug,
                 'isDraft'  => true,
                 'files'    => $options['files']    ?? false,
                 'children' => $options['children'] ?? false,
             ]);
+
+            if (isset($options['title']) === true) {
+                $page = $page->changeTitle($options['title']);
+            }
+
+            return $page;
         });
     }
 
+    /**
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException If the folder cannot be moved
+     */
     public function publish()
     {
         if ($this->isDraft() === false) {
@@ -661,7 +727,7 @@ trait PageActions
 
     /**
      * Clean internal caches
-     * @return self
+     * @return $this
      */
     public function purge()
     {
@@ -676,6 +742,11 @@ trait PageActions
         return $this;
     }
 
+    /**
+     * @param int|null $position
+     * @return bool
+     * @throws \Kirby\Exception\LogicException If the page is not included in the siblings collection
+     */
     protected function resortSiblingsAfterListing(int $position = null): bool
     {
         // get all siblings including the current page
@@ -717,11 +788,14 @@ trait PageActions
         }
 
         $parent = $this->parentModel();
-        $parent->children = $parent->children()->sortBy('num', 'asc');
+        $parent->children = $parent->children()->sort('num', 'asc');
 
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function resortSiblingsAfterUnlisting(): bool
     {
         $index    = 0;
@@ -740,22 +814,18 @@ trait PageActions
                 $sibling->changeNum($index);
             }
 
-            $parent->children = $siblings->sortBy('num', 'asc');
+            $parent->children = $siblings->sort('num', 'asc');
         }
 
         return true;
-    }
-
-    public function sort($position = null)
-    {
-        return $this->changeStatus('listed', $position);
     }
 
     /**
      * Convert a page from listed or
      * unlisted to draft.
      *
-     * @return self
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException If the folder cannot be moved
      */
     public function unpublish()
     {
@@ -789,18 +859,18 @@ trait PageActions
     /**
      * Updates the page data
      *
-     * @param array $input
-     * @param string $language
+     * @param array|null $input
+     * @param string|null $languageCode
      * @param bool $validate
-     * @return self
+     * @return static
      */
-    public function update(array $input = null, string $language = null, bool $validate = false)
+    public function update(array $input = null, string $languageCode = null, bool $validate = false)
     {
         if ($this->isDraft() === true) {
             $validate = false;
         }
 
-        $page = parent::update($input, $language, $validate);
+        $page = parent::update($input, $languageCode, $validate);
 
         // if num is created from page content, update num on content update
         if ($page->isListed() === true && in_array($page->blueprint()->num(), ['zero', 'default']) === false) {

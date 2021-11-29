@@ -5,8 +5,8 @@ namespace Kirby\Cms;
 use Closure;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\LogicException;
-use Kirby\Image\Image;
-use Kirby\Toolkit\F;
+use Kirby\Filesystem\F;
+use Kirby\Form\Form;
 
 /**
  * FileActions
@@ -25,7 +25,8 @@ trait FileActions
      *
      * @param string $name
      * @param bool $sanitize
-     * @return self
+     * @return $this|static
+     * @throws \Kirby\Exception\LogicException
      */
     public function changeName(string $name, bool $sanitize = true)
     {
@@ -74,6 +75,8 @@ trait FileActions
                 F::move($oldFile->contentFile(), $newFile->contentFile());
             }
 
+            $newFile->parent()->files()->remove($oldFile->id());
+            $newFile->parent()->files()->set($newFile->id(), $newFile);
 
             return $newFile;
         });
@@ -83,7 +86,7 @@ trait FileActions
      * Changes the file's sorting number in the meta file
      *
      * @param int $sort
-     * @return self
+     * @return static
      */
     public function changeSort(int $sort)
     {
@@ -160,7 +163,9 @@ trait FileActions
      * way of generating files.
      *
      * @param array $props
-     * @return self
+     * @return static
+     * @throws \Kirby\Exception\InvalidArgumentException
+     * @throws \Kirby\Exception\LogicException
      */
     public static function create(array $props)
     {
@@ -175,7 +180,7 @@ trait FileActions
 
         // create the basic file and a test upload object
         $file = static::factory($props);
-        $upload = new Image($props['source']);
+        $upload = $file->asset($props['source']);
 
         // create a form for the file
         $form = Form::for($file, [
@@ -242,6 +247,9 @@ trait FileActions
 
             F::remove($file->root());
 
+            // remove the file from the sibling collection
+            $file->parent()->files()->remove($file);
+
             return true;
         });
     }
@@ -250,26 +258,12 @@ trait FileActions
      * Move the file to the public media folder
      * if it's not already there.
      *
-     * @return self
+     * @return $this
      */
     public function publish()
     {
         Media::publish($this, $this->mediaRoot());
         return $this;
-    }
-
-    /**
-     * @deprecated 3.0.0 Use `File::changeName()` instead
-     *
-     * @param string $name
-     * @param bool $sanitize
-     * @return self
-     */
-    public function rename(string $name, bool $sanitize = true)
-    {
-        deprecated('$file->rename() is deprecated, use $file->changeName() instead. $file->rename() will be removed in Kirby 3.5.0.');
-
-        return $this->changeName($name, $sanitize);
     }
 
     /**
@@ -280,11 +274,19 @@ trait FileActions
      * source.
      *
      * @param string $source
-     * @return self
+     * @return static
+     * @throws \Kirby\Exception\LogicException
      */
     public function replace(string $source)
     {
-        return $this->commit('replace', ['file' => $this, 'upload' => new Image($source)], function ($file, $upload) {
+        $file = $this->clone();
+
+        $arguments = [
+            'file' => $file,
+            'upload' => $file->asset($source)
+        ];
+
+        return $this->commit('replace', $arguments, function ($file, $upload) {
 
             // delete all public versions
             $file->unpublish();
@@ -302,7 +304,7 @@ trait FileActions
     /**
      * Remove all public versions of this file
      *
-     * @return self
+     * @return $this
      */
     public function unpublish()
     {

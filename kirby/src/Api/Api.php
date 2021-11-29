@@ -5,9 +5,9 @@ namespace Kirby\Api;
 use Closure;
 use Exception;
 use Kirby\Exception\NotFoundException;
+use Kirby\Filesystem\F;
 use Kirby\Http\Response;
 use Kirby\Http\Router;
-use Kirby\Toolkit\F;
 use Kirby\Toolkit\Pagination;
 use Kirby\Toolkit\Properties;
 use Kirby\Toolkit\Str;
@@ -32,7 +32,7 @@ class Api
     /**
      * Authentication callback
      *
-     * @var Closure
+     * @var \Closure
      */
     protected $authentication;
 
@@ -67,14 +67,14 @@ class Api
     /**
      * The current route
      *
-     * @var Route
+     * @var \Kirby\Http\Route
      */
     protected $route;
 
     /**
      * The Router instance
      *
-     * @var Router
+     * @var \Kirby\Http\Router
      */
     protected $router;
 
@@ -107,6 +107,7 @@ class Api
      * @param string $method
      * @param array $args
      * @return mixed
+     * @throws \Kirby\Exception\NotFoundException
      */
     public function __call(string $method, array $args = [])
     {
@@ -141,7 +142,7 @@ class Api
     /**
      * Returns the authentication callback
      *
-     * @return Closure|null
+     * @return \Closure|null
      */
     public function authentication()
     {
@@ -152,10 +153,12 @@ class Api
      * Execute an API call for the given path,
      * request method and optional request data
      *
-     * @param string $path
+     * @param string|null $path
      * @param string $method
      * @param array $requestData
      * @return mixed
+     * @throws \Kirby\Exception\NotFoundException
+     * @throws \Exception
      */
     public function call(string $path = null, string $method = 'GET', array $requestData = [])
     {
@@ -209,7 +212,10 @@ class Api
         // restore old pagination validation mode
         Pagination::$validate = $validate;
 
-        if (is_object($output) === true && is_a($output, 'Kirby\\Http\\Response') !== true) {
+        if (
+            is_object($output) === true &&
+            is_a($output, 'Kirby\\Http\\Response') !== true
+        ) {
             return $this->resolve($output)->toResponse();
         }
 
@@ -222,8 +228,8 @@ class Api
      * @param string $name
      * @param array|null $collection
      * @return \Kirby\Api\Collection
-     *
      * @throws \Kirby\Exception\NotFoundException If no collection for `$name` exists
+     * @throws \Exception
      */
     public function collection(string $name, $collection = null)
     {
@@ -314,7 +320,7 @@ class Api
     /**
      * Returns an API model instance by name
      *
-     * @param string $name
+     * @param string|null $name
      * @param mixed $object
      * @return \Kirby\Api\Model
      *
@@ -351,8 +357,8 @@ class Api
      * Can either get all the data
      * or certain parts of it.
      *
-     * @param string $type
-     * @param string $key
+     * @param string|null $type
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
@@ -375,7 +381,7 @@ class Api
     /**
      * Returns the request body if available
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
@@ -387,7 +393,7 @@ class Api
     /**
      * Returns the files from the request if available
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
@@ -399,7 +405,7 @@ class Api
     /**
      * Returns all headers from the request if available
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
@@ -421,7 +427,7 @@ class Api
     /**
      * Returns the request query if available
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
@@ -469,8 +475,8 @@ class Api
     /**
      * Setter for the authentication callback
      *
-     * @param Closure $authentication
-     * @return self
+     * @param \Closure|null $authentication
+     * @return $this
      */
     protected function setAuthentication(Closure $authentication = null)
     {
@@ -481,8 +487,8 @@ class Api
     /**
      * Setter for the collections definition
      *
-     * @param array $collections
-     * @return self
+     * @param array|null $collections
+     * @return $this
      */
     protected function setCollections(array $collections = null)
     {
@@ -495,8 +501,8 @@ class Api
     /**
      * Setter for the injected data
      *
-     * @param array $data
-     * @return self
+     * @param array|null $data
+     * @return $this
      */
     protected function setData(array $data = null)
     {
@@ -508,7 +514,7 @@ class Api
      * Setter for the debug flag
      *
      * @param bool $debug
-     * @return self
+     * @return $this
      */
     protected function setDebug(bool $debug = false)
     {
@@ -519,8 +525,8 @@ class Api
     /**
      * Setter for the model definitions
      *
-     * @param array $models
-     * @return self
+     * @param array|null $models
+     * @return $this
      */
     protected function setModels(array $models = null)
     {
@@ -534,8 +540,8 @@ class Api
     /**
      * Setter for the request data
      *
-     * @param array $requestData
-     * @return self
+     * @param array|null $requestData
+     * @return $this
      */
     protected function setRequestData(array $requestData = null)
     {
@@ -552,8 +558,8 @@ class Api
     /**
      * Setter for the request method
      *
-     * @param string $requestMethod
-     * @return self
+     * @param string|null $requestMethod
+     * @return $this
      */
     protected function setRequestMethod(string $requestMethod = null)
     {
@@ -564,8 +570,8 @@ class Api
     /**
      * Setter for the route definitions
      *
-     * @param array $routes
-     * @return self
+     * @param array|null $routes
+     * @return $this
      */
     protected function setRoutes(array $routes = null)
     {
@@ -668,10 +674,10 @@ class Api
      * an exception. Kirby exceptions will
      * have more information
      *
-     * @param Exception $e
+     * @param \Throwable $e
      * @return array
      */
-    public function responseForException($e): array
+    public function responseForException(Throwable $e): array
     {
         // prepare the result array for all exception types
         $result = [
@@ -710,14 +716,17 @@ class Api
     /**
      * Upload helper method
      *
-     * @param Closure $callback
+     * move_uploaded_file() not working with unit test
+     * Added debug parameter for testing purposes as we did in the Email class
+     *
+     * @param \Closure $callback
      * @param bool $single
+     * @param bool $debug
      * @return array
      *
-     * @throws \Exception If request has no files
-     * @throws \Exception If there was an error with the upload
+     * @throws \Exception If request has no files or there was an error with the upload
      */
-    public function upload(Closure $callback, $single = false): array
+    public function upload(Closure $callback, $single = false, $debug = false): array
     {
         $trials  = 0;
         $uploads = [];
@@ -776,7 +785,7 @@ class Api
 
                 // move the file to a location including the extension,
                 // for better mime detection
-                if (move_uploaded_file($upload['tmp_name'], $source) === false) {
+                if ($debug === false && move_uploaded_file($upload['tmp_name'], $source) === false) {
                     throw new Exception(t('upload.error.cantMove'));
                 }
 

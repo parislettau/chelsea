@@ -5,6 +5,7 @@ namespace Kirby\Cms;
 use Closure;
 use Kirby\Data\Data;
 use Kirby\Exception\InvalidArgumentException;
+use Kirby\Form\Form;
 use Kirby\Toolkit\Str;
 use Throwable;
 
@@ -19,14 +20,6 @@ use Throwable;
  */
 abstract class ModelWithContent extends Model
 {
-    /**
-     * Each model must define a CLASS_ALIAS
-     * which will be used in template queries.
-     * The CLASS_ALIAS is a short human-readable
-     * version of the class name. I.e. page.
-     */
-    const CLASS_ALIAS = null;
-
     /**
      * The content
      *
@@ -47,11 +40,36 @@ abstract class ModelWithContent extends Model
     abstract public function blueprint();
 
     /**
+     * Returns an array with all blueprints that are available
+     *
+     * @param string|null $inSection
+     * @return array
+     */
+    public function blueprints(string $inSection = null): array
+    {
+        $blueprints = [];
+        $blueprint  = $this->blueprint();
+        $sections   = $inSection !== null ? [$blueprint->section($inSection)] : $blueprint->sections();
+
+        foreach ($sections as $section) {
+            if ($section === null) {
+                continue;
+            }
+
+            foreach ((array)$section->blueprints() as $blueprint) {
+                $blueprints[$blueprint['name']] = $blueprint;
+            }
+        }
+
+        return array_values($blueprints);
+    }
+
+    /**
      * Executes any given model action
      *
      * @param string $action
      * @param array $arguments
-     * @param Closure $callback
+     * @param \Closure $callback
      * @return mixed
      */
     abstract protected function commit(string $action, array $arguments, Closure $callback);
@@ -59,8 +77,9 @@ abstract class ModelWithContent extends Model
     /**
      * Returns the content
      *
-     * @param string $languageCode
+     * @param string|null $languageCode
      * @return \Kirby\Cms\Content
+     * @throws \Kirby\Exception\InvalidArgumentException If the language for the given code does not exist
      */
     public function content(string $languageCode = null)
     {
@@ -104,6 +123,7 @@ abstract class ModelWithContent extends Model
      * @param string|null $languageCode
      * @param bool $force
      * @return string
+     * @throws \Kirby\Exception\InvalidArgumentException If the language for the given code does not exist
      */
     public function contentFile(string $languageCode = null, bool $force = false): string
     {
@@ -158,7 +178,7 @@ abstract class ModelWithContent extends Model
      *
      * @internal
      * @param array $data
-     * @param string $languageCode
+     * @param string|null $languageCode
      * @return array
      */
     public function contentFileData(array $data, string $languageCode = null): array
@@ -204,7 +224,7 @@ abstract class ModelWithContent extends Model
      * @param string $field
      * @param int $by
      * @param int $min
-     * @return self
+     * @return static
      */
     public function decrement(string $field, int $by = 1, int $min = 0)
     {
@@ -227,9 +247,7 @@ abstract class ModelWithContent extends Model
         $errors = [];
 
         foreach ($this->blueprint()->sections() as $section) {
-            if (method_exists($section, 'errors') === true || isset($section->errors)) {
-                $errors = array_merge($errors, $section->errors());
-            }
+            $errors = array_merge($errors, $section->errors());
         }
 
         return $errors;
@@ -240,8 +258,8 @@ abstract class ModelWithContent extends Model
      *
      * @param string $field
      * @param int $by
-     * @param int $max
-     * @return self
+     * @param int|null $max
+     * @return static
      */
     public function increment(string $field, int $by = 1, int $max = null)
     {
@@ -297,140 +315,12 @@ abstract class ModelWithContent extends Model
     }
 
     /**
-     * Returns the panel icon definition
+     * Returns the panel info of the model
+     * @since 3.6.0
      *
-     * @internal
-     * @param array $params
-     * @return array
+     * @return \Kirby\Panel\Model
      */
-    public function panelIcon(array $params = null): array
-    {
-        $defaults = [
-            'type'  => 'page',
-            'ratio' => null,
-            'back'  => 'pattern',
-            'color' => '#c5c9c6',
-        ];
-
-        return array_merge($defaults, $params ?? []);
-    }
-
-    /**
-     * @internal
-     * @param string|array|false $settings
-     * @return array|null
-     */
-    public function panelImage($settings = null): ?array
-    {
-        $defaults = [
-            'ratio' => '3/2',
-            'back'  => 'pattern',
-            'cover' => false
-        ];
-
-        // switch the image off
-        if ($settings === false) {
-            return null;
-        }
-
-        if (is_string($settings) === true) {
-            // use defined icon in blueprint
-            if ($settings === 'icon') {
-                return [];
-            }
-
-            $settings = [
-                'query' => $settings
-            ];
-        }
-
-        if ($image = $this->panelImageSource($settings['query'] ?? null)) {
-
-            // main url
-            $settings['url'] = $image->url();
-
-            // for cards
-            $settings['cards'] = [
-                'url' => 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw',
-                'srcset' => $image->srcset([
-                    352,
-                    864,
-                    1408,
-                ])
-            ];
-
-            // for lists
-            $settings['list'] = [
-                'url' => 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw',
-                'srcset' => $image->srcset([
-                    '1x' => [
-                        'width' => 38,
-                        'height' => 38,
-                        'crop' => 'center'
-                    ],
-                    '2x' => [
-                        'width' => 76,
-                        'height' => 76,
-                        'crop' => 'center'
-                    ],
-                ])
-            ];
-
-            unset($settings['query']);
-        }
-
-        return array_merge($defaults, (array)$settings);
-    }
-
-    /**
-     * Returns the image file object based on provided query
-     *
-     * @internal
-     * @param string|null $query
-     * @return \Kirby\Cms\File|\Kirby\Cms\Asset|null
-     */
-    protected function panelImageSource(string $query = null)
-    {
-        $image = $this->query($query ?? null);
-
-        // validate the query result
-        if (is_a($image, 'Kirby\Cms\File') === false && is_a($image, 'Kirby\Cms\Asset') === false) {
-            $image = null;
-        }
-
-        // fallback for files
-        if ($image === null && is_a($this, 'Kirby\Cms\File') === true && $this->isViewable() === true) {
-            $image = $this;
-        }
-
-        return $image;
-    }
-
-    /**
-     * Returns an array of all actions
-     * that can be performed in the Panel
-     * This also checks for the lock status
-     * @since 3.3.0
-     *
-     * @param array $unlock An array of options that will be force-unlocked
-     * @return array
-     */
-    public function panelOptions(array $unlock = []): array
-    {
-        $options = $this->permissions()->toArray();
-
-        if ($this->isLocked()) {
-            foreach ($options as $key => $value) {
-                if (in_array($key, $unlock)) {
-                    continue;
-                }
-
-                $options[$key] = false;
-            }
-        }
-
-        return $options;
-    }
+    abstract public function panel();
 
     /**
      * Must return the permissions object for the model
@@ -497,10 +387,10 @@ abstract class ModelWithContent extends Model
      * Stores the content on disk
      *
      * @internal
-     * @param string $languageCode
-     * @param array $data
+     * @param array|null $data
+     * @param string|null $languageCode
      * @param bool $overwrite
-     * @return self
+     * @return static
      */
     public function save(array $data = null, string $languageCode = null, bool $overwrite = false)
     {
@@ -516,7 +406,7 @@ abstract class ModelWithContent extends Model
      *
      * @param array|null $data
      * @param bool $overwrite
-     * @return self
+     * @return static
      */
     protected function saveContent(array $data = null, bool $overwrite = false)
     {
@@ -538,7 +428,8 @@ abstract class ModelWithContent extends Model
      * @param array|null $data
      * @param string|null $languageCode
      * @param bool $overwrite
-     * @return self
+     * @return static
+     * @throws \Kirby\Exception\InvalidArgumentException If the language for the given code does not exist
      */
     protected function saveTranslation(array $data = null, string $languageCode = null, bool $overwrite = false)
     {
@@ -583,7 +474,7 @@ abstract class ModelWithContent extends Model
      * Sets the Content object
      *
      * @param array|null $content
-     * @return self
+     * @return $this
      */
     protected function setContent(array $content = null)
     {
@@ -598,8 +489,8 @@ abstract class ModelWithContent extends Model
     /**
      * Create the translations collection from an array
      *
-     * @param array $translations
-     * @return self
+     * @param array|null $translations
+     * @return $this
      */
     protected function setTranslations(array $translations = null)
     {
@@ -617,24 +508,43 @@ abstract class ModelWithContent extends Model
     }
 
     /**
-     * String template builder
+     * String template builder with automatic HTML escaping
+     * @since 3.6.0
      *
-     * @param string|null $template
+     * @param string|null $template Template string or `null` to use the model ID
      * @param array $data
      * @param string $fallback Fallback for tokens in the template that cannot be replaced
      * @return string
      */
-    public function toString(string $template = null, array $data = [], string $fallback = ''): string
+    public function toSafeString(string $template = null, array $data = [], string $fallback = ''): string
+    {
+        return $this->toString($template, $data, $fallback, 'safeTemplate');
+    }
+
+    /**
+     * String template builder
+     *
+     * @param string|null $template Template string or `null` to use the model ID
+     * @param array $data
+     * @param string $fallback Fallback for tokens in the template that cannot be replaced
+     * @param string $handler For internal use
+     * @return string
+     */
+    public function toString(string $template = null, array $data = [], string $fallback = '', string $handler = 'template'): string
     {
         if ($template === null) {
-            return $this->id();
+            return $this->id() ?? '';
         }
 
-        $result = Str::template($template, array_replace([
+        if ($handler !== 'template' && $handler !== 'safeTemplate') {
+            throw new InvalidArgumentException('Invalid toString handler'); // @codeCoverageIgnore
+        }
+
+        $result = Str::$handler($template, array_replace([
             'kirby'             => $this->kirby(),
             'site'              => is_a($this, 'Kirby\Cms\Site') ? $this : $this->site(),
             static::CLASS_ALIAS => $this
-        ], $data), $fallback);
+        ], $data), ['fallback' => $fallback]);
 
         return $result;
     }
@@ -679,10 +589,11 @@ abstract class ModelWithContent extends Model
     /**
      * Updates the model data
      *
-     * @param array $input
-     * @param string $languageCode
+     * @param array|null $input
+     * @param string|null $languageCode
      * @param bool $validate
-     * @return self
+     * @return static
+     * @throws \Kirby\Exception\InvalidArgumentException If the input array contains invalid values
      */
     public function update(array $input = null, string $languageCode = null, bool $validate = false)
     {
@@ -720,7 +631,7 @@ abstract class ModelWithContent extends Model
      *
      * @internal
      * @param array $data
-     * @param string $languageCode
+     * @param string|null $languageCode
      * @return bool
      */
     public function writeContent(array $data, string $languageCode = null): bool
@@ -729,5 +640,60 @@ abstract class ModelWithContent extends Model
             $this->contentFile($languageCode),
             $this->contentFileData($data, $languageCode)
         );
+    }
+
+
+    /**
+     * Deprecated!
+     */
+
+    /**
+     * Returns the panel icon definition
+     *
+     * @deprecated 3.6.0 Use `->panel()->image()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @param array|null $params
+     * @return array|null
+     * @codeCoverageIgnore
+     */
+    public function panelIcon(array $params = null): ?array
+    {
+        return $this->panel()->image($params);
+    }
+
+    /**
+     * @deprecated 3.6.0 Use `->panel()->image()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @internal
+     * @param string|array|false|null $settings
+     * @return array|null
+     * @codeCoverageIgnore
+     */
+    public function panelImage($settings = null): ?array
+    {
+        return $this->panel()->image($settings);
+    }
+
+    /**
+     * Returns an array of all actions
+     * that can be performed in the Panel
+     * This also checks for the lock status
+     *
+     * @deprecated 3.6.0 Use `->panel()->options()` instead
+     * @todo Add `deprecated()` helper warning in 3.7.0
+     * @todo Remove in 3.8.0
+     *
+     * @param array $unlock An array of options that will be force-unlocked
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function panelOptions(array $unlock = []): array
+    {
+        return $this->panel()->options($unlock);
     }
 }

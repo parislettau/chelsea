@@ -83,7 +83,7 @@ trait AppErrors
                 $fatal = $this->option('fatal');
 
                 if (is_a($fatal, 'Closure') === true) {
-                    echo $fatal($this);
+                    echo $fatal($this, $exception);
                 } else {
                     include $this->root('kirby') . '/views/fatal.php';
                 }
@@ -111,9 +111,13 @@ trait AppErrors
                 $httpCode = $exception->getHttpCode();
                 $code     = $exception->getCode();
                 $details  = $exception->getDetails();
-            } else {
+            } elseif (is_a($exception, '\Throwable') === true) {
                 $httpCode = 500;
                 $code     = $exception->getCode();
+                $details  = null;
+            } else {
+                $httpCode = 500;
+                $code     = 500;
                 $details  = null;
             }
 
@@ -140,6 +144,7 @@ trait AppErrors
         });
 
         $this->setWhoopsHandler($handler);
+        $this->whoops()->sendHttpCode(false);
     }
 
     /**

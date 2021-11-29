@@ -3,8 +3,8 @@
 namespace Kirby\Cms;
 
 use Kirby\Exception\NotFoundException;
+use Kirby\Filesystem\F;
 use Kirby\Toolkit\Controller;
-use Kirby\Toolkit\F;
 
 /**
  * Manages and loads all collections
@@ -112,6 +112,7 @@ class Collections
      *
      * @param string $name
      * @return mixed
+     * @throws \Kirby\Exception\NotFoundException
      */
     public function load(string $name)
     {

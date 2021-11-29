@@ -32,6 +32,27 @@ class A
     }
 
     /**
+     * Recursively loops through the array and
+     * resolves any item defined as `Closure`,
+     * applying the passed parameters
+     * @since 3.5.6
+     *
+     * @param array $array
+     * @param mixed ...$args Parameters to pass to the closures
+     * @return array
+     */
+    public static function apply(array $array, ...$args): array
+    {
+        array_walk_recursive($array, function (&$item) use ($args) {
+            if (is_a($item, 'Closure')) {
+                $item = $item(...$args);
+            }
+        });
+
+        return $array;
+    }
+
+    /**
      * Gets an element of an array by key
      *
      * <code>
@@ -141,13 +162,13 @@ class A
      *
      * @param array $array1
      * @param array $array2
-     * @param bool $mode Behavior for elements with numeric keys;
-     *                   A::MERGE_APPEND:    elements are appended, keys are reset;
-     *                   A::MERGE_OVERWRITE: elements are overwritten, keys are preserved
-     *                   A::MERGE_REPLACE:   non-associative arrays are completely replaced
+     * @param int $mode Behavior for elements with numeric keys;
+     *                  A::MERGE_APPEND:    elements are appended, keys are reset;
+     *                  A::MERGE_OVERWRITE: elements are overwritten, keys are preserved
+     *                  A::MERGE_REPLACE:   non-associative arrays are completely replaced
      * @return array
      */
-    public static function merge($array1, $array2, $mode = A::MERGE_APPEND)
+    public static function merge($array1, $array2, int $mode = A::MERGE_APPEND)
     {
         $merged = $array1;
 
@@ -158,7 +179,7 @@ class A
         foreach ($array2 as $key => $value) {
 
             // append to the merged array, don't overwrite numeric keys
-            if (is_int($key) === true && $mode == static::MERGE_APPEND) {
+            if (is_int($key) === true && $mode === static::MERGE_APPEND) {
                 $merged[] = $value;
 
             // recursively merge the two array values
@@ -171,7 +192,7 @@ class A
             }
         }
 
-        if ($mode == static::MERGE_APPEND) {
+        if ($mode === static::MERGE_APPEND) {
             // the keys don't make sense anymore, reset them
             // array_merge() is the simplest way to renumber
             // arrays that have both numeric and string keys;
@@ -354,6 +375,20 @@ class A
     }
 
     /**
+     * A simple wrapper around array_map
+     * with a sane argument order
+     * @since 3.6.0
+     *
+     * @param array $array
+     * @param callable $map
+     * @return array
+     */
+    public static function map(array $array, callable $map): array
+    {
+        return array_map($map, $array);
+    }
+
+    /**
      * Move an array item to a new index
      *
      * @param array $array
@@ -397,7 +432,7 @@ class A
      *
      * $required = ['cat', 'elephant'];
      *
-     * $missng = A::missing($array, $required);
+     * $missing = A::missing($array, $required);
      * // missing: [
      * //    'elephant'
      * // ];
@@ -553,7 +588,7 @@ class A
      */
     public static function sort(array $array, string $field, string $direction = 'desc', $method = SORT_REGULAR): array
     {
-        $direction = strtolower($direction) == 'desc' ? SORT_DESC : SORT_ASC;
+        $direction = strtolower($direction) === 'desc' ? SORT_DESC : SORT_ASC;
         $helper    = [];
         $result    = [];
 
@@ -578,7 +613,7 @@ class A
     }
 
     /**
-     * Checks wether an array is associative or not
+     * Checks whether an array is associative or not
      *
      * <code>
      * $array = ['a', 'b', 'c'];
@@ -597,7 +632,7 @@ class A
      */
     public static function isAssociative(array $array): bool
     {
-        return ctype_digit(implode(null, array_keys($array))) === false;
+        return ctype_digit(implode('', array_keys($array))) === false;
     }
 
     /**

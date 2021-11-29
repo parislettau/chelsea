@@ -99,6 +99,7 @@ return [
             ],
             [
                 'pattern' => 'upload',
+                'method' => 'POST',
                 'action' => function () {
                     $field   = $this->field();
                     $uploads = $field->uploads();
@@ -108,7 +109,7 @@ return [
 
                         return [
                             'filename' => $file->filename(),
-                            'dragText' => $file->dragText('auto', $absolute),
+                            'dragText' => $file->panel()->dragText('auto', $absolute),
                         ];
                     });
                 }
