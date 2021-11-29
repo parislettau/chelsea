@@ -1,5 +1,9 @@
 title: Exhibitions
-#sortable: true
+sortable: true
+status:
+    draft: true
+    listed: true
+    unlisted: true
 icon: page
 columns:
   left:

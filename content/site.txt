@@ -24,27 +24,29 @@ Hours:
 
 - 
   day: M
-  open: 09:00
-  close: 16:30
+  open: 09:00:00
+  close: 16:30:00
 - 
   day: T
-  open: 09:00
-  close: 16:30
+  open: 09:00:00
+  close: 16:30:00
 - 
   day: W
-  open: 09:00
-  close: 16:30
+  open: 09:00:00
+  close: 16:30:00
 - 
   day: T
-  open: 09:00
-  close: 16:30
+  open: 09:00:00
+  close: 16:30:00
 - 
   day: F
-  open: 09:00
-  close: 16:30
+  open: 09:00:00
+  close: 16:30:00
 
 ----
 
 Background:
 
-- dcc7e06e86d2e6d3c3b64a726ac586c9.jpg
+- >
+  dcc7e06e86d2e6d3c3b64a726ac586c9
+  copy.jpg

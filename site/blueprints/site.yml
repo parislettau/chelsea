@@ -14,13 +14,13 @@ columns:
       content:
         type: fields
         fields:
-          staticSiteGenerator:
-            label: Build Website
-            # ... (see "Field options")
-            help: Click to build website
-            progress: In progress...
-            success: Success 🎉
-            error: Something went wrong...
+          # staticSiteGenerator:
+          #   label: Build Website
+          #   # ... (see "Field options")
+          #   help: Click to build website
+          #   progress: In progress...
+          #   success: Success 🎉
+          #   error: Something went wrong...
           status:
             label: Gallery Status
             type: text
@@ -68,7 +68,17 @@ columns:
   right:
     width: 1/2
     sections:
+      listed:
+        type: pages
+        headline: Listed
+        status: listed
       unlisted:
         type: pages
-        headline: Pages
+        headline: Unlisted
         status: unlisted
+      draft:
+        type: pages
+        headline: Drafts
+        status: draft
+
+

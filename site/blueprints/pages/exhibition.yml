@@ -1,10 +1,10 @@
 title: Exhibition
 parent: site.find("exhibitions")
-sortable: false
+sortable: true
 status:
   draft: true
   listed: true
-  unlisted: false
+  unlisted: true
 
 options:
   changeTemplate: false

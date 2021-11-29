@@ -12,4 +12,5 @@
     >
       <?php snippet('nav') ?>
       <?php snippet('home') ?>
+      <?php snippet('menu') ?>
       <?php snippet('content-pane') ?>

@@ -1,14 +1,14 @@
 <section class="home">
     <!-- <div class="background-image" ></div> -->
     <div class="left">
-        <div class="logo"><?php snippet('components/logo') ?></div>
+        <div class="logo" onclick="openMenu()"><?php snippet('components/logo') ?></div>
         <div class="about">
             <?= $site->about() ?>
         </div>
     </div>
     <div class="right">
         <div class="subscribe">
-            <span>Subscribe to the Newsletter</span>
+            <span>Subscribe to the <span class="link">Newsletter</span></span>
         </div>
         <br/>
         <div class="hours">

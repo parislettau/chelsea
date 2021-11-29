@@ -1,0 +1,49 @@
+.menu-pane {
+  padding: var(--body-margins);
+
+  width: 100%;
+  // width: 1440px;
+  height: 529px;
+  background: #C4C4C4;
+  position: fixed;
+  top: -80vh;
+  left:0;
+  transition: top var(--normal) var(--ease);
+
+  font-family: Loos Compressed;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 92%;
+  /* or 59px */
+  display: flex;
+
+  flex-direction: column;
+  text-transform: uppercase;
+  justify-content: space-between;
+
+  color: #000000;
+
+ &.show{
+   top:0;
+ }
+
+  .nav{
+
+    nav{
+      all: unset;
+      ul{
+        li{
+          list-style: none;
+          background: #C4C4C4;
+          a{
+            text-decoration: none;
+            color: inherit;
+  
+          }
+        }
+      }
+    }
+  }
+
+}
