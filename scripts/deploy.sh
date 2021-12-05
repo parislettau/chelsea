@@ -1,13 +1,12 @@
-#!/usr/bin/env sh
+m#!/usr/bin/env sh
 
 USER=root
-HOST=139.180.178.163
-WEBROOT=/var/www/index-journal
+HOST=45.63.28.222
+WEBROOT=/var/www/html/ninetyninepercent
 
 ssh -A $USER@$HOST /bin/bash <<EOF
   cd $WEBROOT
-  git fetch
-  git reset --hard origin/master
+  git pull
 
   sudo chown -R www-data:www-data .
 

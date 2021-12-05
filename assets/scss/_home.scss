@@ -22,7 +22,9 @@
     left: 0;
     padding: var(--body-margins);
 
-    .logo {}
+    .logo {
+      cursor: pointer;
+    }
 
     .about {
       padding-top: var(--body-margins);

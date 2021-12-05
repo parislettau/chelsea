@@ -1,0 +1,12 @@
+title: Default Page
+preset: page
+status:
+  draft: Draft
+  listed: Listed
+  unlisted: Unlisted
+  published: Published
+fields:
+  text:
+    label: Text
+    type: textarea
+    size: large
