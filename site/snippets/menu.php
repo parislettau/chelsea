@@ -7,7 +7,7 @@
         <nav>
             <ul>
                 <?php foreach ($site->children()->listed() as $subpage) : ?>
-                    <li><a href="<?= $subpage->url() ?>"><?= $subpage->title() ?></a></li>
+                    <li><a onclick="closeMenu()" class="content-pane-trigger" href="<?= $subpage->url() ?>" ><?= $subpage->title() ?></a></li>
                 <?php endforeach ?>
             </ul>
 
