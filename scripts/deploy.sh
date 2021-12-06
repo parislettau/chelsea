@@ -1,4 +1,4 @@
-m#!/usr/bin/env sh
+#!/usr/bin/env sh
 
 USER=root
 HOST=45.63.28.222
