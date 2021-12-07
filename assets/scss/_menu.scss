@@ -6,7 +6,7 @@
   // height: 529px;
   background: #C4C4C4;
   position: fixed;
-  top: -80vh;
+  top: -110vh;
   left: 0;
   transition: top var(--normal) var(--ease);
 
@@ -30,6 +30,7 @@
 
   &.show {
     top: 0;
+    z-index: 100;
   }
 
   .logo {
@@ -42,7 +43,7 @@
   }
 
   .nav {
-    margin: 64px 0 32px 0;
+    margin: 12px 0 10px 0;
     @media(max-width: $mobile) {
       text-align: center;
     }
