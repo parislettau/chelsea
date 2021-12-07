@@ -34,6 +34,10 @@
 
   &.show {
     top: 40vh;
+    @media(max-width: $mobile) {
+      top: 25vh;
+
+    }
   }
 
 
@@ -56,6 +60,7 @@
     // height: 100vh;
     // height: calc(var(--vh, 1vh) * 100);
     -webkit-overflow-scrolling: touch;
+    min-height: 60vh;
   }
 
     &-inner {
@@ -74,6 +79,9 @@
 
         .title{
           padding: var(--content-margins) var(--content-margins) calc(var(--content-margins) * 2) var(--content-margins);
+          h1{
+            text-transform: uppercase;
+          }
         }
         .info{
           padding: var(--content-margins);

@@ -1,0 +1,130 @@
+.menu-pane {
+  padding: var(--body-margins);
+
+  width: 100%;
+  // width: 1440px;
+  // height: 529px;
+  background: #C4C4C4;
+  position: fixed;
+  top: -80vh;
+  left: 0;
+  transition: top var(--normal) var(--ease);
+
+  font-family: Loos Compressed;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 92%;
+  /* or 59px */
+  display: flex;
+
+  flex-direction: column;
+  text-transform: uppercase;
+  justify-content: space-between;
+  color: #000000;
+
+  @media(max-width: $mobile) {
+    color: white;
+    display: flex;
+  }
+
+  &.show {
+    top: 0;
+  }
+
+  .logo {
+
+    @media(max-width: $mobile) {
+      margin: auto;
+      filter: invert(100);
+    }
+
+  }
+
+  .nav {
+    margin: 64px 0 32px 0;
+    @media(max-width: $mobile) {
+      text-align: center;
+    }
+
+
+    nav {
+      all: unset;
+
+      ul {
+        li {
+          list-style: none;
+          background: #C4C4C4;
+          line-height: 1;
+
+          a {
+            text-decoration: none;
+            color: inherit;
+
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: var(--body-margins);
+    text-align: right;
+    font-family: loos-compressed, sans-serif;
+    font-weight: 700;
+
+    @media(max-width: $mobile) {
+      display: none;
+    }
+
+
+
+    .subscribe {
+
+      // font-style: normal;
+      // font-weight: 800;
+
+      // font-style: normal;
+      // font-weight: bold;
+      font-size: 15px;
+      line-height: 19px;
+      text-align: right;
+
+      .link {
+        font-family: lust-text, serif;
+        font-weight: 700;
+        font-style: normal;
+        text-decoration: underline;
+      }
+    }
+
+    .hours {
+      // font-weight: 900;
+      // font-style: normal;
+      // font-weight: 900;
+      font-size: 14px;
+      line-height: 98.5%;
+      /* or 14px */
+
+      text-align: right;
+
+      ul {
+        li {
+          list-style: none;
+        }
+      }
+    }
+  }
+
+}
+
+main {
+  &.menu-pane-open {
+
+    pointer-events: none;
+
+  }
+}

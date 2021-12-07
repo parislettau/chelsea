@@ -2,9 +2,6 @@
     <!-- <div class="background-image" ></div> -->
     <div class="left">
         <div class="logo" onclick="openMenu()"><?php snippet('components/logo') ?></div>
-        <div class="about">
-            <?= $site->about() ?>
-        </div>
     </div>
     <div class="right">
         <div class="subscribe">
@@ -23,9 +20,7 @@
         </div>
     </div>
     <div class="bottom">
-        <div class="details">
-        <?= $site->address()->kirbyText() ?>
-        </div>
+        <div class="details"><?= $site->address()->html() ?><a href="mailto:<?= $site->email() ?>" target="_blank" rel="noopener noreferrer"><span class="email"><?= $site->email()->kirbyText() ?></span></a></div>
         <div class="datetime">
             <div id="clock"><?php 
                 date_default_timezone_set('Australia/Melbourne');

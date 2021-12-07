@@ -4,20 +4,25 @@
 
 
   // //FONT SIZES - Golden Ratios
-  // --ultra: 7.00rem;
+  --ultra: 97px;
   // --max: 5.5rem;
   // --large: 3.5rem;
   // --medium: 2rem;
   // --mid: 1.5rem;
   // --body: 1.1rem;
   // --small: 20px;
-  // --smaller: 0.50rem;
+  // --smaller: 0.50rem; 
   // --tiny: 0.3rem;
   // --caption: 14px;
 
   // GLOBAL
-  --body-margins: 27px;
-  --content-margins: 44px;
+  --body-margins: 16px;
+  --content-margins: 27px;
+  --exhibition-margins: 27px;
+
+  @media(max-width: $mobile) {
+    --ultra: 85px;
+  }
 
   //LINE HEIGHTS
   --single: 1;
