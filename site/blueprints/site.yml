@@ -32,6 +32,9 @@ columns:
             label: Address
             type: textarea
             size: small
+          email:
+            label: Email
+            type: text
           hours:
             label: Hours
             type: structure
