@@ -1,85 +1,8 @@
   history.scrollRestoration = 'manual'
-
-
-  // ========================================================================================
-  // OPEN/CLOSE SUPPORT PANE 
-  // ========================================================================================
-
-  function openSupport() {
-    $('.support-pane').toggle()
-    $('.support-pane').addClass('show')
-    $('body').toggleClass('support-pane-open');
-  }
-
-  function closeSupport() {
-    $('.support-pane').removeClass('show')
-    $('body').removeClass('support-pane-open');
-    setTimeout(function () {
-      $('.support-pane').toggle()
-    }, 750)
-  }
-
-  // ========================================================================================
-  // OPEN/CLOSE FILTER PANE 
-  // ========================================================================================
-
-  function openFilter() {
-    if ($(".filter-pane").hasClass("show")) {
-      setTimeout(function () {
-        $('.filter-pane').hide()
-      }, 750)
-    } else {
-      $('.filter-pane').show()
-    };
-
-    $('.filter-pane').toggleClass('show')
-    $('body').toggleClass('filter-pane-open')
-    $('.home-articles').toggleClass('filter-pane-open')
-  }
-
-  function closeFilter() {
-
-    if ($(".filter-pane").hasClass("show")) {
-      setTimeout(function () {
-        $('.filter-pane').hide()
-      }, 750)
-    };
-    $('.filter-pane').removeClass('show')
-    $('body').removeClass('filter-pane-open')
-    $('.home-articles').removeClass('filter-pane-open')
-
-  }
-
-  // // ========================================================================================
-  // // OPEN/CLOSE MENU PANE 
-  // // ========================================================================================
-
-  // function openMenu() {
-  //   if (!$('.menu-pane').hasClass("show")) {
-  //     $('.menu-pane').show()
-  //   };
-  //   $('.menu-pane').addClass('show')
-  //   $('body').addClass('menu-pane-open')
-
-  // }
-
-  // function closeMenu() {
-
-
-  //   if ($('.menu-pane').hasClass("show")) {
-  //     setTimeout(function () {
-  //       $('.menu-pane').hide()
-  //     }, 750)
-  //   };
-  //   $('.menu-pane').removeClass('show')
-  //   $('body').removeClass('menu-pane-open')
-
-  // }
-
   // ========================================================================================
   // OPEN CONTENT PANE 
   // ========================================================================================
-  function openPane(url, scrolled, push) {
+  function openPane(url, push) {
     $('.content-pane').toggle();
     $('body').addClass('content-pane-open');
     $('.content-pane-wrapper').addClass('show');
@@ -117,27 +40,16 @@
     setTimeout(function () {
       $('.content-pane-text').html('')
     }, 750)
-    if (push) {
-      history.pushState(null, document.title, window.home)
-    };
-    history.pushState(null, document.title, window.home)
+    // if (push) history.pushState(null, document.title, window.home);
+    history.pushState(null, document.title, '/');
+
+    // history.pushState(null, document.title, '/')
     setTimeout(function () {
       $('.content-pane').toggle()
     }, 750)
 
   }
-
-  // ========================================================================================
-  // LOAD IMAGES 
-  // ========================================================================================
-  //  function loadImages() {
-  //    $('img, .img, .score-block__image').imagesLoaded({
-  //        background: true
-  //      })
-  //      .progress(function (instance, image) {
-  //        $(image.element || image.img).addClass('loaded');
-  //      })
-  //  }
+ 
 
   // ========================================================================================
   // DOCUMENT READY FUNCTIONS
@@ -164,23 +76,6 @@
 
 
     // ========================================================================================
-    // ADD SCROLLED CLASS TO CONTENT PANE
-    // ========================================================================================
-    //	var $pane = $('.content-pane-text')
-    //  	$pane.on('scroll', paneScroll)
-    //  	var $paneOuter = $('.content-pane')
-    //  	var paneScrolled
-    //
-    //  	function paneScroll() {
-    //  		var top = $pane.scrollTop()
-    //  		var _paneScrolled = top > window.innerHeight
-    //  		if (paneScrolled !== _paneScrolled) {
-    //  			$paneOuter[_paneScrolled ? 'addClass' : 'removeClass']('scrolled')
-    //  		}
-    //  		paneScrolled = _paneScrolled
-    //  	}
-
-    // ========================================================================================
     // OPEN/CLOSE CONTENT PANE TRIGGER
     // ========================================================================================
 
@@ -188,9 +83,7 @@
     $('body').on('click', 'a.content-pane-trigger', function (event) {
       event.preventDefault()
       var url = this.href
-      var scrolled = window.scrollY
-      openPane(url, scrolled, true)
-      console.log(scrolled)
+      openPane(url, true)
     })
 
     //CLOSE

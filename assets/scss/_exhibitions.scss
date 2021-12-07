@@ -4,16 +4,22 @@
     margin-top: 40vh;
     width: 75%;
     float: right;
+    @media(max-width: $mobile) {
+        width: 100%;
+        margin-top: 25vh;
+
+    }
     a{
         text-decoration: none;
     }
     .card {
-        margin-bottom: -80vh;
+        margin-bottom: -60vh;
+        
         
         &:last-of-type {
-            margin-bottom: -40vh;
+            margin-bottom: -60vh;
             .show-title{
-                font-size: 96px;
+                font-size: var(--ultra);
                 font-style: normal;
                 font-weight: 700;
                 line-height: 73px;
@@ -24,13 +30,17 @@
                 // min-height: 200px;
                 // position: absolute;
                 text-transform: uppercase;
-                padding: var(--body-margins) var(--body-margins) calc(var(--body-margins) + 40vh) var(--body-margins);
+                padding: var(--exhibition-margins) var(--exhibition-margins) calc(var(--exhibition-margins) + 47vh) var(--exhibition-margins);
+                @media(max-width: $mobile) {
+                    word-break: break-word;
+                }
+             
             }
           }
 
           .show-title{
         
-            font-size: 96px;
+            font-size: var(--ultra);
             font-style: normal;
             font-weight: 700;
             line-height: 73px;
@@ -41,7 +51,10 @@
             // min-height: 200px;
             // position: absolute;
             text-transform: uppercase;
-            padding: var(--body-margins) var(--body-margins) calc(var(--body-margins) + 80vh) var(--body-margins);
+            padding: var(--exhibition-margins) var(--exhibition-margins) calc(var(--exhibition-margins) + 60vh) var(--exhibition-margins);
+            @media(max-width: $mobile) {
+                word-break: break-word;
+            }
     
           
     
