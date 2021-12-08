@@ -11,7 +11,7 @@
         <div class="hours">
             <ul>
                 <?php foreach ($site->hours()->toStructure() as $hours) : ?>
-                    <li><?= $hours->day() ?><span>: </span><?= $hours->open() ?>–<?= $hours->close() ?></li>
+                    <li><?= $hours->day(); ?><span>: </span><?= $hours->open()->toDate('g:i a') ?>–<?= $hours->close()->toDate('g:i a') ?></li>
                 <?php endforeach ?>
             </ul>
         </div>

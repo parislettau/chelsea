@@ -27,7 +27,7 @@ Hours:
 - 
   day: M
   open: 09:00:00
-  close: 16:30:00
+  close: 17:00:00
 - 
   day: T
   open: 12:00:00
