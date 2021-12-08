@@ -22,13 +22,10 @@
     <div class="bottom">
         <div class="details"><?= $site->address()->html() ?><a href="mailto:<?= $site->email() ?>" target="_blank" rel="noopener noreferrer"><span class="email"><?= $site->email()->kirbyText() ?></span></a></div>
         <div class="datetime">
-            <div class="time">
-                <span style="font-size:var(--ultra)">.</span>
-                <span id="clock">
+            <div id="time">
                     <?php
                     date_default_timezone_set('Australia/Melbourne');
                     echo date('h:i A'); ?>
-                </span>
 
 
 
@@ -44,7 +41,7 @@
 
 
 <script>
-    var clockElement = document.getElementById("clock");
+    var clockElement = document.getElementById("time");
 
     function updateClock(clock) {
         clock.innerHTML = new Date().toLocaleTimeString('en-US', {

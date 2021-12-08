@@ -3,7 +3,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 19px;
+  // line-height: 19px;
   letter-spacing: 0em;
 
   .background-image {
@@ -102,17 +102,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-    // height: 136px;
-    // display: grid;
-    // grid-template-columns: 25% 75%;
-    // grid-template-areas: "details datetime";
-    // background: #FFFFFF66;
-    // box-shadow: 0px 4px 4px 0px #00000040;
+    line-height: 1;
     background: rgba(255, 255, 255, 0.4);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(25px);
 
-    padding: var(--body-margins);
+    padding: 0 var(--body-margins);
 
     display: flex;
     flex-direction: row;
@@ -127,10 +122,16 @@
     .details {
       grid-area: details;
       width: fit-content;
+      padding: var(--body-margins) 0;
+
+      @media(max-width: $mobile) {
+        padding: var(--body-margins) 0 0 0;
+      }
 
       font-size: 16px;
-
-      font-family: loos-compressed, sans-serif;
+      line-height: 1.1;
+      font-family: loos-compressed,
+      sans-serif;
       font-weight: 700;
       white-space: break-spaces;
 
@@ -150,7 +151,6 @@
 
     .datetime {
       font-family: FKScreamerLegacy, sans-serif;
-      grid-area: datetime;
       display: flex;
       flex-direction: row;
       justify-content: end;
@@ -160,13 +160,14 @@
         justify-content: space-between;
       }
 
-      .time {
+      #time {
         font-size: var(--ultra);
         font-style: normal;
         font-weight: 700;
         // line-height: 106px;
         letter-spacing: 0em;
         text-align: left;
+        list-style: unset;
         // height: var(--ultra);
 
       }
@@ -181,12 +182,15 @@
       // }
 
       .date {
-        height: 65px;
+        height: 73px;
         background: #000000;
         margin: 0 0 0 var(--body-margins);
         padding: 0 10px;
         display: flex;
 
+        @media(max-width: $mobile) {
+          height: 60px;
+        }
 
         .content {
           // height: 70px;
