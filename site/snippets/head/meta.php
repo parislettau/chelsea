@@ -8,6 +8,8 @@ $thumbnail = (function () use ($page, $site) {
 
 ?>
 
+<meta name="theme-color" content="#C4C4C4">
+
 <title><?= $title ?></title>
 <link rel="canonical" href="<?= $page->url() ?>">
 <meta charset="utf-8">
