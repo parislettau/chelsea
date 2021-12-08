@@ -1,0 +1,54 @@
+Title: 99%
+
+----
+
+Status: Gallery currently closed.
+
+----
+
+About: 
+
+----
+
+Address:
+
+Suite 3, Level 7, 37 Swanston Street
+Nicholas Building
+Melbourne
+
+----
+
+Email:
+
+info@99percent.gallery
+
+----
+
+Hours:
+
+- 
+  day: M
+  open: 09:00:00
+  close: 16:30:00
+- 
+  day: T
+  open: 12:00:00
+  close: 17:00:00
+- 
+  day: W
+  open: 12:00:00
+  close: 17:00:00
+- 
+  day: T
+  open: 12:00:00
+  close: 17:00:00
+- 
+  day: F
+  open: 12:00:00
+  close: 17:00:00
+
+----
+
+Background:
+
+- img_0584.jpeg
