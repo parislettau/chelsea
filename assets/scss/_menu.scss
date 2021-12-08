@@ -37,7 +37,8 @@
 
     @media(max-width: $mobile) {
       margin: auto;
-      filter: invert(100);
+      -webkit-filter: invert(100);
+              filter: invert(100);
     }
 
   }
