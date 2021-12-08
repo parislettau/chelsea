@@ -10,7 +10,10 @@ Icon
 /media/*
 !/media/index.html
 *.zip
+/content
 /content/*
+/temp/*
+/temp
 
 
 # -------------SECURITY-------------
@@ -39,5 +42,4 @@ Icon
 # ---------------
 /site/config/.license
 
-/content
 node_modules
