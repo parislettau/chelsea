@@ -2,7 +2,7 @@ Title: 99%
 
 ----
 
-Status: Gallery currently closed.
+Status: Opening 2022
 
 ----
 
@@ -18,9 +18,7 @@ Melbourne
 
 ----
 
-Email:
-
-info@99percent.gallery
+Email: info@99percent.gallery
 
 ----
 
@@ -51,4 +49,4 @@ Hours:
 
 Background:
 
-- img_0584.jpeg
+- gradient.jpeg

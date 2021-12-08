@@ -7,29 +7,33 @@
         <div class="subscribe">
             <span>Subscribe to the <span class="link">Newsletter</span></span>
         </div>
-        <br/>
+        <br />
         <div class="hours">
             <ul>
-                <?php foreach ($site->hours()->toStructure() as $hours): ?>
-                <li><?= $hours->day() ?><span>: </span><?= $hours->open() ?>–<?= $hours->close() ?></li>
+                <?php foreach ($site->hours()->toStructure() as $hours) : ?>
+                    <li><?= $hours->day() ?><span>: </span><?= $hours->open() ?>–<?= $hours->close() ?></li>
                 <?php endforeach ?>
             </ul>
         </div>
         <div class="status">
-            <span><br /><?php if($site->status()->isnotEmpty()):?><?= $site->status() ?><?php endif ?></span>
+            <span><br /><?php if ($site->status()->isnotEmpty()) : ?><?= $site->status() ?><?php endif ?></span>
         </div>
     </div>
     <div class="bottom">
         <div class="details"><?= $site->address()->html() ?><a href="mailto:<?= $site->email() ?>" target="_blank" rel="noopener noreferrer"><span class="email"><?= $site->email()->kirbyText() ?></span></a></div>
         <div class="datetime">
-            <div id="clock"><?php 
-                date_default_timezone_set('Australia/Melbourne');
-                echo date('h:i A'); ?>
+            <div class="time">
+                <span id="clock">
+                    <?php
+                    date_default_timezone_set('Australia/Melbourne');
+                    echo date('h:i A'); ?>
+                </span>
+
             </div>
             <div class="date">
                 <div class="content"><?php echo date('j\/m\/Y'); ?></div>
             </div>
-              
+
         </div>
     </div>
 </section>
@@ -37,11 +41,15 @@
 
 
 <script>
-    var clockElement = document.getElementById( "clock" );
-    function updateClock ( clock ) {
-        clock.innerHTML = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    var clockElement = document.getElementById("clock");
+
+    function updateClock(clock) {
+        clock.innerHTML = new Date().toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     }
-    setInterval(function () {
-        updateClock( clockElement );
+    setInterval(function() {
+        updateClock(clockElement);
     }, 1000);
 </script>

@@ -160,18 +160,22 @@
         justify-content: space-between;
       }
 
-
-      #clock {
-
+      .time {
         font-size: var(--ultra);
         font-style: normal;
         font-weight: 700;
         // line-height: 106px;
         letter-spacing: 0em;
         text-align: left;
+      }
 
-
-
+      #clock {
+        font-size: var(--ultra);
+        font-style: normal;
+        font-weight: 700;
+        // line-height: 106px;
+        letter-spacing: 0em;
+        text-align: left;
       }
 
       .date {

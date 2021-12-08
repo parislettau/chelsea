@@ -4,7 +4,7 @@ return [
   // DEBUG OPTIONS
   'debug'  => true,
 
-  'home' => 'exhibitions',
+  'home' => 'subscribe',
 
   'panel' =>[
     'install' => true

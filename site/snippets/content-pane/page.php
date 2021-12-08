@@ -8,7 +8,7 @@
                 <h1><?= $page->title() ?></h2>
             </div>
         </div>
-        <div class="content">
+        <div class="content <?= $page->template() ?>">
             <?= $page->text()->kirbyText() ?>
         </div>
     </article>

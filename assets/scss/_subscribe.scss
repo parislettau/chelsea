@@ -1,8 +1,49 @@
 .subscribe-wrapper {
+  color: #C4C4C4;
   input {
     background: #FFFFFF;
     border: 3px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
+    line-height: 114.5%;
+
+    letter-spacing: -0.065em;
+    font-family: lust-text, serif;
+    padding: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3vw;
+    line-height: 114.5%;
+    width: 100%;
+
+    @media(max-width: $mobile) {
+text-transform: uppercase;
+
+    }
+
+    
+  }
+
+  .button {
+    // width: 245px;
+    height: 20%;
+    background: #C4C4C4;
+    border-radius: 10px;
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: row;
+
+    .mc-field-group {
+      flex-grow: 5;
+    }
+
+    .optionalParent {
+      flex-grow: 1;
+    }
   }
 }
