@@ -1,0 +1,53 @@
+Title: The People
+
+----
+
+Text: f
+
+----
+
+Bio: 
+
+----
+
+Theme: #24043D
+
+----
+
+Font: #C4E0EC
+
+----
+
+Thumbnail: 
+
+----
+
+Artists: Chunxiao Qu
+
+----
+
+Open: 
+
+----
+
+Clos: 
+
+----
+
+Location: Online
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 
