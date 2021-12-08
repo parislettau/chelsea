@@ -115,6 +115,7 @@
 
     @media(max-width: $mobile) {
       flex-direction: column;
+      padding: 0 var(--body-margins) calc(var(--body-margins) / 2) var(--body-margins);
     }
 
 
