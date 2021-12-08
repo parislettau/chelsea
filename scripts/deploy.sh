@@ -6,7 +6,7 @@ WEBROOT=/var/www/html/ninetyninepercent
 
 ssh -A $USER@$HOST /bin/bash <<EOF
   cd $WEBROOT
-  git pull
+  git fetch
   git reset --hard origin/main
   sudo chown -R www-data:www-data .
 
