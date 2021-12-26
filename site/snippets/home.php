@@ -1,3 +1,8 @@
+
+<?php if ($site->toggle_cq()->toBool() === true) : ?>
+<?php snippet('cq') ?>
+<?php endif ?>
+
 <section class="home">
     <!-- <div class="background-image" ></div> -->
     <div class="left">
@@ -23,9 +28,9 @@
         <div class="details"><?= $site->address()->html() ?><a href="mailto:<?= $site->email() ?>" target="_blank" rel="noopener noreferrer"><span class="email"><?= $site->email()->kirbyText() ?></span></a></div>
         <div class="datetime">
             <div id="time">
-                    <?php
-                    date_default_timezone_set('Australia/Melbourne');
-                    echo date('h:i A'); ?>
+                <?php
+                date_default_timezone_set('Australia/Melbourne');
+                echo date('h:i A'); ?>
 
 
 

@@ -66,6 +66,21 @@ columns:
             extends: sections/cover
             template: image
             required: true
+            width: 1/2
+          cq:
+            label: Artwork
+            extends: sections/cover
+            template: image
+            required: false
+            width: 1/2
+          toggle_cq:
+            label: Toggle Artwork
+            type: toggle
+            text: 
+              - "no"
+              - "yes"
+
+
 
   # pages
   right:
