@@ -4,9 +4,14 @@ return [
   // DEBUG OPTIONS
   'debug'  => true,
 
+  // password reset
+  'auth' => [
+    'methods' => ['password', 'password-reset']
+  ],
+
   'home' => 'subscribe',
 
-  'panel' =>[
+  'panel' => [
     'install' => true
   ],
 
