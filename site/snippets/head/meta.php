@@ -15,7 +15,7 @@ $thumbnail = (function () use ($page, $site) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
 <meta charset="UTF-8">
-<?php if($page->template() == 'review'): ?>
+<?php if ($page->template() == 'review') : ?>
   <meta name="author" content="<?= $page->author() ?>">
 <?php endif ?>
 
@@ -25,7 +25,10 @@ $thumbnail = (function () use ($page, $site) {
 
 
 
-<link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <meta property="og:url" content="<?= $page->url() ?>">
 <meta property="og:type" content="website">
