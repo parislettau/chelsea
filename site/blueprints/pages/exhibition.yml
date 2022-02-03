@@ -68,6 +68,9 @@ columns:
             label: Content
             type: textarea
             size: small
+          # snippet:
+          #   type: textarea
+          #   size: small
           events:
             label: Related Events
             type: structure

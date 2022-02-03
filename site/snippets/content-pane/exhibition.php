@@ -12,14 +12,13 @@
                             <?php if ($page->curator()->isNotEmpty()) : ?>
                                 <span>Curated by <span><?= $page->curator() ?></span></span>
                             <?php endif ?>
-                            <br />
+
                             <?php if ($page->location()->isNotEmpty()) : ?>
                                 <span><?= $page->location() ?></span>
                             <?php endif ?>
                             <?php if ($page->open()->isNotEmpty()) : ?>
                                 <span><?= $page->open()->toDate('d M') ?></span><?php endif ?><?php if ($page->open()->isNotEmpty()) : ?><span>—<?= $page->close()->toDate('d M Y') ?></span><?php endif ?>
                         </div>
-                        <br />
                         <div class="artists">
                             <?php if ($page->artists()->isNotEmpty()) : ?><?= $page->artists() ?><?php endif ?>
                         </div>
