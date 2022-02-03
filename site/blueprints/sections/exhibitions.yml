@@ -1,6 +1,6 @@
 type: pages
 headline: Published
-# template: exhibition
+template: exhibition
 status: published
 # info: "{{ page.num }}"
 empty: No articles yet
