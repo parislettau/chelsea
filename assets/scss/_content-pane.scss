@@ -84,15 +84,41 @@
 
           .info {
             padding: var(--content-margins);
+            font-family: loos-compressed, serif;
+
+
+            .curator {
+
+              .name {
+                font-family: lust-text, serif;
+                font-weight: 400;
+                font-style: normal;
+                text-decoration: underline;
+              }
+            }
+
+            .location {}
 
             .artists {
               width: 360px;
+              margin-top: 16px;
+              text-decoration: underline;
+              font-family: lust-text, serif;
+              font-weight: 400;
+              font-style: normal;
             }
           }
 
           .carousel {
             margin: var(--content-margins);
             width: 66.666%;
+
+            @media(max-width: 768px) {
+              margin: 0;
+              // margin: var(--content-margins);
+
+              width: unset;
+            }
 
             img {
               max-width: 100%;
@@ -104,6 +130,17 @@
 
             .embla {
               overflow: hidden;
+
+              figcaption {
+                // font-family: loos-compressed, serif;
+                font-weight: 400;
+                font-style: normal;
+
+                @media(max-width: 768px) {
+                  margin: 0 var(--content-margins);
+
+                }
+              }
             }
 
             .embla__container {
@@ -118,7 +155,7 @@
 
           .content {
             padding: calc(var(--content-margins) * 2) var(--content-margins) calc(var(--content-margins) * 4) var(--content-margins);
-            width: 774px;
+            max-width: 774px;
 
             p {
               // font-family: Loos Compressed;

@@ -8,17 +8,23 @@
                         <h1><?= $page->title() ?></h2>
                     </div>
                     <div class="info" style="border-bottom: 1px solid <?= $page->font() ?>; border-top: 1px solid <?= $page->font() ?>">
-                        <div class="times">
-                            <?php if ($page->curator()->isNotEmpty()) : ?>
-                                <span>Curated by <span><?= $page->curator() ?></span></span>
-                            <?php endif ?>
 
-                            <?php if ($page->location()->isNotEmpty()) : ?>
-                                <span><?= $page->location() ?></span>
-                            <?php endif ?>
-                            <?php if ($page->open()->isNotEmpty()) : ?>
-                                <span><?= $page->open()->toDate('d M') ?></span><?php endif ?><?php if ($page->open()->isNotEmpty()) : ?><span>—<?= $page->close()->toDate('d M Y') ?></span><?php endif ?>
-                        </div>
+                        <?php if ($page->curator()->isNotEmpty()) : ?>
+                            <div class="curator">
+                                Curated by
+                                <span class="name"><?= $page->curator() ?>
+                                </span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($page->location()->isNotEmpty()) : ?>
+                            <span class=" location">
+                                <?= $page->location() ?>
+                            </span>
+                        <?php endif ?>
+                        <?php if ($page->open()->isNotEmpty()) : ?>
+                            <span><?= $page->open()->toDate('d M') ?></span><?php endif ?><?php if ($page->open()->isNotEmpty()) : ?><span>—<?= $page->close()->toDate('d M Y') ?></span><?php endif ?>
+
                         <div class="artists">
                             <?php if ($page->artists()->isNotEmpty()) : ?><?= $page->artists() ?><?php endif ?>
                         </div>
@@ -62,7 +68,7 @@
                         <?= $page->text()->kirbyText() ?>
                     </div>
                     <div class="calendar" style="background-color: <?= $page->font() ?>; color: <?= $page->theme() ?>">
-                        Add THE BODY SPEAKS BEFORE IT BEGINS TO TALK as an event reminder to your iCal
+                        <!-- Add THE BODY SPEAKS BEFORE IT BEGINS TO TALK as an event reminder to your iCal -->
                     </div>
                     <?php
                     // using the `toStructure()` method, we create a structure collection
