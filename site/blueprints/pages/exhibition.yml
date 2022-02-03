@@ -68,7 +68,6 @@ columns:
             label: Content
             type: textarea
             size: small
-
           events:
             label: Related Events
             type: structure

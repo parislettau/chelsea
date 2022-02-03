@@ -91,12 +91,15 @@
           }
 
           .carousel {
+            margin: var(--content-margins);
+            width: 66.666%;
+
             img {
               max-width: 100%;
               width: 100%;
               max-height: 90vh;
               -o-object-fit: cover;
-                 object-fit: cover;
+              object-fit: cover;
             }
 
             .embla {
@@ -125,6 +128,10 @@
               line-height: 21px;
               letter-spacing: 0.015em;
               text-align: left;
+
+              &+p {
+                margin-top: 16px;
+              }
 
             }
 

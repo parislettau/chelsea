@@ -34,7 +34,13 @@
                                 <?php $images = $page->images()->sortBy('sort') ?>
                                 <?php foreach ($images as $image) : ?>
                                     <div class="embla__slide">
-                                        <img src="<?= $image->url() ?>" alt="" srcset="<?= $image->srcset('default') ?>">
+                                        <figure>
+                                            <img src="<?= $image->url() ?>" alt="" srcset="<?= $image->srcset('default') ?>">
+                                        </figure>
+                                        <figcaption>
+                                            <?= $image->caption() ?>
+                                        </figcaption>
+
                                     </div>
                                 <?php endforeach ?>
                             </div>
@@ -59,6 +65,33 @@
                     <div class="calendar" style="background-color: <?= $page->font() ?>; color: <?= $page->theme() ?>">
                         Add THE BODY SPEAKS BEFORE IT BEGINS TO TALK as an event reminder to your iCal
                     </div>
+                    <?php
+                    // using the `toStructure()` method, we create a structure collection
+                    $events = $page->events()->toStructure();
+                    if ($events != null) :
+                    ?>
+                        <div class="events">
+                            <h1>Related Events:</h1>
+                            <?php
+                            // using the `toStructure()` method, we create a structure collection
+                            // $events = $page->events()->toStructure();
+
+                            // we can then loop through the entries and render the individual fields
+                            foreach ($events as $event) : ?>
+                                <div class="event">
+                                    <div class="left">
+                                        <div class="category"><?= $event->category()->html() ?></div>
+                                        <div class="headline"><?= $event->headline()->kirbytext() ?></div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="details"><?= $event->details()->kirbytext() ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endif ?>
+
+
                     <div class="footer"></div>
                 </div>
             </article>
