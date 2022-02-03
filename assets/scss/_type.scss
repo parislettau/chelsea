@@ -9,20 +9,21 @@
   src: url("fonts/FKScreamerLegacy-Upright.otf") format("opentype");
 }
 
+// Loos
 @import url("https://use.typekit.net/mqo2dyh.css");
+
+// Lust Text
+@import url("https://use.typekit.net/wvj4ewr.css");
 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-p {
-}
+p {}
 
 // Block quotes
 blockquote {
-  p {
-  }
+  p {}
 }
 
 // Headings
@@ -56,27 +57,18 @@ h1,
 }
 
 h2,
-.h2 {
-
-}
+.h2 {}
 
 h3,
-.h3 {
-}
+.h3 {}
 
 h4,
-.h4 {
-
-}
+.h4 {}
 
 h5,
-.h5 {
-
-}
+.h5 {}
 
 h6,
-.h6 {
-
-}
+.h6 {}
 
 .nav {}
