@@ -1,6 +1,5 @@
-
 <?php if ($site->toggle_cq()->toBool() === true) : ?>
-<?php snippet('cq') ?>
+    <?php snippet('cq') ?>
 <?php endif ?>
 
 <section class="home">
@@ -10,7 +9,7 @@
     </div>
     <div class="right">
         <div class="subscribe">
-            <span>Subscribe to the <span class="link">Newsletter</span></span>
+            <span>Subscribe to the <span class="link"><a href="/subscribe">Newsletter</a></span></span>
         </div>
         <br />
         <div class="hours">
