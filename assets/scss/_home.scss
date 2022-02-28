@@ -12,7 +12,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
+    filter: grayscale(100%);
     position: fixed;
     width: 100vw;
   }
@@ -107,7 +107,7 @@
     background: rgba(255, 255, 255, 0.4);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     -webkit-backdrop-filter: blur(25px);
-            backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
 
     padding: 0 var(--body-margins);
 
@@ -189,12 +189,13 @@
       .date {
         height: 73px;
         background: #000000;
-        margin: 0 0 0 var(--body-margins);
+        // margin: 0 0 0 var(--body-margins);
+        margin: 0 0 0 0;
         padding: 0 10px;
         display: flex;
 
         @media(max-width: $mobile) {
-          height: 60px;
+          height: 52px;
         }
 
         .content {

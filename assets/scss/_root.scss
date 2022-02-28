@@ -21,7 +21,7 @@
   --exhibition-margins: 27px;
 
   @media(max-width: $mobile) {
-    --ultra: 75px;
+    --ultra: 69px;
   }
 
   //LINE HEIGHTS
@@ -29,7 +29,7 @@
   --double: 2;
 
   //HIGHLIGHT COLOUR
-  --highlight: ;
+  --highlight:;
 
   //FONT COLOUR
   --home: #3F3620;
@@ -50,20 +50,9 @@
   --widest: 1rem;
 
 
-  @media(max-width: $table_portrait) {
+  @media(max-width: $table_portrait) {}
 
+  @media(max-width: $tablet) {}
 
-  }
-
-  @media(max-width: $tablet) {
-
-
-
-  }
-
-  @media(max-width: $mobile) {
-
-
-
-  }
+  @media(max-width: $mobile) {}
 }
