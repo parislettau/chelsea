@@ -62,7 +62,7 @@ columns:
           background:
             label: Background Image
             extends: sections/cover
-            template: image
+            template: files/image
             required: true
             width: 1/2
           cq:
