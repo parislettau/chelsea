@@ -61,7 +61,7 @@ $artwork = $site->cq()->toFile()
     <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span></div>
     <figure><img src="<?= $artwork->url() ?>" alt="" class="artwork">
-        <figcaption><?= $artwork->caption() ?></figcaption>
+        <figcaption><?= $artwork->caption()->kirbytextinline() ?></figcaption>
     </figure>
 
 
