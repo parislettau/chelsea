@@ -10,6 +10,7 @@
         bottom: 0;
         background: rgba(255, 255, 255, 0.4);
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+        /* filter: blur(25px); */
         -webkit-backdrop-filter: blur(25px);
         backdrop-filter: blur(25px);
         display: none;
@@ -41,16 +42,23 @@
 
 
     figure {
-        /* object-fit: cover; */
         max-height: 80%;
         max-width: 90%;
         margin: auto;
+        display: table;
+        filter: none;
     }
 
     img {
-        max-height: 100%;
+        max-height: 80vh;
         max-width: 100%;
-        /* margin: auto; */
+        object-fit: cover;
+        margin: auto;
+    }
+
+    figcaption {
+        display: table-caption;
+        caption-side: bottom;
     }
 </style>
 <!-- Draggable DIV -->
