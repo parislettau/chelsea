@@ -27,7 +27,7 @@
         font-family: loos-compressed, sans-serif;
         font-weight: 700;
         padding: 7px;
-        color:black;
+        color: black;
         opacity: 0.8;
     }
 
@@ -40,11 +40,17 @@
     }
 
 
-    img {
+    figure {
         /* object-fit: cover; */
         max-height: 80%;
         max-width: 90%;
         margin: auto;
+    }
+
+    img {
+        max-height: 100%;
+        max-width: 100%;
+        /* margin: auto; */
     }
 </style>
 <!-- Draggable DIV -->
@@ -54,8 +60,10 @@ $artwork = $site->cq()->toFile()
 <div id="mydiv">
     <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span></div>
+    <figure><img src="<?= $artwork->url() ?>" alt="" class="artwork">
+        <figcaption><?= $artwork->caption() ?></figcaption>
+    </figure>
 
-    <img src="<?= $artwork->url() ?>" alt="" class="artwork">
 
 
 

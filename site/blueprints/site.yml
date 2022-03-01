@@ -4,9 +4,7 @@ title: Site
 # drafts: false
 # published: false
 
-
 columns:
-
   # main content
   left:
     width: 1/2
@@ -70,17 +68,15 @@ columns:
           cq:
             label: Artwork
             extends: sections/cover
-            template: image
+            template: files/image
             required: false
             width: 1/2
           toggle_cq:
             label: Toggle Artwork
             type: toggle
-            text: 
+            text:
               - "no"
               - "yes"
-
-
 
   # pages
   right:
@@ -98,5 +94,3 @@ columns:
         type: pages
         headline: Drafts
         status: draft
-
-

@@ -5,7 +5,7 @@
   }
 
   .title {
-    padding: var(--content-margins) var(--content-margins) calc(var(--content-margins) * 2) var(--content-margins);
+    padding: var(--content-margins) var(--content-margins) var(--content-margins) var(--content-margins);
     color: #C4C4C4;
   }
 
@@ -32,7 +32,7 @@
         width: 100%;
         max-height: 90vh;
         -o-object-fit: cover;
-           object-fit: cover;
+        object-fit: cover;
       }
 
       .embla {
