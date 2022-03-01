@@ -189,13 +189,14 @@
       .date {
         height: 73px;
         background: #000000;
-        // margin: 0 0 0 var(--body-margins);
-        margin: 0 0 0 0;
+        margin: 0 0 0 var(--body-margins);
         padding: 0 10px;
         display: flex;
 
         @media(max-width: $mobile) {
           height: 52px;
+          margin: 0 0 0 0;
+
         }
 
         .content {
