@@ -91,16 +91,16 @@ $artwork = $site->cq()->toFile()
 
     $(document).ready(function() {
         setTimeout(function() {
-            // if (!$.cookie('alert')) {
-            $('#mydiv').css("display", "flex").hide().fadeIn(1000);
-            $('#mydiv').show();
-            var date = new Date();
-            date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * 180);
-            // date.setTime(date.getTime() + 60);
-            $.cookie('alert', true, {
-                expires: date
-            });
-            // }
+            if (!$.cookie('alert')) {
+                $('#mydiv').css("display", "flex").hide().fadeIn(1000);
+                $('#mydiv').show();
+                var date = new Date();
+                date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * 180);
+                // date.setTime(date.getTime() + 60);
+                $.cookie('alert', true, {
+                    expires: date
+                });
+            }
         }, 5000);
     });
 </script>

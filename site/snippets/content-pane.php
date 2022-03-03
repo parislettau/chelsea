@@ -25,13 +25,14 @@
        // Click outside pane to close all menus
        $(document).mouseup(function(e) {
           let container = $("#content-pane");
+          let cq = $("#mydiv");
+
           // if the target of the click isn't the container and isn't menu-b nor a descendant of the container
           if (
              !container.is(e.target) &&
              container.has(e.target).length === 0 &&
              container.has(e.target).length === 0 &&
              $('body').hasClass("content-pane-open")
-
           ) {
              closePane(true)
           }
