@@ -32,7 +32,11 @@
              !container.is(e.target) &&
              container.has(e.target).length === 0 &&
              container.has(e.target).length === 0 &&
-             $('body').hasClass("content-pane-open")
+             $('body').hasClass("content-pane-open") &&
+
+             !cq.is(e.target) &&
+             cq.has(e.target).length === 0 &&
+             cq.has(e.target).length === 0
           ) {
              closePane(true)
           }
