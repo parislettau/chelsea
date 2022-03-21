@@ -9,7 +9,7 @@ return [
     'methods' => ['password', 'password-reset']
   ],
 
-  'home' => 'subscribe',
+  'home' => 'exhibitions',
 
   'panel' => [
     'install' => true
