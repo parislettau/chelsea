@@ -9,7 +9,7 @@
     </div>
     <div class="right">
         <div class="subscribe">
-            <span>Subscribe to the <span class="link"><a href="/subscribe">Newsletter</a></span></span>
+            <span>Subscribe to the <span class="link"><a href="/subscribe">mailing list</a></span></span>
         </div>
         <br />
         <div class="hours">
