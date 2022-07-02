@@ -4,7 +4,7 @@
 <?php
 $artwork = $site->cq()->toFile()
 ?>
-<div id="mydiv">
+<div id="cxq">
     <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span></div>
     <figure><img src="<?= $artwork->url() ?>" alt="" class="artwork">
@@ -19,20 +19,20 @@ $artwork = $site->cq()->toFile()
 
 <script>
     function closePopup() {
-        $('#mydiv').remove();
+        $('#cxq').remove();
     }
 
     function showPopup() {
-        $('#mydiv').css("display", "flex")
-        $('#mydiv').hide()
-        $('#mydiv').fadein(2000);
+        $('#cxq').css("display", "flex")
+        $('#cxq').hide()
+        $('#cxq').fadein(1000);
     }
 
     $(document).ready(function() {
         setTimeout(function() {
-            if (!$.cookie('alert')) {
-                $('#mydiv').css("display", "flex").hide().fadeIn(1000);
-                $('#mydiv').show();
+            if (!$.cookie('cxq')) {
+                $('#cxq').css("display", "flex").hide().fadeIn(1000);
+                $('#cxq').show();
                 var date = new Date();
                 // date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * 180); // 24 hrs x 60 secs x 60 mins x 1000 ms x 180 days
                 date.setTime(date.getTime()); // 24 hrs x 60 secs x 60 mins x 1000 ms x 180 days
@@ -41,6 +41,6 @@ $artwork = $site->cq()->toFile()
                     expires: date
                 });
             }
-        }, 5000);
+        }, 1000);
     });
 </script>
