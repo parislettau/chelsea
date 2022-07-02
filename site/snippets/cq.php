@@ -41,6 +41,6 @@ $artwork = $site->cq()->toFile()
                     expires: date
                 });
             }
-        }, 1000);
+        }, 3000);
     });
 </script>
