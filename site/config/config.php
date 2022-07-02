@@ -2,7 +2,7 @@
 
 return [
   // DEBUG OPTIONS
-  'debug'  => true,
+  'debug'  => false,
 
   // password reset
   'auth' => [

@@ -34,7 +34,8 @@ $artwork = $site->cq()->toFile()
                 $('#mydiv').css("display", "flex").hide().fadeIn(1000);
                 $('#mydiv').show();
                 var date = new Date();
-                date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * 180);
+                // date.setTime(date.getTime() + 24 * 60 * 60 * 1000 * 180); // 24 hrs x 60 secs x 60 mins x 1000 ms x 180 days
+                date.setTime(date.getTime()); // 24 hrs x 60 secs x 60 mins x 1000 ms x 180 days
                 // date.setTime(date.getTime() + 60);
                 $.cookie('alert', true, {
                     expires: date
