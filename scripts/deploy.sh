@@ -1,26 +1,22 @@
 #!/usr/bin/env sh
 
-cd ~/sites/ninetyninepercent/
+PROJECT=~/sites/ninetyninepercent
+DEVICE=ParisiMac
 
-/bin/bash <<EOF
-  git add .
-  git commit -m "Paris's MacBook M1"
-  git push
-EOF
+cd $PROJECT
+git pull
+git add .
+git commit -m "$DEVICE"
+git push
 
 USER=root
-HOST=45.63.28.222
-WEBROOT=/var/www/html/ninetyninepercent
+HOST=149.28.168.105
+WEBROOT=/var/www/ninetyninepercent
 
 ssh -A $USER@$HOST /bin/bash <<EOF
   cd $WEBROOT
-  git fetch
-  git reset --hard origin/main
+  git pull
   sudo chown -R www-data:www-data .
-
 EOF
 
-HOST=root@45.63.28.222
-WEBROOT=/var/www/html/ninetyninepercent
 
-rsync -r -p -t -u -z --checksum --exclude=".*" -P -h -i --delete $HOST:$WEBROOT/content ./
