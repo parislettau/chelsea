@@ -1,33 +1,5 @@
 #cxq,
 .cxq {
-  &-container {
-    margin: auto;
-    display: table;
-    -webkit-filter: none;
-    filter: none;
-    width: 50%;
-    @media (max-width: 768px) {
-      width: 90%;
-    }
-  }
-  figure {
-    position: relative;
-    // overflow: hidden;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-    /* Then style the iframe to fit in the container div with full height and width */
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  }
-
   position: fixed;
   z-index: 9000;
   top: 0;
@@ -64,26 +36,55 @@
   .unset {
     all: unset;
   }
+}
 
-  // figure {
-  //   max-height: 80%;
-  //   max-width: 90%;
-  //   margin: auto;
-  //   display: table;
-  //   -webkit-filter: none;
-  //   filter: none;
-  // }
-
-  img {
-    max-height: 80vh;
-    max-width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
+.block-type-video {
+  margin: auto;
+  display: table;
+  -webkit-filter: none;
+  filter: none;
+  width: 50%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  figure {
+    position: relative;
+    // overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    /* Then style the iframe to fit in the container div with full height and width */
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+}
+.block-type-image {
+  margin: auto;
+  display: table;
+  -webkit-filter: none;
+  filter: none;
+  width: 50%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  figure > img {
+    max-height: 80%;
+    max-width: 90%;
     margin: auto;
+    display: table;
+    -webkit-filter: none;
+    filter: none;
   }
+}
 
-  figcaption {
-    display: table-caption;
-    caption-side: bottom;
-  }
+figcaption {
+  display: table-caption;
+  caption-side: bottom;
 }

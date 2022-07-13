@@ -8,10 +8,12 @@
 </style>
 <!-- Draggable DIV -->
 <div id="cxq">
-    <div class="cxq-container">
-        <?= $site->popup()->toBlocks() ?>
-    </div>
+    <?php foreach ($site->popup()->toBlocks() as $block) : ?>
+        <div id="<?= $block->id() ?>" class="cxq-container block block-type-<?= $block->type() ?> ">
+            <?= $block ?>
+        </div>
 
+    <?php endforeach ?>
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span>
     </div>
 
