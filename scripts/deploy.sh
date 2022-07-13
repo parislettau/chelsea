@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
-PROJECT=~/sites/ninetyninepercent
+PROJECT=${PWD##*/}  # get project directory name
+DIRECTORY=~/sites/$PROJECT
 DEVICE=ParisiMac
 
-cd $PROJECT
+cd $DIRECTORY
 git pull
 git add .
 git commit -m "$DEVICE"
@@ -11,7 +12,7 @@ git push
 
 USER=root
 HOST=149.28.168.105
-WEBROOT=/var/www/ninetyninepercent
+WEBROOT=/var/www/$PROJECT
 
 ssh -A $USER@$HOST /bin/bash <<EOF
   cd $WEBROOT

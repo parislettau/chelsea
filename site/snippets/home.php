@@ -1,5 +1,5 @@
-<?php if ($site->toggle_cq()->toBool() === true) : ?>
-    <?php snippet('cq') ?>
+<?php if ($site->toggle_popup()->toBool() === true) : ?>
+    <?php snippet('popup') ?>
 <?php endif ?>
 
 <section class="home">

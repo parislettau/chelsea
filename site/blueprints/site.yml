@@ -65,13 +65,26 @@ columns:
             template: files/image
             required: true
             width: 1/2
-          cq:
-            label: Artwork
-            extends: sections/cover
-            template: files/image
-            required: false
+          # cq:
+          #   label: Artwork
+          #   extends: sections/cover
+          #   template: files/image
+          #   required: true
+          #   width: 1/2
+          #   when:
+          #     toggle_cq: true
+          popup:
+            label: Pop Up
+            type: blocks
+            required: true
             width: 1/2
-          toggle_cq:
+            fieldsets:
+              - image
+              - video
+              - markdown
+            when:
+              toggle_popup: true
+          toggle_popup:
             label: Toggle Artwork
             type: toggle
             text:
