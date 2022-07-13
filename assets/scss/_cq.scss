@@ -74,17 +74,18 @@
   @media (max-width: 768px) {
     width: 90%;
   }
-  figure > img {
-    max-height: 80%;
-    max-width: 90%;
-    margin: auto;
-    display: table;
-    -webkit-filter: none;
-    filter: none;
+  figure {
+    img {
+      max-height: 80%;
+      max-width: 90%;
+      margin: auto;
+      display: table;
+      -webkit-filter: none;
+      filter: none;
+      figcaption {
+        display: table-caption;
+        caption-side: bottom;
+      }
+    }
   }
-}
-
-figcaption {
-  display: table-caption;
-  caption-side: bottom;
 }
