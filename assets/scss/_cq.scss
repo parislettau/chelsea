@@ -75,6 +75,8 @@
     width: 90%;
   }
   figure {
+    display: table;
+    margin: auto;
     img {
       max-height: 80%;
       max-width: 90%;
@@ -82,10 +84,11 @@
       display: table;
       -webkit-filter: none;
       filter: none;
-      figcaption {
-        display: table-caption;
-        caption-side: bottom;
-      }
+    }
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      text-align: center;
     }
   }
 }
