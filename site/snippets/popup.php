@@ -8,9 +8,10 @@
 </style>
 <!-- Draggable DIV -->
 <div id="cxq">
+    <div class="cxq-container" margin="3rem">
+        <?= $site->popup()->toBlocks() ?>
 
-    <?= $site->popup()->toBlocks() ?>
-
+    </div>
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span>
     </div>
 
