@@ -1,13 +1,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
 <style>
-    iframe {
+    /* iframe {
         border: none;
         max-height: 80vh;
-    }
+    } */
 </style>
 <!-- Draggable DIV -->
 <div id="cxq">
+
     <?= $site->popup()->toBlocks() ?>
 
     <div id="close"><span style="cursor:pointer;" onclick="closePopup()">(close)</span>
