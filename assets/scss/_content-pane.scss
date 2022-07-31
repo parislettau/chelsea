@@ -1,5 +1,4 @@
 .content {
-
   &-pane-wrapper {
     position: fixed;
     top: 110%;
@@ -33,16 +32,13 @@
     &.show {
       top: 40vh;
 
-      @media(max-width: $mobile) {
+      @media (max-width: $mobile) {
         top: 25vh;
-
       }
     }
 
-
-
     .content-pane-close {
-      @include close_panes
+      @include close_panes;
     }
 
     .content-pane-text {
@@ -59,9 +55,8 @@
         -webkit-overflow-scrolling: touch;
         min-height: 60vh;
 
-        @media(max-width: $mobile) {
+        @media (max-width: $mobile) {
           min-height: 75vh;
-
         }
       }
 
@@ -75,7 +70,8 @@
           // padding: 44px;
 
           .title {
-            padding: var(--content-margins) var(--content-margins) var(--content-margins) var(--content-margins);
+            padding: var(--content-margins) var(--content-margins)
+              var(--content-margins) var(--content-margins);
 
             h1 {
               text-transform: uppercase;
@@ -86,9 +82,7 @@
             padding: var(--content-margins);
             font-family: loos-compressed, serif;
 
-
             .curator {
-
               .name {
                 font-family: lust-text, serif;
                 font-weight: 400;
@@ -97,7 +91,8 @@
               }
             }
 
-            .location {}
+            .location {
+            }
 
             .artists {
               width: 360px;
@@ -113,7 +108,7 @@
             margin: var(--content-margins);
             width: 66.666%;
 
-            @media(max-width: 768px) {
+            @media (max-width: 768px) {
               margin: 0;
               // margin: var(--content-margins);
 
@@ -122,7 +117,7 @@
 
             img {
               max-width: 100%;
-              width: 100%;
+              // width: 100%;
               max-height: 90vh;
               -o-object-fit: cover;
               object-fit: cover;
@@ -136,9 +131,8 @@
                 font-weight: 400;
                 font-style: normal;
 
-                @media(max-width: 768px) {
+                @media (max-width: 768px) {
                   margin: 0 var(--content-margins);
-
                 }
               }
             }
@@ -154,7 +148,8 @@
           }
 
           .content {
-            padding: calc(var(--content-margins) * 2) var(--content-margins) calc(var(--content-margins) * 4) var(--content-margins);
+            padding: calc(var(--content-margins) * 2) var(--content-margins)
+              calc(var(--content-margins) * 4) var(--content-margins);
             max-width: 774px;
 
             p {
@@ -166,10 +161,9 @@
               letter-spacing: 0.015em;
               text-align: left;
 
-              &+p {
+              & + p {
                 margin-top: 16px;
               }
-
             }
 
             // float: left;
@@ -177,19 +171,14 @@
 
           .calendar {
             // height: 65px;
-            padding: calc(var(--content-margins) /2);
+            padding: calc(var(--content-margins) / 2);
           }
 
           .footer {
             padding: calc(var(--content-margins) * 2);
           }
-
-
-
         }
-
       }
-
     }
   }
 }
