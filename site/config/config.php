@@ -9,6 +9,11 @@ return [
     'methods' => ['password', 'password-reset']
   ],
 
+  // https://getkirby.com/docs/guide/api/authentication
+  'api' => [
+    'basicAuth' => true
+  ],
+
   'home' => 'exhibitions',
 
   'panel' => [
