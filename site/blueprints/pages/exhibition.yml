@@ -97,6 +97,11 @@ columns:
           cover: true
         min: 1
         size: small
+        query: page.images
+      files:
+        type: files
+        template: docs
+
       # meta:
       #   type: fields
       #   fields:
