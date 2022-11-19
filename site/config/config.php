@@ -2,7 +2,10 @@
 
 return [
   // DEBUG OPTIONS
-  'debug'  => true,
+  'debug'  => false,
+
+  'url' => 'https://99percent.gallery/',
+
 
   // password reset
   'auth' => [
@@ -16,9 +19,9 @@ return [
 
   'home' => 'exhibitions',
 
-  'panel' => [
-    'install' => true
-  ],
+  // 'panel' => [
+  //   'install' => true
+  // ],
 
   // 'd4l' => [
   //   'static_site_generator' => [
