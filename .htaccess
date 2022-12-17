@@ -1,8 +1,8 @@
 # Kirby .htaccess
 
-RewriteEngine On 
+<!-- RewriteEngine On 
 RewriteCond %{HTTPS} off 
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] -->
 
 # rewrite rules
 <IfModule mod_rewrite.c>
