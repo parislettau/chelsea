@@ -17,6 +17,6 @@
 <?php else : ?>
 
     <head>
-        <meta http-equiv="refresh" content="0; url='https://99percent.gallery/<?= $page->id() ?>'" />
+        <meta http-equiv="refresh" content="0; url='https://99percent.gallery/'" />
     </head>
 <?php endif ?>
