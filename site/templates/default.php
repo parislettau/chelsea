@@ -14,4 +14,9 @@
             <p>Please follow <a href="https://99percent.gallery/<?= $page->id() ?>">this link</a> to preview the page.</p>
         </body>
     <?php endif ?>
+<?php else : ?>
+
+    <head>
+        <meta http-equiv="refresh" content="0; url='https://99percent.gallery/<?= $page->id() ?>'" />
+    </head>
 <?php endif ?>
