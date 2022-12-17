@@ -4,7 +4,7 @@ return [
   // DEBUG OPTIONS
   'debug'  => false,
 
-  'url' => 'https://api.99percent.gallery/',
+  // 'url' => 'https://api.99percent.gallery/',
 
 
   // password reset
