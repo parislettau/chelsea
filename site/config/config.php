@@ -32,18 +32,18 @@ return [
     // 'bin' => '/usr/local/bin/convert',                   // https://getkirby.com/docs/guide/troubleshooting/thumbnails
     'srcsets' => [
       'default' => [
-        '300w'  => ['width' => 300],
-        '600w'  => ['width' => 600],
-        '900w'  => ['width' => 900],
-        '1200w' => ['width' => 1200],
-        '1800w' => ['width' => 1800]
+        '800w' => ['width' => 800, 'quality' => 80],
+        '1024w' => ['width' => 1024, 'quality' => 80],
+        '1440w' => ['width' => 1440, 'quality' => 80],
+        '2048w' => ['width' => 2048, 'quality' => 80]
       ],
       'avif' => [
         '300w'  => ['width' => 300, 'format' => 'avif'],
         '600w'  => ['width' => 600, 'format' => 'avif'],
         '900w'  => ['width' => 900, 'format' => 'avif'],
         '1200w' => ['width' => 1200, 'format' => 'avif'],
-        '1800w' => ['width' => 1800, 'format' => 'avif']
+        '1800w' => ['width' => 1800, 'format' => 'avif'],
+        '2048w' => ['width' => 2048, 'format' => 'avif']
       ],
       'webp' => [
         '300w'  => ['width' => 300, 'format' => 'webp'],
@@ -51,6 +51,7 @@ return [
         '900w'  => ['width' => 900, 'format' => 'webp'],
         '1200w' => ['width' => 1200, 'format' => 'webp'],
         '1800w' => ['width' => 1800, 'format' => 'webp'],
+        '2048w' => ['width' => 2048, 'format' => 'webp'],
       ],
     ]
   ]
