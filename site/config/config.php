@@ -24,7 +24,7 @@ return [
   // Srcsets
   'thumbs' => [
     'srcsets' => [
-      // 'driver' => 'im',                                       // https://getkirby.com/docs/guide/troubleshooting/thumbnails
+      'driver' => 'im',                                       // https://getkirby.com/docs/guide/troubleshooting/thumbnails
       // 'bin' => '/usr/local/bin/convert',                   // https://getkirby.com/docs/guide/troubleshooting/thumbnails
       'srcsets' => [                                          // https://getkirby.com/docs/cookbook/performance/responsive-images
         'default' => [
