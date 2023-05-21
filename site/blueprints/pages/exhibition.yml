@@ -103,6 +103,7 @@ columns:
         min: 1
         size: small
         query: page.images
+        sortable: true
       files:
         type: files
         template: docs
