@@ -6,16 +6,12 @@ $base = dirname(__DIR__, 2);
 \JohannSchopplich\Helpers\Env::load($base);
 
 return [
-<<<<<<< Updated upstream
-  // debug
-  'debug'  => false,                                      // false in production
-  'url' => 'https://api.99percent.gallery/',
-=======
+
   // DEBUG OPTIONS
   'url' => env('URL'),
 
   'debug' => env('DEBUG'),
->>>>>>> Stashed changes
+
 
   // password reset
   'auth' => [
