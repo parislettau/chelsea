@@ -22,9 +22,10 @@
     "source": "https://github.com/getkirby/starterkit"
   },
   "require": {
-    "php": ">=7.1.0",
-    "getkirby/cms": "^3.0",
-    "getkirby/kql": "^1.0"
+    "php": ">= 8.2.0",
+    "getkirby/cms": "^4.0",
+    "getkirby/kql": "^1.0",
+    "johannschopplich/kirby-helpers": "^6.1"
   },
   "scripts": {
     "start": [
