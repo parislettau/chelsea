@@ -1,0 +1,85 @@
+Title: Line Work
+
+----
+
+Open: 2022-08-05
+
+----
+
+Close: 2022-08-27
+
+----
+
+Theme: #EA974A
+
+----
+
+Font: #3D00EA
+
+----
+
+Curator: Chelsea Hopper
+
+----
+
+Location: 
+
+----
+
+Artists: Stuart Ringholt
+
+----
+
+Text:
+
+Line Work is a suite of collages made in mid-2021 by Stuart Ringholt. Like the collage series Landscapes and Factories (2021), the works take their primary source material from a ten-volume encyclopaedic set entitled Newnes’ Pictorial Knowledge, published in various editions from the early 1930s to late 1950s. With over four-hundred pages in each volume, the black-and-white illustrated plates and photographic documentation capture a range of subject matter from technology, plants, and animals, to astronomy, science, and geography.
+
+Popular in the pre-Wikipedia age, Newnes was a resource for self-education, where one could learn how a cricket ball was made, look at a colour cutaway of an early passenger aircraft, or study the latest mechanical looms. Here, these encyclopaedic pages are sliced up by Ringholt, rearranged, and meticulously assembled to create new pictorial formations radically divorced from their original context, reimagining meanings they used to have.
+
+----
+
+Events:
+
+- 
+  category: Opening
+  headline: 'Opening of *Line Work*'
+  details: |
+    Please join us for the opening of *Line Work*, a solo exhibition featuring works by artist Stuart Ringholt.
+    
+    **99% | 6–8pm, Friday, 5 August 2022**
+    Room 3, Level 7
+    37 Swanston St
+    The Nicholas Building
+    Melbourne 3000
+
+----
+
+Bio: Claire Osborn-Li is an emerging art writer currently working on her undergraduate Honours thesis on tendencies of masochism in performance art and how they affect differing self/other paradigms at the University of Melbourne.
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Color: #4AEA9D
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 

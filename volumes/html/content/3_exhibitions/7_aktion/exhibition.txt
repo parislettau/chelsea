@@ -1,0 +1,99 @@
+Title: Aktion
+
+----
+
+Open: 2022-05-13
+
+----
+
+Close: 2022-06-04
+
+----
+
+Theme: #EBECC4
+
+----
+
+Font: #000000
+
+----
+
+Curator: Chelsea Hopper
+
+----
+
+Location: 
+
+----
+
+Artists: Joseph Beuys
+
+----
+
+Text:
+
+Joseph Beuys (1921–1986) was a populist. His famous dictum that “everyone is an artist” challenged the well-worn trope of artists as a niche class of cultural artisans by offering to the public the new social possibility that art is everywhere, and everyone is making it.
+
+From the mid-1960s, Beuys's democratic vision for art lead him to begin producing unlimited edition multiples to make art more accessible and affordable for the people and thus to engage with a larger audience.
+
+In 1967, Beuys took an overt political turn. Between 1967 and 1986, he was foundational in the creation of German Green Party die Grünen, established several political action groups, a free university, and even campaigned for public office. His concept of soziale Plastik, “social sculpture,” contended that everyday actions as forms of human creativity have the potential to restructure and reshape society.
+
+In the same period, Beuys created the installation *7000 Eichen* (7000 Oaks), a project initiated in Kassel at documenta 7 in 1982. The project refigured the realm of art as a place for public debate: reconciling with not only the town and its politicians but also the quarrelling citizens.
+
+Aktion presents a selection of multiples, documentation of *7000 Eichen*, and video works to focus on the connection between Beuys’s populism, political activities and his art.
+
+(file: beuys-in-multiple_luke-smythe_99-_aktion_exhibition.pdf text: **Read Luke Smythe's extended essay, 'Beuys in Multiple', here.**)
+
+----
+
+Events:
+
+- 
+  category: Opening
+  headline: 'Opening of *AKTION*'
+  details: |
+    Please join us for the opening of *AKTION*.
+    
+    *AKTION* presents a selection of multiples, documentation of *7000 Eichen*, and video works to focus on the connection between Beuys’s populism, political activities and his art.
+    
+    **99% | 6–8pm, Friday, 13 May 2022**
+    Room 3, Level 7
+    37 Swanston St
+    The Nicholas Building
+    Melbourne 3000
+
+----
+
+Info: 
+
+----
+
+Bio: Claire Osborn-Li is an emerging art writer currently working on her undergraduate Honours thesis on tendencies of masochism in performance art and how they affect differing self/other paradigms at the University of Melbourne.
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Color: #EA4ABD
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 

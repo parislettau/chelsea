@@ -1,0 +1,61 @@
+Title: 99%
+
+----
+
+Status: 
+
+----
+
+About: 
+
+----
+
+Address:
+
+Room 3, Level 7
+37 Swanston Street
+Nicholas Building
+Melbourne 3000
+
+----
+
+Email: info@99percent.gallery
+
+----
+
+Hours:
+
+- 
+  day: T
+  open: 12:00:00
+  close: 17:00:00
+- 
+  day: F
+  open: 12:00:00
+  close: 17:00:00
+- 
+  day: S
+  open: 12:00:00
+  close: 17:00:00
+
+----
+
+Background:
+
+- 99-richard-bell-2022-1.png
+
+----
+
+Popup: [{"content":{"location":"kirby","image":["de660447-b4f6-4fe4-909e-f55a1f42a24c.png"],"src":"","alt":"","caption":"No.31\/31, Tribute to Tehching Hsieh: Chunxiao Qu, <em>One month performance, <\/em>2022.","link":"","ratio":"","crop":"false"},"id":"b25dd14a-ffd9-493d-9d5f-5647996d8940","isHidden":false,"type":"image"}]
+
+----
+
+Toggle-popup: false
+
+----
+
+Cq: 
+
+----
+
+Toggle-cq: true

@@ -1,0 +1,138 @@
+Title: Person, Woman, Man, Camera, TV
+
+----
+
+Open: 2022-06-08
+
+----
+
+Close: 2022-06-25
+
+----
+
+Theme: #4A80EA
+
+----
+
+Font: #ACD19A
+
+----
+
+Curator: Chelsea Hopper
+
+----
+
+Location: Blindside, 99%
+
+----
+
+Artists: Bryan Foong, Brian Fuata, Alex Hobba, Rosie Isaac, Chunxiao Qu, Sarah Rodigari
+
+----
+
+Text:
+
+Person, woman, man, camera, TV. brings together existing and commissioned works by six emerging and established artists to investigate the boundaries between “fact” and “fiction” in the so-called post-truth era of populist politics.
+ 
+The phrase “Person, woman, man, camera, TV” was repeated several times on 22 July 2020 (and again in June 2021) by former US President Donald Trump during a Fox News interview with Marc Siegel. Trump boasted to Siegel about his success in a cognitive test designed to detect signs of dementia which required the recollection of five words in a particular order. The phrase went viral on social media. It was quickly transformed into internet memes, was parodied by comedians, and eventually turned into merchandise.
+ 
+This exhibition is not about Donald Trump per se. Instead, it draws attention to the melting pot of disinformation, storytelling, autofiction, fake news, post-truth, and cognitive dissonance. Each of the artists included investigates, in varying ways, the politics of speaking, the representation of power, and the performative side of authoritarian identities. They ask us to think about how the boundaries blur between fiction and reality in our current social, political, and media landscapes.
+
+----
+
+Gallery:
+
+[
+    {
+        "content": {
+            "images": [
+                "99p-blindside-person-woman-man-camera-tv-2022-292.jpg"
+            ]
+        },
+        "id": "7e88425c-cab6-464f-91d1-281b03780af8",
+        "isHidden": false,
+        "type": "gallery"
+    },
+    {
+        "content": {
+            "images": []
+        },
+        "id": "86fe9bda-6ac1-4a53-86c5-8fa1fccc3172",
+        "isHidden": false,
+        "type": "gallery"
+    },
+    {
+        "content": {
+            "images": [
+                "99p-blindside-person-woman-man-camera-tv-2022-026.jpg",
+                "99p-blindside-person-woman-man-camera-tv-2022-041.jpg",
+                "99p-blindside-person-woman-man-camera-tv-2022-077.jpg",
+                "99p-blindside-person-woman-man-camera-tv-2022-109.jpg",
+                "99p-blindside-person-woman-man-camera-tv-2022-149.jpg"
+            ]
+        },
+        "id": "5f46ffb2-7312-48ad-9af9-2461789173fb",
+        "isHidden": false,
+        "type": "gallery"
+    },
+    {
+        "content": {
+            "images": []
+        },
+        "id": "fc80f1c3-cc3b-4a86-ac5e-fb8fac580d98",
+        "isHidden": false,
+        "type": "gallery"
+    }
+]
+
+----
+
+Events:
+
+- 
+  category: Performance
+  headline: Performances by Brian Fuata
+  details: |
+    99% is pleased to present a series of five performances across several gallery spaces by Brian Fuata.
+    
+    I. Monday 6 June, Blindside, 3pm, with Tim Darbyshire. Gallery closed.
+    II. Thursday, 9 June, Blindside, 7pm
+    III. Saturday, 11 June, Blindside, 2pm
+    IV. Thursday, 16 June, 4pm, satellite performance, Gertrude Contemporary, during install of (link: https://gertrude.org.au/exhibition/polyphonic-reverb text: Polyphonic Reverb.)
+    V. Sunday, 19 June, 99% gallery, 4pm
+
+----
+
+Info: 
+
+----
+
+Bio: Claire Osborn-Li is an emerging art writer currently working on her undergraduate Honours thesis on tendencies of masochism in performance art and how they affect differing self/other paradigms at the University of Melbourne.
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Color: #4A80EA
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 

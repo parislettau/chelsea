@@ -1,0 +1,91 @@
+Title: Copy
+
+----
+
+Open: 2022-07-01
+
+----
+
+Close: 2022-07-23
+
+----
+
+Theme: #DBC8EA
+
+----
+
+Font: #536F06
+
+----
+
+Curator: Chelsea Hopper
+
+----
+
+Location: 
+
+----
+
+Artists: Chunxiao Qu
+
+----
+
+Text:
+
+For “Copy”, artist and poet Chunxiao Qu has produced 31 artworks that pay “tribute” to famous conceptual artists from the likes of Lawrence Weiner and Joseph Kosuth who either participated in Seth Siegelaub’s catalogue-exhibition *March 1969* or whose work have conceptualist underpinnings. These “tributes” at times situate Qu as the subject or use her own poetry to create new connections to the famous artists she’s influenced by.
+
+Qu’s act of “copying” artworks often stylistically slips into parody. The 31 works produced for the exhibition also play with tropes of populist language – directness, appeal to authenticity, mimicry, and mirroring.
+
+The exhibition’s structure directly references the conceptual exhibition organised by pioneering American conceptual art curator Seth Siegelaub (1941-2013), *March 1969*, also known as *One Month*. Each artist was provided with a single page within a catalogue, each page representing one of the 31 days in the month of March 1969. The participating artist’s contributions were strictly text-based.
+
+Siegelaub’s exhibition-making during the late 60s had populist ambitions. His innovative approach sought a broader, popular audience and escaped art-institutional elitism. The catalogue-exhibition format, like *March 1969*, was an affordable, easily circulated publication that could communicate the “primary information” about an artwork.
+
+*Copy* aims to democratize traditional exhibition models by conflating both online and in-person iterations of Qu’s “tributes” to propose a more accessible mode of displaying art outside a gallery context.
+
+----
+
+Events:
+
+- 
+  category: Opening
+  headline: 'Opening of *Copy*'
+  details: |
+    Please join us for the opening of *Copy*, a solo exhibition featuring works by artist and poet Chunxiao Qu.
+    
+    **99% | 6–8pm, Friday, 1 July 2022**
+    Room 3, Level 7
+    37 Swanston St
+    The Nicholas Building
+    Melbourne 3000
+
+----
+
+Bio: 
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Color: #EBECC4
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 

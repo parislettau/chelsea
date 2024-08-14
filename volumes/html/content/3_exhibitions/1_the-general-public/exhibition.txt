@@ -1,0 +1,103 @@
+Title: The General Public
+
+----
+
+Open: 2022-11-25
+
+----
+
+Close: 2022-12-10
+
+----
+
+Theme: #91B1E9
+
+----
+
+Font: #A95153
+
+----
+
+Curator: 
+
+----
+
+Location: 
+
+----
+
+Artists: James Gatt, Mila Lettau, Damien Liang, Ruth Maddison, Natalie Renna, T’Nealle Worsley, Christopher LG Hill, Rhonda Dredge, Yixuan Zhao, Megan Kamei, Casper Plum, Sean Monaghan, Chistopher Theofanous, Audrey Merton, John Elcatsha, Mina McSweeney, Ronald Chu, Adele Bauer, Nicholas Hessenkamp, Lilyan Stark, TD Reade, Leo Loscher, Phoebe-Faith Peralta, Alia Ferdowsian, Lucy Li, Richard Harris, Orie Wood, Hazel Walker-Walsh, Shannon Slee, Jeremy Fishe, Marina Rolfe, Indi Meara, Camille Perry, Michael Doyle, Ange Foster, Angelita Biscotti, Jessica Guo, Navid Farro, Nina Marie Elliot, Gabriella Disspain, Lilith Angle, Ella Pininita, Jan van Schaik, Kristofer Peralta, Harshit Ashit Sampat, Sarah Robinson, Cy Jones, Kimberley Turner, Emma Towers, Kelvin Skewes, Tim Woodward, Edward Liew, Rachel Schenberg, Mythra Sage, Aisha Hara, Kiron Robinson, Anonymous, Jen Valender, Jordan Wood, Timothy McGuire, Madison Elrick, Victoria Loizides, HuaCun Chen, Richard Butler Bowdon, Lauren Fahey, Nicholas Tsekouras, Beth Sanderson, Amelia Gill, Alister Karl, Lawrence Flegg, Liss Fenwick, melonshaw, Liam Barker, Alex Hobba, Ella Howells, Lucy Griggs, Chaaya Sharma, Camille Thomas, Elsie Preston, Haruka Sawa, Flaneur Punk, Pang Jie Siah, Gabriella D’Costa, Yasmin Hopkins, Benjamin Uno, Sarah Wilson, Jon Campbell, Kayla Piris, Gil Gilmour, Eva Alisic, Lea Rose, Ariana Lim, Martina Copley, Tim Coster, Lou Hubbard, Nelly Tucker, Sanja Pahoki, Josh V.E., Sean McDowell, Kelly Manning, Ivana Sanfilippo, Alex Gawronski, Rhonda Goodall-Kirk, Panisa Ongwat, Imogen Davis, David Paicu, Joanne Reidy, Yusi Zang, Isaac Christie, Nicholas Mahady, Adrian De Vries, Emily Rollis, Camille Chapman, Juliette Elle, Chandana Anand, Linda Studena, Melissa Viola, Jarrad Martyn, Emma Winkler, Dawn Lewin, Renee Cosgrave, Vivienne Tate, Georg Whelan, Neve Curnow, Alexis Kanatsios, Brett Bevege, Stuart Douglas Maxted, Darcy Wedd, Therese Diaz, Elle Natalotto, Brianna Sonter, John You, Juila McInerney, Marvin Olivera, Diego Ramirez, Athina Slamousas, Suzanne Dowling, Patricia Walton, Line Music, Mitchel Brannan, Karen Ferguson, Dylan Marriott, Sophia Slaney-Marsch, Mel Deerson & Briony Galligan, Benjamin Bannan, Chloe Nolan, Klyde Salcedo, Josephine Mead, Aleksandra Hayward, Noah Wexler, Alisha Abate, Alessandro Biasotto, Yumemi Hiraki, Isabella Darcy, Rebecca George, Tom Hvala, Juliet Phraser, Clare Longley, Kalinda Vary, Gerard Elson, Warwick Perrin, Otto Enos, Hannah Dutoit, Catherine Weng, Zia Atahi, Qurban Ali, Rue Mckeagney, Theo Ferris, Kate Thompson, Mae Czechowski, Kasia Lynch, Pippa Lukaitis, James Little, Travis Ficara, Tarik Abouabdillah, Lily Mayr, Sofia & Esther Carlin, Caitlin Rigby, Sofia Skobeleva & Esther Carlin, Paul Kalemba, Virginia Heal, Zoe Croggon, Agatha Gothe-Snape, Eleanor Laver, Kate Meakin, Nova Soma, Sam Lieblich, Luara Karlson-Carp, Bryan Foong, Jacqui Shelton, Paris Lettau, Simon Zoric, Lachlan Stonehouse, Olivia Doody, Hilary Thurlow
+
+----
+
+Text:
+
+The General Public is an “open call” for the general public to submit an artwork to be on display for two weeks. Publicly promoted to artists and non-artists alike, the exhibition invites the public to contribute a work—there is no entry fee and only two conditions of entry: one work per person can be submitted and the scale of the work is limited to a size that fits under one’s arm.
+
+This exhibition concept is not without precedent. Famously, the New York-based Society of Independent Artists invited in 1916 the public to submit any work, subject to no aesthetic criteria, provided that the $5 membership was paid. That exhibition led to the great twentieth-century scandal in which R. Mutt’s Fountain (aka Duchamp’s urinal) was rejected. Decades later, Walter Hopps’s 1978 exhibition, 36 Hours, had a similar framework. There was no selection, no rules; artists were invited to bring one work and have it exhibited for 36 hours.
+
+----
+
+Gallery:
+
+[
+    {
+        "content": {
+            "images": [
+                "99-percent-the-general-public-2022-026.jpg",
+                "99-percent-the-general-public-2022-039.jpg",
+                "99-percent-the-general-public-2022-082.jpg",
+                "99-percent-the-general-public-2022-116.jpg",
+                "99-percent-the-general-public-2022-205.jpg",
+                "99-percent-the-general-public-2022-226.jpg"
+            ]
+        },
+        "id": "1db7caf4-5b0d-4efd-b52b-9ada08e43cb7",
+        "isHidden": false,
+        "type": "gallery"
+    }
+]
+
+----
+
+Events:
+
+- 
+  category: Opening
+  headline: 'Opening of ***The General Public***'
+  details: |
+    Please join us for the opening of The General Public, a group exhibition featuring 197 participants who responded to an open call with only two requirements: one work per person; and the work.
+    
+    **99% | 3-8pm, Friday, 25 November 2022**
+    Room 3, Level 7
+    37 Swanston St
+    The Nicholas Building
+    Melbourne 3000
+
+----
+
+Bio: 
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 

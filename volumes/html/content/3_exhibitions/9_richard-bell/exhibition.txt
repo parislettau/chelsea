@@ -1,0 +1,132 @@
+Title: Rich
+
+----
+
+Open: 2022-02-11
+
+----
+
+Close: 2022-03-19
+
+----
+
+Theme: #CDFCD7
+
+----
+
+Font: #C25D00
+
+----
+
+Curator: Chelsea Hopper
+
+----
+
+Location: 
+
+----
+
+Artists: Richard Bell
+
+----
+
+Text:
+
+Richard Bell is a founding member of the Brisbane-based arts collective proppaNOW. Since 2013, Bell has gained international recognition for his homage to the Aboriginal tent embassy in Canberra in his work *Embassy *(2013–ongoing). The work has hosted talks and performances by artists, activists, and thinkers in Moscow, New York, Jakarta, Jerusalem, Amsterdam, Sydney, the Venice Biennale and, in 2023, at the Tate Modern, London. This year Bell is also one of a few Australian-based artists presenting at documenta 15 in Kassel, Germany.
+
+While Bell has described himself as an activist masquerading as an artist, RICH presents Bell as an artist masquerading as a populist. The exhibition probes the dynamics of Bell’s populist persona in a series of text-based works produced between 2003 and 2020.
+
+The paintings and prints on show in RICH sloganize populist sentiment under the cover of pop art and abstract-expressionist style. Bell’s ironic quips sneak in questions of power, colonialism, and capitalism. Steering away from the divisive populism we know, RICH asks us to imagine an alternate populism that counters the usually destructive forces of populist racism, greed, and selfishness.
+
+----
+
+Gallery:
+
+[
+    {
+        "content": {
+            "images": [
+                "99-richard-bell-2022-1.jpg",
+                "99-richard-bell-2022-2.jpg",
+                "99-richard-bell-2022-3.jpg",
+                "99-richard-bell-2022-7.jpg"
+            ]
+        },
+        "id": "bb532361-f1b0-4f06-a628-9d281c321f87",
+        "isHidden": false,
+        "type": "gallery"
+    }
+]
+
+----
+
+Events:
+
+- 
+  category: Opening
+  headline: 'Opening of *RICH*'
+  details: |
+    Please join us for the opening of *RICH*. The opening will commence with a Welcome to Country, led by traditional owner N’arweet Dr Carolyn Briggs AM (Boon Wurrung Foundation).
+    
+    *RICH* is the first of 99%’s year-long program investigating the political and artistic phenomenon of populism.
+    
+    **99% | 6–8pm, Friday, 11 February 2022**
+    Room 3, Level 7
+    37 Swanston St
+    The Nicholas Building
+    Melbourne 3000
+- 
+  category: TALK
+  headline: '*Which side are you on?* by Zoë De Luca'
+  details: |
+    99% is delighted to invite you to *Which side are you on?* a talk by art historian Zoë De Luca on the work of Richard Bell.
+    
+    GALLERY NIGHT is presented as part of the Broadsheet LATE NIGHTS program, and is supported by City of Melbourne through the Events Partnership Program (EPP).
+    
+    Zoë De Luca is a Naarm Melbourne-based art historian and writer. She was the resident art historian on Richard Bell’s Embassy 2019: Venice team during the 2019 Venice Biennale, and subsequently wrote on the project for Di’van: A Journal of Accounts, Discipline, and the artist’s 2021 solo exhibition, Richard Bell: You Can Go Now, at the Museum of Contemporary Art. She is currently a Phd candidate in the Department of Art History and Communication Studies at McGill University, Tio’ia:ke/Montréal, Canada. Her doctoral project focuses on Bell’s Embassy project (2013-ongoing) alongside the infrastructure and political economy of international exhibition in the colonised/art world.
+    
+    **99% | 6:30pm Wednesday, 16 February 2022**
+    Room 3, Level 7
+    The Nicholas Building
+    
+    **(link: https://melbourneartfair.com.au/program/event/gallery-night-nicholas-building-up-late-99-gallery/ text: RSVP)**
+
+----
+
+Layout: 
+
+----
+
+Info: TES
+
+----
+
+Bio: Claire Osborn-Li is an emerging art writer currently working on her undergraduate Honours thesis on tendencies of masochism in performance art and how they affect differing self/other paradigms at the University of Melbourne.
+
+----
+
+Thumbnail: 
+
+----
+
+Clos: 
+
+----
+
+Color: #CDFCD7
+
+----
+
+Curators: Chelsea Hopper
+
+----
+
+Date: 2020-12-16
+
+----
+
+Opened: 2020-12-04
+
+----
+
+Closed: 
