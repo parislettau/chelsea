@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "523365d4ad5d99c18eeba93a40e7a16f",
+    "content-hash": "5b49b5ec2262015e259139d69ac50064",
     "packages": [
         {
             "name": "christian-riesen/base32",
@@ -419,75 +419,6 @@
                 }
             ],
             "time": "2020-12-28T12:54:39+00:00"
-        },
-        {
-            "name": "getkirby/kql",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getkirby/kql.git",
-                "reference": "32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getkirby/kql/zipball/32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420",
-                "reference": "32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420",
-                "shasum": ""
-            },
-            "require": {
-                "getkirby/cms": ">=3.8.2",
-                "getkirby/composer-installer": "^1.2.1",
-                "php": ">=8.0.0 <8.3.0"
-            },
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "kql",
-                "kirby-cms-path": false
-            },
-            "autoload": {
-                "psr-4": {
-                    "Kirby\\": [
-                        "tests/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bastian Allgeier",
-                    "email": "bastian@getkirby.com"
-                },
-                {
-                    "name": "Nico Hoffmann",
-                    "email": "nico@getkirby.com"
-                }
-            ],
-            "description": "Kirby Query Language",
-            "homepage": "https://getkirby.com",
-            "keywords": [
-                "api",
-                "cms",
-                "headless",
-                "json",
-                "kirby",
-                "query"
-            ],
-            "support": {
-                "email": "support@getkirby.com",
-                "forum": "https://forum.getkirby.com",
-                "issues": "https://github.com/getkirby/kql/issues",
-                "source": "https://github.com/getkirby/kql"
-            },
-            "funding": [
-                {
-                    "url": "https://getkirby.com/buy",
-                    "type": "custom"
-                }
-            ],
-            "time": "2023-11-08T08:23:10+00:00"
         },
         {
             "name": "graham-campbell/result-type",
