@@ -4,15 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbce8d2a55da009c9aa0be693f2133187
+class ComposerStaticInit523365d4ad5d99c18eeba93a40e7a16f
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'f864ae44e8154e5ff6f4eec32f46d37f' => __DIR__ . '/../..' . '/kirby/config/setup.php',
         '87988fc7b1c1f093da22a1a3de972f3a' => __DIR__ . '/../..' . '/kirby/config/helpers.php',
         'a14d633e3c7e6d2a0914d958e340f4fa' => __DIR__ . '/../..' . '/site/plugins/kirby-helpers/helpers.php',
@@ -120,9 +120,9 @@ class ComposerStaticInitbce8d2a55da009c9aa0be693f2133187
         ),
         'Kirby\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/kirby/src',
-            1 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
-            2 => __DIR__ . '/../..' . '/site/plugins/kql/src',
+            0 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
+            1 => __DIR__ . '/../..' . '/site/plugins/kql/tests',
+            2 => __DIR__ . '/../..' . '/kirby/src',
         ),
         'JohannSchopplich\\' => 
         array (
@@ -445,37 +445,6 @@ class ComposerStaticInitbce8d2a55da009c9aa0be693f2133187
         'Kirby\\Image\\Image' => __DIR__ . '/../..' . '/kirby/src/Image/Image.php',
         'Kirby\\Image\\Location' => __DIR__ . '/../..' . '/kirby/src/Image/Location.php',
         'Kirby\\Image\\QrCode' => __DIR__ . '/../..' . '/kirby/src/Image/QrCode.php',
-        'Kirby\\Kql\\Help' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Help.php',
-        'Kirby\\Kql\\Interceptor' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptor.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\App' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/App.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Block' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Block.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Blocks' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Blocks.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Blueprint' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Blueprint.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Collection' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Collection.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Content' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Content.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Field' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Field.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\File' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/File.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\FileVersion' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/FileVersion.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Files' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Files.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Layout' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Layout.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\LayoutColumn' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/LayoutColumn.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\LayoutColumns' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/LayoutColumns.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Layouts' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Layouts.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Model' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Model.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Page' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Page.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Pages' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Pages.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Role' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Role.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Site' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Site.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Structure' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Structure.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\StructureObject' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/StructureObject.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Translation' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Translation.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\User' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/User.php',
-        'Kirby\\Kql\\Interceptors\\Cms\\Users' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Cms/Users.php',
-        'Kirby\\Kql\\Interceptors\\Interceptor' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Interceptor.php',
-        'Kirby\\Kql\\Interceptors\\Panel\\Model' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Panel/Model.php',
-        'Kirby\\Kql\\Interceptors\\Toolkit\\Obj' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Interceptors/Toolkit/Obj.php',
-        'Kirby\\Kql\\Kql' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Kql.php',
-        'Kirby\\Kql\\Query' => __DIR__ . '/../..' . '/site/plugins/kql/src/Kql/Query.php',
         'Kirby\\Option\\Option' => __DIR__ . '/../..' . '/kirby/src/Option/Option.php',
         'Kirby\\Option\\Options' => __DIR__ . '/../..' . '/kirby/src/Option/Options.php',
         'Kirby\\Option\\OptionsApi' => __DIR__ . '/../..' . '/kirby/src/Option/OptionsApi.php',
@@ -665,10 +634,10 @@ class ComposerStaticInitbce8d2a55da009c9aa0be693f2133187
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbce8d2a55da009c9aa0be693f2133187::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbce8d2a55da009c9aa0be693f2133187::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbce8d2a55da009c9aa0be693f2133187::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbce8d2a55da009c9aa0be693f2133187::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit523365d4ad5d99c18eeba93a40e7a16f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit523365d4ad5d99c18eeba93a40e7a16f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit523365d4ad5d99c18eeba93a40e7a16f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit523365d4ad5d99c18eeba93a40e7a16f::$classMap;
 
         }, null, ClassLoader::class);
     }

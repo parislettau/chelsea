@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirby\Kql\Interceptors\Cms;
+namespace Kirby\Kql\Interceptors\Content;
 
-use Kirby\Kql\Interceptors\Interceptor;
+use Kirby\Kql\Interceptor;
 
 class Content extends Interceptor
 {

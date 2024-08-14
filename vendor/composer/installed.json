@@ -434,28 +434,36 @@
         },
         {
             "name": "getkirby/kql",
-            "version": "1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "2.1.0",
+            "version_normalized": "2.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getkirby/kql.git",
-                "reference": "4c8cdd88c076cdef5323efcd4f0fda38c0865eed"
+                "reference": "32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getkirby/kql/zipball/4c8cdd88c076cdef5323efcd4f0fda38c0865eed",
-                "reference": "4c8cdd88c076cdef5323efcd4f0fda38c0865eed",
+                "url": "https://api.github.com/repos/getkirby/kql/zipball/32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420",
+                "reference": "32fb9e67ff5fd65ab959be04c4ba2e89fb1d0420",
                 "shasum": ""
             },
             "require": {
-                "getkirby/composer-installer": "^1.2.1"
+                "getkirby/cms": ">=3.8.2",
+                "getkirby/composer-installer": "^1.2.1",
+                "php": ">=8.0.0 <8.3.0"
             },
-            "time": "2022-10-06T10:44:26+00:00",
+            "time": "2023-11-08T08:23:10+00:00",
             "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "kql",
+                "kirby-cms-path": false
+            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Kirby\\": "src/"
+                    "Kirby\\": [
+                        "tests/"
+                    ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -466,6 +474,10 @@
                 {
                     "name": "Bastian Allgeier",
                     "email": "bastian@getkirby.com"
+                },
+                {
+                    "name": "Nico Hoffmann",
+                    "email": "nico@getkirby.com"
                 }
             ],
             "description": "Kirby Query Language",
@@ -479,8 +491,10 @@
                 "query"
             ],
             "support": {
+                "email": "support@getkirby.com",
+                "forum": "https://forum.getkirby.com",
                 "issues": "https://github.com/getkirby/kql/issues",
-                "source": "https://github.com/getkirby/kql/tree/1.2.0"
+                "source": "https://github.com/getkirby/kql"
             },
             "funding": [
                 {
