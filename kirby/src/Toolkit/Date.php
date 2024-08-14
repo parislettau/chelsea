@@ -7,7 +7,6 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
-use IntlDateFormatter;
 use Kirby\Exception\InvalidArgumentException;
 
 /**
@@ -107,31 +106,17 @@ class Date extends DateTime
 		static::validateUnit($unit);
 
 		$formats = [
-			'year'   => 'Y-01-01',
-			'month'  => 'Y-m-01',
-			'day'    => 'Y-m-d',
-			'hour'   => 'Y-m-d H:00:00',
-			'minute' => 'Y-m-d H:i:00',
-			'second' => 'Y-m-d H:i:s'
+			'year'   => 'Y-01-01P',
+			'month'  => 'Y-m-01P',
+			'day'    => 'Y-m-dP',
+			'hour'   => 'Y-m-d H:00:00P',
+			'minute' => 'Y-m-d H:i:00P',
+			'second' => 'Y-m-d H:i:sP'
 		];
 
-		$flooredDate = $this->format($formats[$unit]);
-		$this->set($flooredDate, $this->timezone());
+		$flooredDate = date($formats[$unit], $this->timestamp());
+		$this->set($flooredDate);
 		return $this;
-	}
-
-	/**
-	 * Formats the datetime value with a custom handler
-	 * or with the globally configured one
-	 *
-	 * @param 'date'|'intl'|'strftime'|null $handler Custom date handler or `null`
-	 *                                               for the globally configured one
-	 */
-	public function formatWithHandler(
-		string|IntlDateFormatter|null $format = null,
-		string|null $handler = null
-	): string|int|false {
-		return Str::date($this->timestamp(), $format, $handler);
 	}
 
 	/**
@@ -222,7 +207,7 @@ class Date extends DateTime
 	 */
 	public function microsecond(): int
 	{
-		return (int)$this->format('u');
+		return $this->format('u');
 	}
 
 	/**
@@ -230,7 +215,7 @@ class Date extends DateTime
 	 */
 	public function millisecond(): int
 	{
-		return (int)$this->format('v');
+		return $this->format('v');
 	}
 
 	/**
@@ -414,6 +399,7 @@ class Date extends DateTime
 	 * @param array|string|int|null $input Full array with `size` and/or `unit` keys, `unit`
 	 *                                     string, `size` int or `null` for the default
 	 * @param array|null $default Default values to use if one or both values are not provided
+	 * @return array
 	 */
 	public static function stepConfig(
 		// no type hint to use InvalidArgumentException at the end

@@ -23,17 +23,7 @@ class UserUuid extends Uuid
 	/**
 	 * @var \Kirby\Cms\User|null
 	 */
-	public Identifiable|null $model = null;
-
-	/*
-	 * Returns the user ID
-	 * (we can rely in this case that the Uri was filled
-	 * with the model ID on initiation)
-	 */
-	public function id(): string
-	{
-		return $this->uri->host();
-	}
+	public Identifiable|null $model;
 
 	/**
 	 * Generator for all users

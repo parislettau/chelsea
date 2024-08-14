@@ -3,8 +3,6 @@
 namespace Kirby\Database;
 
 use Closure;
-use Kirby\Database\Sql\Mysql;
-use Kirby\Database\Sql\Sqlite;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Collection;
@@ -305,23 +303,7 @@ class Database
 		// try to prepare and execute the sql
 		try {
 			$this->statement = $this->connection->prepare($query);
-			// bind parameters to statement
-			foreach ($bindings as $parameter => $value) {
-				// positional parameters start at 1
-				if (is_int($parameter)) {
-					$parameter++;
-				}
-
-				$type = match (gettype($value)) {
-					'integer' => PDO::PARAM_INT,
-					'boolean' => PDO::PARAM_BOOL,
-					'NULL'    => PDO::PARAM_NULL,
-					default   => PDO::PARAM_STR
-				};
-
-				$this->statement->bindValue($parameter, $value, $type);
-			}
-			$this->statement->execute();
+			$this->statement->execute($bindings);
 
 			$this->affected  = $this->statement->rowCount();
 			$this->lastId    = Str::startsWith($query, 'insert ', true) ? $this->connection->lastInsertId() : null;
@@ -554,7 +536,7 @@ class Database
  * MySQL database connector
  */
 Database::$types['mysql'] = [
-	'sql' => Mysql::class,
+	'sql' => 'Kirby\Database\Sql\Mysql',
 	'dsn' => function (array $params): string {
 		if (isset($params['host']) === false && isset($params['socket']) === false) {
 			throw new InvalidArgumentException('The mysql connection requires either a "host" or a "socket" parameter');
@@ -582,7 +564,7 @@ Database::$types['mysql'] = [
 			$parts[] = 'dbname=' . $params['database'];
 		}
 
-		$parts[] = 'charset=' . ($params['charset'] ?? 'utf8mb4');
+		$parts[] = 'charset=' . ($params['charset'] ?? 'utf8');
 
 		return 'mysql:' . implode(';', $parts);
 	}
@@ -592,7 +574,7 @@ Database::$types['mysql'] = [
  * SQLite database connector
  */
 Database::$types['sqlite'] = [
-	'sql' => Sqlite::class,
+	'sql' => 'Kirby\Database\Sql\Sqlite',
 	'dsn' => function (array $params): string {
 		if (isset($params['database']) === false) {
 			throw new InvalidArgumentException('The sqlite connection requires a "database" parameter');

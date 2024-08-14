@@ -16,8 +16,6 @@ use Kirby\Toolkit\Dom;
  * @link      https://getkirby.com
  * @copyright Bastian Allgeier
  * @license   https://opensource.org/licenses/MIT
- *
- * @SuppressWarnings(PHPMD.LongVariable)
  */
 class DomHandler extends Handler
 {
@@ -46,13 +44,6 @@ class DomHandler extends Handler
 	public static array|bool $allowedDomains = true;
 
 	/**
-	 * Whether URLs that begin with `/` should be allowed even if the
-	 * site index URL is in a subfolder (useful when using the HTML
-	 * `<base>` element where the sanitized code will be rendered)
-	 */
-	public static bool $allowHostRelativeUrls = true;
-
-	/**
 	 * Names of allowed XML processing instructions
 	 */
 	public static array $allowedPIs = [];
@@ -66,34 +57,27 @@ class DomHandler extends Handler
 	/**
 	 * Sanitizes the given string
 	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
-	 *
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file couldn't be parsed
 	 */
-	public static function sanitize(string $string, bool $isExternal = false): string
+	public static function sanitize(string $string): string
 	{
 		$dom = static::parse($string);
-		$dom->sanitize(static::options($isExternal));
+		$dom->sanitize(static::options());
 		return $dom->toString();
 	}
 
 	/**
 	 * Validates file contents
 	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
-	 *
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file couldn't be parsed
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file didn't pass validation
 	 */
-	public static function validate(string $string, bool $isExternal = false): void
+	public static function validate(string $string): void
 	{
-		$dom    = static::parse($string);
-		$errors = $dom->sanitize(static::options($isExternal));
-
-		// there may be multiple errors, we can only throw one of them at a time
+		$dom = static::parse($string);
+		$errors = $dom->sanitize(static::options());
 		if (count($errors) > 0) {
+			// there may be multiple errors, we can only throw one of them at a time
 			throw $errors[0];
 		}
 	}
@@ -104,7 +88,7 @@ class DomHandler extends Handler
 	 *
 	 * @return array Array with exception objects for each modification
 	 */
-	public static function sanitizeAttr(DOMAttr $attr, array $options): array
+	public static function sanitizeAttr(DOMAttr $attr): array
 	{
 		// to be extended in child classes
 		return [];
@@ -116,7 +100,7 @@ class DomHandler extends Handler
 	 *
 	 * @return array Array with exception objects for each modification
 	 */
-	public static function sanitizeElement(DOMElement $element, array $options): array
+	public static function sanitizeElement(DOMElement $element): array
 	{
 		// to be extended in child classes
 		return [];
@@ -126,7 +110,7 @@ class DomHandler extends Handler
 	 * Custom callback for additional doctype validation
 	 * @internal
 	 */
-	public static function validateDoctype(DOMDocumentType $doctype, array $options): void
+	public static function validateDoctype(DOMDocumentType $doctype): void
 	{
 		// to be extended in child classes
 	}
@@ -134,29 +118,17 @@ class DomHandler extends Handler
 	/**
 	 * Returns the sanitization options for the handler
 	 * (to be extended in child classes)
-	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
 	 */
-	protected static function options(bool $isExternal): array
+	protected static function options(): array
 	{
-		$options = [
-			'allowedDataUris'       => static::$allowedDataUris,
-			'allowedDomains'        => static::$allowedDomains,
-			'allowHostRelativeUrls' => static::$allowHostRelativeUrls,
-			'allowedPIs'            => static::$allowedPIs,
-			'attrCallback'          => [static::class, 'sanitizeAttr'],
-			'doctypeCallback'       => [static::class, 'validateDoctype'],
-			'elementCallback'       => [static::class, 'sanitizeElement'],
+		return [
+			'allowedDataUris' => static::$allowedDataUris,
+			'allowedDomains'  => static::$allowedDomains,
+			'allowedPIs'      => static::$allowedPIs,
+			'attrCallback'    => [static::class, 'sanitizeAttr'],
+			'doctypeCallback' => [static::class, 'validateDoctype'],
+			'elementCallback' => [static::class, 'sanitizeElement'],
 		];
-
-		// never allow host-relative URLs in external files as we
-		// cannot set a `<base>` element for them when accessed directly
-		if ($isExternal === true) {
-			$options['allowHostRelativeUrls'] = false;
-		}
-
-		return $options;
 	}
 
 	/**

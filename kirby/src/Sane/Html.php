@@ -107,13 +107,10 @@ class Html extends DomHandler
 
 	/**
 	 * Returns the sanitization options for the handler
-	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
 	 */
-	protected static function options(bool $isExternal): array
+	protected static function options(): array
 	{
-		return array_merge(parent::options($isExternal), [
+		return array_merge(parent::options(), [
 			'allowedAttrPrefixes' => static::$allowedAttrPrefixes,
 			'allowedAttrs'        => static::$allowedAttrs,
 			'allowedNamespaces'   => [],

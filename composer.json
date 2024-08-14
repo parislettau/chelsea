@@ -23,7 +23,7 @@
   },
   "require": {
     "php": ">= 8.2.0",
-    "getkirby/cms": "^4.0",
+    "getkirby/cms": "^3.10",
     "johannschopplich/kirby-helpers": "^6.1"
   },
   "scripts": {

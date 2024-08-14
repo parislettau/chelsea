@@ -10,7 +10,6 @@ use Kirby\Toolkit\I18n;
 use Throwable;
 use Whoops\Handler\CallbackHandler;
 use Whoops\Handler\Handler;
-use Whoops\Handler\HandlerInterface;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
@@ -27,21 +26,16 @@ use Whoops\Run as Whoops;
 trait AppErrors
 {
 	/**
-	 * Allows to disable Whoops globally in CI;
-	 * can be overridden by explicitly setting
-	 * the `whoops` option to `true` or `false`
-	 *
-	 * @internal
-	 */
-	public static bool $enableWhoops = true;
-
-	/**
 	 * Whoops instance cache
+	 *
+	 * @var \Whoops\Run
 	 */
-	protected Whoops $whoops;
+	protected $whoops;
 
 	/**
 	 * Registers the PHP error handler for CLI usage
+	 *
+	 * @return void
 	 */
 	protected function handleCliErrors(): void
 	{
@@ -51,20 +45,11 @@ trait AppErrors
 	/**
 	 * Registers the PHP error handler
 	 * based on the environment
+	 *
+	 * @return void
 	 */
 	protected function handleErrors(): void
 	{
-		// no matter the environment, exit early if
-		// Whoops was disabled globally
-		// (but continue if the option was explicitly
-		// set to `true` in the config)
-		if (
-			static::$enableWhoops === false &&
-			$this->option('whoops') !== true
-		) {
-			return;
-		}
-
 		if ($this->environment()->cli() === true) {
 			$this->handleCliErrors();
 			return;
@@ -80,6 +65,8 @@ trait AppErrors
 
 	/**
 	 * Registers the PHP error handler for HTML output
+	 *
+	 * @return void
 	 */
 	protected function handleHtmlErrors(): void
 	{
@@ -89,7 +76,7 @@ trait AppErrors
 			if ($this->option('whoops', true) !== false) {
 				$handler = new PrettyPageHandler();
 				$handler->setPageTitle('Kirby CMS Debugger');
-				$handler->addResourcePath(dirname(__DIR__, 2) . '/assets');
+				$handler->setResourcesPath(dirname(__DIR__, 2) . '/assets');
 				$handler->addCustomCss('whoops.css');
 
 				if ($editor = $this->option('editor')) {
@@ -127,6 +114,8 @@ trait AppErrors
 
 	/**
 	 * Registers the PHP error handler for JSON output
+	 *
+	 * @return void
 	 */
 	protected function handleJsonErrors(): void
 	{
@@ -173,8 +162,11 @@ trait AppErrors
 
 	/**
 	 * Enables Whoops with the specified handler
+	 *
+	 * @param Callable|\Whoops\Handler\HandlerInterface $handler
+	 * @return void
 	 */
-	protected function setWhoopsHandler(callable|HandlerInterface $handler): void
+	protected function setWhoopsHandler($handler): void
 	{
 		$whoops = $this->whoops();
 		$whoops->clearHandlers();
@@ -198,6 +190,8 @@ trait AppErrors
 
 	/**
 	 * Clears the Whoops handlers and disables Whoops
+	 *
+	 * @return void
 	 */
 	protected function unsetWhoopsHandler(): void
 	{
@@ -208,9 +202,15 @@ trait AppErrors
 
 	/**
 	 * Returns the Whoops error handler instance
+	 *
+	 * @return \Whoops\Run
 	 */
-	protected function whoops(): Whoops
+	protected function whoops()
 	{
-		return $this->whoops ??= new Whoops();
+		if ($this->whoops !== null) {
+			return $this->whoops;
+		}
+
+		return $this->whoops = new Whoops();
 	}
 }

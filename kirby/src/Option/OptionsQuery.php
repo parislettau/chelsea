@@ -3,12 +3,12 @@
 namespace Kirby\Option;
 
 use Kirby\Cms\Block;
+use Kirby\Cms\Field;
 use Kirby\Cms\File;
 use Kirby\Cms\ModelWithContent;
 use Kirby\Cms\Page;
 use Kirby\Cms\StructureObject;
 use Kirby\Cms\User;
-use Kirby\Content\Field;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Toolkit\Collection;
 use Kirby\Toolkit\Obj;
@@ -159,9 +159,7 @@ class OptionsQuery extends OptionsProvider
 		}
 
 		if ($result instanceof Collection === false) {
-			$type = is_object($result) === true ? get_class($result) : gettype($result);
-
-			throw new InvalidArgumentException('Invalid query result data: ' . $type);
+			throw new InvalidArgumentException('Invalid query result data: ' . get_class($result));
 		}
 
 		// create options array

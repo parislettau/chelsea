@@ -19,15 +19,12 @@ class Svgz extends Svg
 	/**
 	 * Sanitizes the given string
 	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
-	 *
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file couldn't be parsed or recompressed
 	 */
-	public static function sanitize(string $string, bool $isExternal = false): string
+	public static function sanitize(string $string): string
 	{
 		$string = static::uncompress($string);
-		$string = parent::sanitize($string, $isExternal);
+		$string = parent::sanitize($string);
 		$string = @gzencode($string);
 
 		if (is_string($string) !== true) {
@@ -40,16 +37,12 @@ class Svgz extends Svg
 	/**
 	 * Validates file contents
 	 *
-	 * @param bool $isExternal Whether the string is from an external file
-	 *                         that may be accessed directly
-	 *
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file couldn't be parsed
 	 * @throws \Kirby\Exception\InvalidArgumentException If the file didn't pass validation
 	 */
-	public static function validate(string $string, bool $isExternal = false): void
+	public static function validate(string $string): void
 	{
-		$string = static::uncompress($string);
-		parent::validate($string, $isExternal);
+		parent::validate(static::uncompress($string));
 	}
 
 	/**

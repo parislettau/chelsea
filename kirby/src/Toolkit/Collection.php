@@ -30,9 +30,6 @@ class Collection extends Iterator implements Countable
 	 * Whether the collection keys should be
 	 * treated as case-sensitive
 	 *
-	 * @todo 5.0 Check if case-sensitive can become the
-	 * default mode, see https://github.com/getkirby/kirby/pull/5635
-	 *
 	 * @var bool
 	 */
 	protected $caseSensitive = false;
@@ -70,7 +67,8 @@ class Collection extends Iterator implements Countable
 
 	/**
 	 * Improve var_dump() output
-	 * @codeCoverageIgnore
+	 *
+	 * @return array
 	 */
 	public function __debugInfo(): array
 	{
@@ -523,24 +521,21 @@ class Collection extends Iterator implements Countable
 	 * Groups the elements by a given field or callback function
 	 *
 	 * @param string|Closure $field
+	 * @param bool $i
 	 * @return \Kirby\Toolkit\Collection A new collection with an element for
 	 *                                   each group and a subcollection in
 	 *                                   each group
 	 * @throws \Exception if $field is not a string nor a callback function
 	 */
-	public function group($field, bool $caseInsensitive = true)
+	public function group($field, bool $i = true)
 	{
 		// group by field name
 		if (is_string($field) === true) {
-			return $this->group(function ($item) use ($field, $caseInsensitive) {
+			return $this->group(function ($item) use ($field, $i) {
 				$value = $this->getAttribute($item, $field);
 
 				// ignore upper/lowercase for group names
-				if ($caseInsensitive === true) {
-					return Str::lower($value);
-				}
-
-				return (string)$value;
+				return $i === true ? Str::lower($value) : (string)$value;
 			});
 		}
 
@@ -745,17 +740,14 @@ class Collection extends Iterator implements Countable
 	 * Add pagination
 	 *
 	 * @param array ...$arguments
-	 * @return $this|static a sliced set of data
+	 * @return static a sliced set of data
 	 */
 	public function paginate(...$arguments)
 	{
 		$this->pagination = Pagination::for($this, ...$arguments);
 
 		// slice and clone the collection according to the pagination
-		return $this->slice(
-			$this->pagination->offset(),
-			$this->pagination->limit()
-		);
+		return $this->slice($this->pagination->offset(), $this->pagination->limit());
 	}
 
 	/**
@@ -1258,58 +1250,74 @@ Collection::$filters['!='] = function ($collection, $field, $test, $split = fals
  * In Filter
  */
 Collection::$filters['in'] = [
-	'validator' => fn ($value, $test) => in_array($value, $test) === true,
-	'strict'    => false
+	'validator' => function ($value, $test) {
+		return in_array($value, $test) === true;
+	},
+	'strict' => false
 ];
 
 /**
  * Not In Filter
  */
 Collection::$filters['not in'] = [
-	'validator' => fn ($value, $test) => in_array($value, $test) === false
+	'validator' => function ($value, $test) {
+		return in_array($value, $test) === false;
+	},
 ];
 
 /**
  * Contains Filter
  */
 Collection::$filters['*='] = [
-	'validator' => fn ($value, $test) => strpos($value, $test) !== false,
-	'strict'    => false
+	'validator' => function ($value, $test) {
+		return strpos($value, $test) !== false;
+	},
+	'strict' => false
 ];
 
 /**
  * Not Contains Filter
  */
 Collection::$filters['!*='] = [
-	'validator' => fn ($value, $test) => strpos($value, $test) === false
+	'validator' => function ($value, $test) {
+		return strpos($value, $test) === false;
+	},
 ];
 
 /**
  * More Filter
  */
 Collection::$filters['>'] = [
-	'validator' => fn ($value, $test) => $value > $test
+	'validator' => function ($value, $test) {
+		return $value > $test;
+	}
 ];
 
 /**
  * Min Filter
  */
 Collection::$filters['>='] = [
-	'validator' => fn ($value, $test) => $value >= $test
+	'validator' => function ($value, $test) {
+		return $value >= $test;
+	}
 ];
 
 /**
  * Less Filter
  */
 Collection::$filters['<'] = [
-	'validator' => fn ($value, $test) => $value < $test
+	'validator' => function ($value, $test) {
+		return $value < $test;
+	}
 ];
 
 /**
  * Max Filter
  */
 Collection::$filters['<='] = [
-	'validator' => fn ($value, $test) => $value <= $test
+	'validator' => function ($value, $test) {
+		return $value <= $test;
+	}
 ];
 
 /**
@@ -1324,7 +1332,9 @@ Collection::$filters['$='] = [
  * Not Ends With Filter
  */
 Collection::$filters['!$='] = [
-	'validator' => fn ($value, $test) => V::endsWith($value, $test) === false
+	'validator' => function ($value, $test) {
+		return V::endsWith($value, $test) === false;
+	}
 ];
 
 /**
@@ -1339,15 +1349,19 @@ Collection::$filters['^='] = [
  * Not Starts With Filter
  */
 Collection::$filters['!^='] = [
-	'validator' => fn ($value, $test) => V::startsWith($value, $test) === false
+	'validator' => function ($value, $test) {
+		return V::startsWith($value, $test) === false;
+	}
 ];
 
 /**
  * Between Filter
  */
 Collection::$filters['between'] = Collection::$filters['..'] = [
-	'validator' => fn ($value, $test) => V::between($value, ...$test) === true,
-	'strict'    => false
+	'validator' => function ($value, $test) {
+		return V::between($value, ...$test) === true;
+	},
+	'strict' => false
 ];
 
 /**
@@ -1362,7 +1376,9 @@ Collection::$filters['*'] = [
  * Not Match Filter
  */
 Collection::$filters['!*'] = [
-	'validator' => fn ($value, $test) => V::match($value, $test) === false
+	'validator' => function ($value, $test) {
+		return V::match($value, $test) === false;
+	}
 ];
 
 /**
@@ -1397,49 +1413,63 @@ Collection::$filters['minwords'] = [
  * Date Equals Filter
  */
 Collection::$filters['date =='] = [
-	'validator' => fn ($value, $test) => V::date($value, '==', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '==', $test);
+	}
 ];
 
 /**
  * Date Not Equals Filter
  */
 Collection::$filters['date !='] = [
-	'validator' => fn ($value, $test) => V::date($value, '!=', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '!=', $test);
+	}
 ];
 
 /**
  * Date More Filter
  */
 Collection::$filters['date >'] = [
-	'validator' => fn ($value, $test) => V::date($value, '>', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '>', $test);
+	}
 ];
 
 /**
  * Date Min Filter
  */
 Collection::$filters['date >='] = [
-	'validator' => fn ($value, $test) => V::date($value, '>=', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '>=', $test);
+	}
 ];
 
 /**
  * Date Less Filter
  */
 Collection::$filters['date <'] = [
-	'validator' => fn ($value, $test) => V::date($value, '<', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '<', $test);
+	}
 ];
 
 /**
  * Date Max Filter
  */
 Collection::$filters['date <='] = [
-	'validator' => fn ($value, $test) => V::date($value, '<=', $test)
+	'validator' => function ($value, $test) {
+		return V::date($value, '<=', $test);
+	}
 ];
 
 /**
  * Date Between Filter
  */
 Collection::$filters['date between'] = Collection::$filters['date ..'] = [
-	'validator' => fn ($value, $test) =>
+	'validator' => function ($value, $test) {
+		return
 			V::date($value, '>=', $test[0]) &&
-			V::date($value, '<=', $test[1])
+			V::date($value, '<=', $test[1]);
+	}
 ];

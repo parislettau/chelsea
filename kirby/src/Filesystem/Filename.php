@@ -65,7 +65,7 @@ class Filename
 			$attributes['format'] ??
 			pathinfo($filename, PATHINFO_EXTENSION)
 		);
-		$this->name       = $this->sanitizeName($filename);
+		$this->name       = $this->sanitizeName(pathinfo($filename, PATHINFO_FILENAME));
 	}
 
 	/**
@@ -89,7 +89,6 @@ class Filename
 			'blur'       => $this->blur(),
 			'bw'         => $this->grayscale(),
 			'q'          => $this->quality(),
-			'sharpen'    => $this->sharpen(),
 		];
 
 		$array = array_filter(
@@ -228,33 +227,24 @@ class Filename
 
 	/**
 	 * Sanitizes the file extension.
-	 * It also replaces `jpeg` with `jpg`.
+	 * The extension will be converted
+	 * to lowercase and `jpeg` will be
+	 * replaced with `jpg`
 	 */
 	protected function sanitizeExtension(string $extension): string
 	{
-		$extension = F::safeExtension('test.' . $extension);
+		$extension = strtolower($extension);
 		$extension = str_replace('jpeg', 'jpg', $extension);
 		return $extension;
 	}
 
 	/**
-	 * Sanitizes the file name
+	 * Sanitizes the name with Kirby's
+	 * Str::slug function
 	 */
 	protected function sanitizeName(string $name): string
 	{
-		return F::safeBasename($name);
-	}
-
-	/**
-	 * Normalizes the sharpen option value
-	 */
-	public function sharpen(): int|false
-	{
-		return match ($this->attributes['sharpen'] ?? false) {
-			false   => false,
-			true    => 50,
-			default => (int)$this->attributes['sharpen']
-		};
+		return Str::slug($name);
 	}
 
 	/**

@@ -20,7 +20,7 @@ class Query
 	/**
 	 * The Query data array
 	 */
-	protected array|null $data = null;
+	protected array|null $data;
 
 	/**
 	 * Creates a new Query object.

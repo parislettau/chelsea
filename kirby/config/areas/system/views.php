@@ -14,29 +14,28 @@ return [
 
 			$environment = [
 				[
-					'label'  => $license->status()->label(),
-					'value'  => $license->label(),
-					'theme'  => $license->status()->theme(),
-					'icon'   => $license->status()->icon(),
-					'dialog' => $license->status()->dialog()
+					'label'  => $license ? I18n::translate('license') : I18n::translate('license.register.label'),
+					'value'  => $license ? 'Kirby 3' : I18n::translate('license.unregistered.label'),
+					'theme'  => $license ? null : 'negative',
+					'dialog' => $license ? 'license' : 'registration'
 				],
 				[
 					'label' => $updateStatus?->label() ?? I18n::translate('version'),
 					'value' => $kirby->version(),
-					'link'  => $updateStatus?->url() ??
-						'https://github.com/getkirby/kirby/releases/tag/' . $kirby->version(),
-					'theme' => $updateStatus?->theme(),
-					'icon'  => $updateStatus?->icon() ?? 'info'
+					'link'  => (
+						$updateStatus ?
+						$updateStatus->url() :
+						'https://github.com/getkirby/kirby/releases/tag/' . $kirby->version()
+					),
+					'theme' => $updateStatus?->theme()
 				],
 				[
 					'label' => 'PHP',
-					'value' => phpversion(),
-					'icon'  => 'code'
+					'value' => phpversion()
 				],
 				[
 					'label' => I18n::translate('server'),
-					'value' => $system->serverSoftware() ?? '?',
-					'icon'  => 'server'
+					'value' => $system->serverSoftware() ?? '?'
 				]
 			];
 
@@ -85,7 +84,6 @@ return [
 				'props'     => [
 					'environment' => $environment,
 					'exceptions'  => $kirby->option('debug') === true ? $exceptions : [],
-					'info'        => $system->info(),
 					'plugins'     => $plugins,
 					'security'    => $security,
 					'urls'        => [

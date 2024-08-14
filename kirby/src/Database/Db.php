@@ -47,8 +47,7 @@ class Db
 			'password' => Config::get('db.password', ''),
 			'database' => Config::get('db.database', ''),
 			'prefix'   => Config::get('db.prefix', ''),
-			'port'     => Config::get('db.port', ''),
-			'charset'  => Config::get('db.charset')
+			'port'     => Config::get('db.port', '')
 		];
 
 		return static::$connection = new Database($params);
@@ -192,7 +191,7 @@ Db::$queries['column'] = function (
  * @param array $values An array of values which should be inserted
  * @return mixed Returns the last inserted id on success or false
  */
-Db::$queries['insert'] = function (string $table, array $values): mixed {
+Db::$queries['insert'] = function (string $table, array $values) {
 	return Db::table($table)->insert($values);
 };
 
@@ -226,8 +225,9 @@ Db::$queries['delete'] = function (string $table, $where = null): bool {
  *
  * @param string $table The name of the table which should be queried
  * @param mixed $where An optional WHERE clause
+ * @return int
  */
-Db::$queries['count'] = function (string $table, mixed $where = null): int {
+Db::$queries['count'] = function (string $table, $where = null): int {
 	return Db::table($table)->where($where)->count();
 };
 

@@ -29,20 +29,20 @@ class Helpers
 	 * ```
 	 */
 	public static $deprecations = [
-		// The internal `$model->contentFile*()` methods have been deprecated
-		'model-content-file' => true,
+		// Passing the $slot or $slots variables to snippets is
+		// deprecated and will break in a future version.
+		'snippet-pass-slots'    => true,
 
-		// Passing an `info` array inside the `extends` array
-		// has been deprecated. Pass the individual entries (e.g. root, version)
-		// directly as named arguments.
-		// TODO: switch to true in v6
-		'plugin-extends-root' => false,
+		// The `Toolkit\Query` class has been deprecated and will
+		// be removed in a future version. Use `Query\Query` instead:
+		// Kirby\Query\Query::factory($query)->resolve($data).
+		'toolkit-query-class'   => true,
 
-		// Passing a single space as value to `Xml::attr()` has been
-		// deprecated. In a future version, passing a single space won't
-		// render an empty value anymore but a single space.
-		// To render an empty value, please pass an empty string.
-		'xml-attr-single-space' => true,
+		// Passing an empty string as value to `Xml::attr()` has been
+		// deprecated. In a future version, passing an empty string won't
+		// omit the attribute anymore but render it with an empty value.
+		// To omit the attribute, please pass `null`.
+		'xml-attr-empty-string' => false,
 	];
 
 	/**
@@ -52,10 +52,8 @@ class Helpers
 	 * @param string|null $key If given, the key will be checked against the static array
 	 * @return bool Whether the warning was triggered
 	 */
-	public static function deprecated(
-		string $message,
-		string|null $key = null
-	): bool {
+	public static function deprecated(string $message, string|null $key = null): bool
+	{
 		// only trigger warning in debug mode or when running PHPUnit tests
 		// @codeCoverageIgnoreStart
 		if (
@@ -77,16 +75,19 @@ class Helpers
 	/**
 	 * Simple object and variable dumper
 	 * to help with debugging.
+	 *
+	 * @param mixed $variable
+	 * @param bool $echo
+	 * @return string
 	 */
-	public static function dump(mixed $variable, bool $echo = true): string
+	public static function dump($variable, bool $echo = true): string
 	{
-		$kirby  = App::instance();
-		$output = print_r($variable, true);
+		$kirby = App::instance();
 
 		if ($kirby->environment()->cli() === true) {
-			$output .= PHP_EOL;
+			$output = print_r($variable, true) . PHP_EOL;
 		} else {
-			$output = Str::wrap($output, '<pre>', '</pre>');
+			$output = '<pre>' . print_r($variable, true) . '</pre>';
 		}
 
 		if ($echo === true) {
@@ -109,16 +110,10 @@ class Helpers
 	 * @return mixed Return value of the `$action` closure,
 	 *               possibly overridden by `$fallback`
 	 */
-	public static function handleErrors(
-		Closure $action,
-		Closure $condition,
-		$fallback = null
-	) {
+	public static function handleErrors(Closure $action, Closure $condition, $fallback = null)
+	{
 		$override = null;
 
-		/**
-		 * @psalm-suppress UndefinedVariable
-		 */
 		$handler = set_error_handler(function () use (&$override, &$handler, $condition, $fallback) {
 			// check if suppress condition is met
 			$suppress = $condition(...func_get_args());
@@ -144,14 +139,9 @@ class Helpers
 			return true;
 		});
 
-		try {
-			$result = $action();
-		} finally {
-			// always restore the error handler, even if the
-			// action or the standard error handler threw an
-			// exception; this avoids modifying global state
-			restore_error_handler();
-		}
+		$result = $action();
+
+		restore_error_handler();
 
 		return $override ?? $result;
 	}
@@ -162,6 +152,7 @@ class Helpers
 	 * @internal
 	 *
 	 * @param string $name Name of the helper
+	 * @return bool
 	 */
 	public static function hasOverride(string $name): bool
 	{
@@ -173,9 +164,11 @@ class Helpers
 	 * Determines the size/length of numbers,
 	 * strings, arrays and countable objects
 	 *
+	 * @param mixed $value
+	 * @return int
 	 * @throws \Kirby\Exception\InvalidArgumentException
 	 */
-	public static function size(mixed $value): int
+	public static function size($value): int
 	{
 		if (is_numeric($value)) {
 			return (int)$value;

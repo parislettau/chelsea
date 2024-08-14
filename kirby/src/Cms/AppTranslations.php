@@ -3,6 +3,7 @@
 namespace Kirby\Cms;
 
 use Kirby\Toolkit\I18n;
+use Kirby\Toolkit\Locale;
 use Kirby\Toolkit\Str;
 
 /**
@@ -16,10 +17,12 @@ use Kirby\Toolkit\Str;
  */
 trait AppTranslations
 {
-	protected Translations|null $translations = null;
+	protected $translations;
 
 	/**
 	 * Setup internationalization
+	 *
+	 * @return void
 	 */
 	protected function i18n(): void
 	{
@@ -85,6 +88,8 @@ trait AppTranslations
 	 * Returns the language code that will be used
 	 * for the Panel if no user is logged in or if
 	 * no language is configured for the user
+	 *
+	 * @return string
 	 */
 	public function panelLanguage(): string
 	{
@@ -104,9 +109,39 @@ trait AppTranslations
 	}
 
 	/**
+	 * Load and set the current language if it exists
+	 * Otherwise fall back to the default language
+	 *
+	 * @internal
+	 * @param string|null $languageCode
+	 * @return \Kirby\Cms\Language|null
+	 */
+	public function setCurrentLanguage(string $languageCode = null)
+	{
+		if ($this->multilang() === false) {
+			Locale::set($this->option('locale', 'en_US.utf-8'));
+			return $this->language = null;
+		}
+
+		$this->language   = $this->language($languageCode);
+		$this->language ??= $this->defaultLanguage();
+
+		if ($this->language) {
+			Locale::set($this->language->locale());
+		}
+
+		// add language slug rules to Str class
+		Str::$language = $this->language->rules();
+
+		return $this->language;
+	}
+
+	/**
 	 * Set the current translation
 	 *
 	 * @internal
+	 * @param string|null $translationCode
+	 * @return void
 	 */
 	public function setCurrentTranslation(string $translationCode = null): void
 	{
@@ -117,10 +152,11 @@ trait AppTranslations
 	 * Load a specific translation by locale
 	 *
 	 * @param string|null $locale Locale name or `null` for the current locale
+	 * @return \Kirby\Cms\Translation
 	 */
-	public function translation(string|null $locale = null): Translation
+	public function translation(string|null $locale = null)
 	{
-		$locale ??= I18n::locale();
+		$locale = $locale ?? I18n::locale();
 		$locale = basename($locale);
 
 		// prefer loading them from the translations collection
@@ -144,8 +180,10 @@ trait AppTranslations
 
 	/**
 	 * Returns all available translations
+	 *
+	 * @return \Kirby\Cms\Translations
 	 */
-	public function translations(): Translations
+	public function translations()
 	{
 		if ($this->translations instanceof Translations) {
 			return $this->translations;
@@ -169,6 +207,8 @@ trait AppTranslations
 			}
 		}
 
-		return $this->translations = Translations::load($this->root('i18n:translations'), $translations);
+		$this->translations = Translations::load($this->root('i18n:translations'), $translations);
+
+		return $this->translations;
 	}
 }

@@ -2,15 +2,6 @@
 
 namespace Kirby\Cms;
 
-use Kirby\Cache\ApcuCache;
-use Kirby\Cache\FileCache;
-use Kirby\Cache\MemCached;
-use Kirby\Cache\MemoryCache;
-use Kirby\Cms\Auth\EmailChallenge;
-use Kirby\Cms\Auth\TotpChallenge;
-use Kirby\Form\Field\BlocksField;
-use Kirby\Form\Field\LayoutField;
-
 /**
  * The Core class lists all parts of Kirby
  * that need to be loaded or initalized in order
@@ -30,17 +21,14 @@ use Kirby\Form\Field\LayoutField;
  */
 class Core
 {
-	/**
-	 * Optional override for the auto-detected index root
-	 */
-	public static string|null $indexRoot = null;
-
 	protected array $cache = [];
+	protected App $kirby;
 	protected string $root;
 
-	public function __construct(protected App $kirby)
+	public function __construct(App $kirby)
 	{
-		$this->root = dirname(__DIR__, 2) . '/config';
+		$this->kirby = $kirby;
+		$this->root  = dirname(__DIR__, 2) . '/config';
 	}
 
 	/**
@@ -64,11 +52,9 @@ class Core
 		return [
 			'account'      => $this->root . '/areas/account.php',
 			'installation' => $this->root . '/areas/installation.php',
-			'lab'          => $this->root . '/areas/lab.php',
 			'languages'    => $this->root . '/areas/languages.php',
 			'login'        => $this->root . '/areas/login.php',
 			'logout'       => $this->root . '/areas/logout.php',
-			'search'       => $this->root . '/areas/search.php',
 			'site'         => $this->root . '/areas/site.php',
 			'system'       => $this->root . '/areas/system.php',
 			'users'        => $this->root . '/areas/users.php',
@@ -81,8 +67,7 @@ class Core
 	public function authChallenges(): array
 	{
 		return [
-			'email' => EmailChallenge::class,
-			'totp'  => TotpChallenge::class,
+			'email' => 'Kirby\Cms\Auth\EmailChallenge'
 		];
 	}
 
@@ -101,9 +86,9 @@ class Core
 	}
 
 	/**
-	 * Returns a list of paths to core blueprints or
-	 * the blueprint in array form
+	 * Returns a list of all paths to core blueprints
 	 *
+	 * They are located in `/kirby/config/blueprints`.
 	 * Block blueprints are located in `/kirby/config/blocks`
 	 */
 	public function blueprints(): array
@@ -123,21 +108,13 @@ class Core
 			'blocks/video'    => $this->root . '/blocks/video/video.yml',
 
 			// file blueprints
-			'files/default' => ['title' => 'File'],
+			'files/default' => $this->root . '/blueprints/files/default.yml',
 
 			// page blueprints
-			'pages/default' => ['title' => 'Page'],
+			'pages/default' => $this->root . '/blueprints/pages/default.yml',
 
 			// site blueprints
-			'site' => [
-				'title' => 'Site',
-				'sections' => [
-					'pages' => [
-						'headline' => ['*' => 'pages'],
-						'type'	   => 'pages'
-					]
-				]
-			]
+			'site' => $this->root . '/blueprints/site.yml'
 		];
 	}
 
@@ -158,10 +135,10 @@ class Core
 	public function cacheTypes(): array
 	{
 		return [
-			'apcu'      => ApcuCache::class,
-			'file'      => FileCache::class,
-			'memcached' => MemCached::class,
-			'memory'    => MemoryCache::class,
+			'apcu'      => 'Kirby\Cache\ApcuCache',
+			'file'      => 'Kirby\Cache\FileCache',
+			'memcached' => 'Kirby\Cache\MemCached',
+			'memory'    => 'Kirby\Cache\MemoryCache',
 		];
 	}
 
@@ -239,9 +216,8 @@ class Core
 	public function fields(): array
 	{
 		return [
-			'blocks'      => BlocksField::class,
+			'blocks'      => 'Kirby\Form\Field\BlocksField',
 			'checkboxes'  => $this->root . '/fields/checkboxes.php',
-			'color'       => $this->root . '/fields/color.php',
 			'date'        => $this->root . '/fields/date.php',
 			'email'       => $this->root . '/fields/email.php',
 			'files'       => $this->root . '/fields/files.php',
@@ -249,9 +225,8 @@ class Core
 			'headline'    => $this->root . '/fields/headline.php',
 			'hidden'      => $this->root . '/fields/hidden.php',
 			'info'        => $this->root . '/fields/info.php',
-			'layout'      => LayoutField::class,
+			'layout'      => 'Kirby\Form\Field\LayoutField',
 			'line'        => $this->root . '/fields/line.php',
-			'link'        => $this->root . '/fields/link.php',
 			'list'        => $this->root . '/fields/list.php',
 			'multiselect' => $this->root . '/fields/multiselect.php',
 			'number'      => $this->root . '/fields/number.php',
@@ -321,7 +296,7 @@ class Core
 			'i18n:translations' => fn (array $roots) => $roots['i18n'] . '/translations',
 			'i18n:rules'  => fn (array $roots) => $roots['i18n'] . '/rules',
 
-			'index'       => fn (array $roots) => static::$indexRoot ?? dirname(__DIR__, 3),
+			'index'       => fn (array $roots) => dirname(__DIR__, 3),
 			'assets'      => fn (array $roots) => $roots['index'] . '/assets',
 			'content'     => fn (array $roots) => $roots['index'] . '/content',
 			'media'       => fn (array $roots) => $roots['index'] . '/media',

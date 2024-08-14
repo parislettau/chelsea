@@ -3,7 +3,6 @@
 namespace Kirby\Panel;
 
 use Kirby\Cms\File as CmsFile;
-use Kirby\Cms\ModelWithContent;
 use Kirby\Cms\Translation;
 use Kirby\Cms\Url;
 use Kirby\Filesystem\Asset;
@@ -21,11 +20,6 @@ use Kirby\Toolkit\I18n;
  */
 class User extends Model
 {
-	/**
-	 * @var \Kirby\Cms\User
-	 */
-	protected ModelWithContent $model;
-
 	/**
 	 * Breadcrumb array
 	 */
@@ -74,38 +68,18 @@ class User extends Model
 		];
 
 		$result[] = [
-			'dialog'   => $url . '/changeLanguage',
-			'icon'     => 'translate',
-			'text'     => I18n::translate('user.changeLanguage'),
-			'disabled' => $this->isDisabledDropdownOption('changeLanguage', $options, $permissions)
-		];
-
-		$result[] = '-';
-
-		$result[] = [
 			'dialog'   => $url . '/changePassword',
 			'icon'     => 'key',
 			'text'     => I18n::translate('user.changePassword'),
 			'disabled' => $this->isDisabledDropdownOption('changePassword', $options, $permissions)
 		];
 
-		if ($this->model->kirby()->system()->is2FAWithTOTP() === true) {
-			if ($account || $this->model->kirby()->user()->isAdmin()) {
-				if ($this->model->secret('totp') !== null) {
-					$result[] = [
-						'dialog'   => $url . '/totp/disable',
-						'icon'     => 'qr-code',
-						'text'     => I18n::translate('login.totp.disable.option'),
-					];
-				} elseif ($account) {
-					$result[] = [
-						'dialog'   => $url . '/totp/enable',
-						'icon'     => 'qr-code',
-						'text'     => I18n::translate('login.totp.enable.option')
-					];
-				}
-			}
-		}
+		$result[] = [
+			'dialog'   => $url . '/changeLanguage',
+			'icon'     => 'globe',
+			'text'     => I18n::translate('user.changeLanguage'),
+			'disabled' => $this->isDisabledDropdownOption('changeLanguage', $options, $permissions)
+		];
 
 		$result[] = '-';
 
@@ -220,6 +194,7 @@ class User extends Model
 	{
 		$user    = $this->model;
 		$account = $user->isLoggedIn();
+		$avatar  = $user->avatar();
 
 		return array_merge(
 			parent::props(),
@@ -228,7 +203,7 @@ class User extends Model
 				'blueprint' => $this->model->role()->name(),
 				'model' => [
 					'account'  => $account,
-					'avatar'   => $user->avatar()?->url(),
+					'avatar'   => $avatar ? $avatar->url() : null,
 					'content'  => $this->content(),
 					'email'    => $user->email(),
 					'id'       => $user->id(),

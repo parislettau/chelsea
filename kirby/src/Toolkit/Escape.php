@@ -26,7 +26,7 @@ class Escape
 	/**
 	 * The internal singleton escaper instance
 	 */
-	protected static Escaper|null $escaper = null;
+	protected static Escaper|null $escaper;
 
 	/**
 	 * Escape common HTML attributes data
