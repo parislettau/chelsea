@@ -107,6 +107,8 @@ columns:
       files:
         type: files
         template: docs
+      pages:
+        type: pages
 
       # meta:
       #   type: fields
