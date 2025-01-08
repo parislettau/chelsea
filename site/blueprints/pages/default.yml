@@ -7,7 +7,7 @@ status:
     published: Published
 fields:
   author:
-    type: tag
+    type: tags
   date:
     type: date
   text:
