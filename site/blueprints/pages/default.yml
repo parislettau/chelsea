@@ -6,9 +6,14 @@ status:
     unlisted: Unlisted
     published: Published
 fields:
+  author:
+    type: tag
+  date:
+    type: date
   text:
     label: Text
     type: textarea
     size: large
+    
 
 
